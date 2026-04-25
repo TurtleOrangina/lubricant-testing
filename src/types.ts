@@ -18,7 +18,8 @@ export interface SingleApplicationLongevity {
 export interface Product {
   name: string;
   category: ProductCategory;
-  costAUD?: number;
+  costPackageAUD?: number;
+  usagesMainTest?: number;
   mainTest?: MainTestBlock[]; // 1–6 sequential blocks, never skipped
   longevity?: SingleApplicationLongevity;
 }
