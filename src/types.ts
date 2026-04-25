@@ -1,4 +1,4 @@
-export type ProductCategory = "immersive wax" | "wax drip" | "wet-drip";
+export type ProductCategory = "immersive wax" | "wax drip" | "wet-drip" | "other";
 
 export interface MainTestBlock {
   wearRate: number; // mm per 1000 km, lower is better

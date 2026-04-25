@@ -3,7 +3,7 @@
     "target": "es2023",
     "module": "esnext",
     "lib": ["ES2023", "DOM"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "skipLibCheck": true,
     // Path mapping for cleaner imports.
     "paths": {
@@ -15,6 +15,7 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+    "resolveJsonModule": true,
     "noEmit": true,
 
     /* Linting */
@@ -23,5 +24,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"]
+  "include": ["env.d.ts", "src/**/*", "scripts/**/*"]
 }

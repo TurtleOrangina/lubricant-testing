@@ -1,3 +1,4 @@
 import type { Product } from "./types";
+import productsData from "./data.json";
 
-export const products: Product[] = []; // TODO: fill from data.json (generated from data.csv)
+export const products: Product[] = productsData as Product[];

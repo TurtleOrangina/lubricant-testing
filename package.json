@@ -7,7 +7,8 @@
     "dev": "vp dev",
     "build": "tsc && vp build",
     "preview": "vp preview",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "convert-data-to-json": "node scripts/convert-data-to-json.ts"
   },
   "dependencies": {
     "echarts": "^6.0.0",
