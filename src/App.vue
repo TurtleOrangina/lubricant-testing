@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { products } from './data'
-import ProductSummary from './components/ProductSummary.vue'
-import MainTestChart from './components/MainTestChart.vue'
-import LongevityChart from './components/LongevityChart.vue'
+import { products } from "./data";
+import ProductSummary from "./components/ProductSummary.vue";
+import MainTestChart from "./components/MainTestChart.vue";
+import LongevityChart from "./components/LongevityChart.vue";
 </script>
 
 <template>

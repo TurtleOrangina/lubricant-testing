@@ -1,9 +1,9 @@
-import type { Product } from './types'
+import type { Product } from "./types";
 
 export const products: Product[] = [
   {
-    name: 'Silca Super Secret Chain Lube',
-    category: 'immersive wax',
+    name: "Silca Super Secret Chain Lube",
+    category: "immersive wax",
     costAUD: 45.0,
     mainTest: [
       { wearRate: 0.09 },
@@ -20,8 +20,8 @@ export const products: Product[] = [
     },
   },
   {
-    name: 'Smoove Universal Chain Lube',
-    category: 'immersive wax',
+    name: "Smoove Universal Chain Lube",
+    category: "immersive wax",
     costAUD: 38.0,
     mainTest: [
       { wearRate: 0.11 },
@@ -36,8 +36,8 @@ export const products: Product[] = [
     },
   },
   {
-    name: 'Squirt Long Lasting Dry Lube',
-    category: 'wax drip',
+    name: "Squirt Long Lasting Dry Lube",
+    category: "wax drip",
     costAUD: 22.0,
     mainTest: [
       { wearRate: 0.14 },
@@ -54,8 +54,8 @@ export const products: Product[] = [
     },
   },
   {
-    name: 'Muc-Off Hydrodynamic Lube',
-    category: 'wet-drip',
+    name: "Muc-Off Hydrodynamic Lube",
+    category: "wet-drip",
     costAUD: 18.0,
     mainTest: [
       { wearRate: 0.17 },
@@ -72,8 +72,8 @@ export const products: Product[] = [
     },
   },
   {
-    name: 'Generic Budget Wet Lube',
-    category: 'wet-drip',
+    name: "Generic Budget Wet Lube",
+    category: "wet-drip",
     mainTest: [{ wearRate: 0.21 }, { wearRate: 0.3 }, { wearRate: 0.23 }, { wearRate: 0.45 }],
   },
-]
+];

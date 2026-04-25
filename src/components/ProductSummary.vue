@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { Product } from '../types'
-import { CATEGORY_COLORS } from '../constants'
+import type { Product } from "../types";
+import { CATEGORY_COLORS } from "../constants";
 
-defineProps<{ products: Product[] }>()
+defineProps<{ products: Product[] }>();
 
 function blocksLabel(p: Product): string {
-  if (!p.mainTest) return 'No data'
-  return `${p.mainTest.length} / 6 blocks`
+  if (!p.mainTest) return "No data";
+  return `${p.mainTest.length} / 6 blocks`;
 }
 
 function longevityLabel(p: Product): string {
-  if (!p.longevity) return 'Not tested'
+  if (!p.longevity) return "Not tested";
   const count = [p.longevity.dryRoad, p.longevity.dryGravel, p.longevity.extremeConditions].filter(
     Boolean,
-  ).length
-  return `${count} / 3 conditions`
+  ).length;
+  return `${count} / 3 conditions`;
 }
 </script>
 
@@ -33,7 +33,7 @@ function longevityLabel(p: Product): string {
           {{ product.category }}
         </span>
         <span class="cost">
-          {{ product.costAUD != null ? `AUD ${product.costAUD.toFixed(2)}` : 'Price unknown' }}
+          {{ product.costAUD != null ? `AUD ${product.costAUD.toFixed(2)}` : "Price unknown" }}
         </span>
       </div>
       <div class="product-stats">
