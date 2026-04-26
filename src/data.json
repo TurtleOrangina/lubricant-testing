@@ -58,8 +58,9 @@
     }
   },
   {
-    "name": "Finish Line Halo IM wax (re-test Jan 25)",
+    "name": "Finish Line Halo hot wax",
     "category": "immersive wax",
+    "note": "re-test Jan 25",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -87,8 +88,9 @@
     }
   },
   {
-    "name": "Mspeedwax New Formula",
+    "name": "Mspeedwax",
     "category": "immersive wax",
+    "note": "new formula",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -116,8 +118,9 @@
     }
   },
   {
-    "name": "Silca + Endurance Chip - *Extended intervals*",
+    "name": "Silca + Endurance Chip",
     "category": "immersive wax",
+    "note": "Extended lube application intervals",
     "costPackageAUD": 105,
     "usagesMainTest": 0.2,
     "mainTest": {
@@ -149,6 +152,7 @@
     "category": "immersive wax",
     "costPackageAUD": 5,
     "usagesMainTest": 0.6,
+    "note": "Total test kilometers truncated due to missing block 6.",
     "mainTest": {
       "blockWear": [
         {
@@ -432,8 +436,9 @@
     }
   },
   {
-    "name": "Ceramic Spd UFO Drip New Formula",
+    "name": "CeramicSpeed UFO Drip",
     "category": "wax drip",
+    "note": "New Formula. Total test kilometers truncated due to missing block 6.",
     "costPackageAUD": 29.9,
     "usagesMainTest": 2,
     "mainTest": {
@@ -484,8 +489,9 @@
     }
   },
   {
-    "name": "Tru Tension Tungsten Race (D.A)",
+    "name": "Tru Tension Tungsten Race",
     "category": "wax drip",
+    "note": "Re lube applications doubled. Total test kilometers truncated due to missing block 6.",
     "costPackageAUD": 25,
     "usagesMainTest": 5,
     "mainTest": {
@@ -512,6 +518,7 @@
   {
     "name": "Private Immersive wax (3)",
     "category": "immersive wax",
+    "note": "Total test kilometers truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -560,6 +567,7 @@
   {
     "name": "Private Immersive wax",
     "category": "immersive wax",
+    "note": "Total test kilometers truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -734,6 +742,7 @@
   {
     "name": "Private wax drip (1)",
     "category": "wax drip",
+    "note": "Total test kilometers truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -874,8 +883,9 @@
     }
   },
   {
-    "name": "Nano Titanium Armour (*Extended Intervals)",
+    "name": "Nano Titanium Armour",
     "category": "wet-drip",
+    "note": "Extended lube application intervals",
     "mainTest": {
       "blockWear": [
         {
@@ -1074,8 +1084,9 @@
     }
   },
   {
-    "name": "Singer General Purpose ($6.95)",
+    "name": "Singer General Purpose",
     "category": "wet-drip",
+    "note": "$6.95",
     "costPackageAUD": 6.95,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1117,8 +1128,9 @@
     }
   },
   {
-    "name": "Finish Line Halo Drip wax - re test.",
+    "name": "Finish Line Halo Drip wax",
     "category": "wax drip",
+    "note": "re test",
     "costPackageAUD": 50,
     "usagesMainTest": 1.5,
     "mainTest": {
@@ -1328,8 +1340,9 @@
     }
   },
   {
-    "name": "Finish Line Wet (green bottle)",
+    "name": "Finish Line Wet",
     "category": "wet-drip",
+    "note": "green bottle",
     "costPackageAUD": 20,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1444,6 +1457,7 @@
   {
     "name": "Shimano Factory Grease",
     "category": "other",
+    "note": "Total test kilometers truncated due to missing block 3.",
     "mainTest": {
       "blockWear": [
         {
@@ -1481,7 +1495,7 @@
     }
   },
   {
-    "name": "no lubricant",
+    "name": "No lubricant",
     "category": "other",
     "mainTest": {
       "blockWear": [

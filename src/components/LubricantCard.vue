@@ -46,6 +46,7 @@ function costTooltip(p: Product): string {
 <template>
   <div :class="['product-card', { highlighted: props.highlighted }]">
     <div class="product-name">{{ product.name }}</div>
+    <div v-if="product.note" class="product-note">{{ product.note }}</div>
     <div class="product-meta">
       <span
         class="category-badge"
@@ -118,8 +119,15 @@ function costTooltip(p: Product): string {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-heading);
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   line-height: 1.35;
+}
+
+.product-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 8px;
 }
 
 .product-meta {

@@ -11,17 +11,18 @@ import type {
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 const COL_NAME = 0;
-const COL_CATEGORY = 1;
-const COL_MAIN_FIRST = 2;
-const COL_MAIN_LAST = 7;
-const COL_COST = 8;
-const COL_USAGES = 9;
-const COL_ROAD_JUMP = 10;
-const COL_ROAD_ALLOWANCE = 11;
-const COL_GRAVEL_JUMP = 12;
-const COL_GRAVEL_ALLOWANCE = 13;
-const COL_EXTREME_JUMP = 14;
-const COL_EXTREME_ALLOWANCE = 15;
+const COL_NOTE = 1;
+const COL_CATEGORY = 2;
+const COL_MAIN_FIRST = 3;
+const COL_MAIN_LAST = 8;
+const COL_COST = 9;
+const COL_USAGES = 10;
+const COL_ROAD_JUMP = 11;
+const COL_ROAD_ALLOWANCE = 12;
+const COL_GRAVEL_JUMP = 13;
+const COL_GRAVEL_ALLOWANCE = 14;
+const COL_EXTREME_JUMP = 15;
+const COL_EXTREME_ALLOWANCE = 16;
 
 function parseNum(s: string): number | undefined {
   const trimmed = s.trim();
@@ -46,7 +47,7 @@ function mapCategory(raw: string): ProductCategory {
   }
 }
 
-function calculateEquivalentTestKilometers(productName: string, mainTestBlocks: number[]): number {
+function calculateEquivalentTestKilometers(product: Product, mainTestBlocks: number[]): number {
   let cumWear = 0;
   let idx = mainTestBlocks.length - 1;
 
@@ -63,8 +64,14 @@ function calculateEquivalentTestKilometers(productName: string, mainTestBlocks: 
     if (idx < 5 && res > 1000 * (idx + 2)) {
       let truncated_res = 1000 * (idx + 2);
       console.log(
-        `Warning: Truncating equivalent kilometers to ${truncated_res} km (instead of ${Math.round(res)} km) for ${productName}`,
+        `Warning: Truncating equivalent kilometers to ${truncated_res} km (instead of ${Math.round(res)} km) for ${product.name}`,
       );
+      const append_string = `Total test kilometers truncated due to missing block ${idx + 2}.`;
+      if (product.note) {
+        product.note = product.note + ". " + append_string;
+      } else {
+        product.note = append_string;
+      }
       return truncated_res;
     }
     return res;
@@ -120,6 +127,9 @@ const products: Product[] = dataLines.map((line) => {
 
   const product: Product = { name: get(COL_NAME), category: mapCategory(get(COL_CATEGORY)) };
 
+  const note = get(COL_NOTE);
+  if (note) product.note = note;
+
   const cost = parseNum(get(COL_COST));
   if (cost !== undefined) product.costPackageAUD = cost;
 
@@ -130,7 +140,7 @@ const products: Product[] = dataLines.map((line) => {
     product.mainTest = {
       blockWear: mainTestBlocks,
       testKilometerEquivalent: calculateEquivalentTestKilometers(
-        product.name,
+        product,
         mainTestBlocks.map((block) => block.wearRate),
       ),
     };

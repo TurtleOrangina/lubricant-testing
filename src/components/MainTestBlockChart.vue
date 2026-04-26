@@ -165,7 +165,6 @@ const option = computed((): EChartsOption => {
     </div>
 
     <div v-if="selectedProduct" class="selected-card">
-      <p class="selected-label">Selected lubricant</p>
       <LubricantCard :product="selectedProduct" :highlighted="true" />
     </div>
   </div>

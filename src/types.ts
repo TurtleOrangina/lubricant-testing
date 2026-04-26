@@ -22,6 +22,7 @@ export interface SingleApplicationLongevity {
 
 export interface Product {
   name: string;
+  note?: string;
   category: ProductCategory;
   costPackageAUD?: number;
   usagesMainTest?: number;
