@@ -32,8 +32,10 @@ const unselectedProducts = computed(() =>
       <LubricantCard
         :product="selectedProduct"
         :highlighted="true"
+        :closable="true"
         class="selected-card selectable"
         @click="store.select(selectedProduct.name)"
+        @close="store.clear()"
       />
     </div>
 

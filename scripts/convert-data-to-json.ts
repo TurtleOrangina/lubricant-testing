@@ -66,7 +66,7 @@ function calculateEquivalentTestKilometers(product: Product, mainTestBlocks: num
       console.log(
         `Warning: Truncating equivalent kilometers to ${truncated_res} km (instead of ${Math.round(res)} km) for ${product.name}`,
       );
-      const append_string = `Total test kilometers truncated due to missing block ${idx + 2}.`;
+      const append_string = `"Main Test Kilometers" are truncated due to missing block ${idx + 2}.`;
       if (product.note) {
         product.note = product.note + ". " + append_string;
       } else {

@@ -93,7 +93,7 @@ const option = computed((): EChartsOption => {
     },
     yAxis: {
       type: "value",
-      name: "Equivalent Test Kilometers",
+      name: "Main Test Kilometers",
       nameLocation: "middle",
       nameGap: 52,
       nameTextStyle: { fontSize: 12 },
@@ -133,7 +133,12 @@ const option = computed((): EChartsOption => {
       </span>
     </div>
     <div v-if="selectedProduct" class="selected-card">
-      <LubricantCard :product="selectedProduct" :highlighted="true" />
+      <LubricantCard
+        :product="selectedProduct"
+        :highlighted="true"
+        :closable="true"
+        @close="store.clear()"
+      />
     </div>
   </div>
 </template>

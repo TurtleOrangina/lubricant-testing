@@ -165,7 +165,12 @@ const option = computed((): EChartsOption => {
     </div>
 
     <div v-if="selectedProduct" class="selected-card">
-      <LubricantCard :product="selectedProduct" :highlighted="true" />
+      <LubricantCard
+        :product="selectedProduct"
+        :highlighted="true"
+        :closable="true"
+        @close="store.clear()"
+      />
     </div>
   </div>
 </template>

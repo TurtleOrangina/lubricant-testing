@@ -2,7 +2,8 @@
 import type { Product } from "../types";
 import { BLOCK_DESCRIPTIONS, CATEGORY_COLORS } from "../constants";
 
-const props = defineProps<{ product: Product; highlighted?: boolean }>();
+const props = defineProps<{ product: Product; highlighted?: boolean; closable?: boolean }>();
+const emit = defineEmits<{ close: [] }>();
 
 const BLOCK_LABELS: Record<number, string> = {
   0: "Chain wear block 1",
@@ -23,13 +24,11 @@ function roundToHundreds(n: number): number {
   return Math.round(n / 100) * 100;
 }
 
-function longevityLabel(p: Product): string {
-  if (!p.longevity) return "Not tested";
-  const count = [p.longevity.dryRoad, p.longevity.dryGravel, p.longevity.extremeConditions].filter(
-    Boolean,
-  ).length;
-  return `${count} / 3 conditions`;
-}
+const LONGEVITY_CONDITIONS = [
+  { key: "dryRoad" as const, label: "Dry Road Conditions" },
+  { key: "dryGravel" as const, label: "Dry Gravel / MTB / CX" },
+  { key: "extremeConditions" as const, label: "Extreme Conditions" },
+];
 
 function priceFor6000km(p: Product): string {
   if (p.costPackageAUD == null || p.usagesMainTest == null) return "Unknown";
@@ -45,7 +44,10 @@ function costTooltip(p: Product): string {
 
 <template>
   <div :class="['product-card', { highlighted: props.highlighted }]">
-    <div class="product-name">{{ product.name }}</div>
+    <div class="card-header">
+      <div class="product-name">{{ product.name }}</div>
+      <button v-if="props.closable" class="close-btn" @click.stop="emit('close')">✕</button>
+    </div>
     <div v-if="product.note" class="product-note">{{ product.note }}</div>
     <div class="product-meta">
       <span
@@ -92,9 +94,31 @@ function costTooltip(p: Product): string {
 
       <div class="stat-row has-tooltip">
         <span class="stat-label">Longevity</span>
-        <span class="stat-value">{{ longevityLabel(product) }}</span>
+        <span v-if="!product.longevity" class="stat-value">Not tested</span>
         <div class="tooltip-bubble">{{ LONGEVITY_TOOLTIP }}</div>
       </div>
+
+      <template v-if="product.longevity">
+        <template v-for="cond in LONGEVITY_CONDITIONS" :key="cond.key">
+          <template v-if="product.longevity[cond.key]">
+            <div class="stat-row stat-row--indented">
+              <span class="stat-label stat-label--condition">{{ cond.label }}</span>
+            </div>
+            <div class="stat-row stat-row--double-indented">
+              <span class="stat-label">Jump Point</span>
+              <span class="stat-value"
+                >{{ product.longevity[cond.key]!.jumpPoint.toLocaleString() }} km</span
+              >
+            </div>
+            <div class="stat-row stat-row--double-indented">
+              <span class="stat-label">Wear Allowance</span>
+              <span class="stat-value"
+                >{{ product.longevity[cond.key]!.wearAllowance.toLocaleString() }} km</span
+              >
+            </div>
+          </template>
+        </template>
+      </template>
     </div>
   </div>
 </template>
@@ -106,6 +130,30 @@ function costTooltip(p: Product): string {
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.close-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 0;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.close-btn:hover {
+  color: var(--text-heading);
 }
 
 .product-card.highlighted {
@@ -163,6 +211,20 @@ function costTooltip(p: Product): string {
 
 .stat-row--indented .stat-label {
   font-size: 0.75rem;
+}
+
+.stat-row--double-indented {
+  padding-left: 20px;
+}
+
+.stat-row--double-indented .stat-label {
+  font-size: 0.75rem;
+}
+
+.stat-label--condition {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-heading);
 }
 
 .stat-label {

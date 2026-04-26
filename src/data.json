@@ -26,6 +26,20 @@
         }
       ],
       "testKilometerEquivalent": 22058.823529411762
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 1920,
+        "wearAllowance": 1920
+      },
+      "dryGravel": {
+        "jumpPoint": 900,
+        "wearAllowance": 1030
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 637
+      }
     }
   },
   {
@@ -55,6 +69,20 @@
         }
       ],
       "testKilometerEquivalent": 29469.54813359529
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 9100,
+        "wearAllowance": 9100
+      },
+      "dryGravel": {
+        "jumpPoint": 4050,
+        "wearAllowance": 4050
+      },
+      "extremeConditions": {
+        "jumpPoint": 600,
+        "wearAllowance": 700
+      }
     }
   },
   {
@@ -115,12 +143,26 @@
         }
       ],
       "testKilometerEquivalent": 18987.3417721519
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 1800,
+        "wearAllowance": 3063
+      },
+      "dryGravel": {
+        "jumpPoint": 1650,
+        "wearAllowance": 1848
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 588
+      }
     }
   },
   {
     "name": "Silca + Endurance Chip",
     "category": "immersive wax",
-    "note": "Extended lube application intervals",
+    "note": "Extended Intervals",
     "costPackageAUD": 105,
     "usagesMainTest": 0.2,
     "mainTest": {
@@ -145,6 +187,20 @@
         }
       ],
       "testKilometerEquivalent": 14506.769825918764
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 4050,
+        "wearAllowance": 5238
+      },
+      "dryGravel": {
+        "jumpPoint": 2700,
+        "wearAllowance": 3538
+      },
+      "extremeConditions": {
+        "jumpPoint": 600,
+        "wearAllowance": 741
+      }
     }
   },
   {
@@ -152,7 +208,7 @@
     "category": "immersive wax",
     "costPackageAUD": 5,
     "usagesMainTest": 0.6,
-    "note": "Total test kilometers truncated due to missing block 6.",
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 6.",
     "mainTest": {
       "blockWear": [
         {
@@ -230,6 +286,20 @@
         }
       ],
       "testKilometerEquivalent": 10869.565217391304
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 4300,
+        "wearAllowance": 5000
+      },
+      "dryGravel": {
+        "jumpPoint": 1800,
+        "wearAllowance": 1800
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 450
+      }
     }
   },
   {
@@ -259,6 +329,20 @@
         }
       ],
       "testKilometerEquivalent": 9966.777408637872
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 4050,
+        "wearAllowance": 4050
+      },
+      "dryGravel": {
+        "jumpPoint": 4050,
+        "wearAllowance": 4050
+      },
+      "extremeConditions": {
+        "jumpPoint": 450,
+        "wearAllowance": 450
+      }
     }
   },
   {
@@ -317,6 +401,20 @@
         }
       ],
       "testKilometerEquivalent": 7500
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 1950,
+        "wearAllowance": 3088
+      },
+      "dryGravel": {
+        "jumpPoint": 1350,
+        "wearAllowance": 1571
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 480
+      }
     }
   },
   {
@@ -375,6 +473,20 @@
         }
       ],
       "testKilometerEquivalent": 13452.914798206279
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 3300,
+        "wearAllowance": 3750
+      },
+      "dryGravel": {
+        "jumpPoint": 900,
+        "wearAllowance": 1200
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 604
+      }
     }
   },
   {
@@ -438,7 +550,7 @@
   {
     "name": "CeramicSpeed UFO Drip",
     "category": "wax drip",
-    "note": "New Formula. Total test kilometers truncated due to missing block 6.",
+    "note": "New Formula. \"Main Test Kilometers\" are truncated due to missing block 6.",
     "costPackageAUD": 29.9,
     "usagesMainTest": 2,
     "mainTest": {
@@ -460,6 +572,20 @@
         }
       ],
       "testKilometerEquivalent": 6000
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 900,
+        "wearAllowance": 1182
+      },
+      "dryGravel": {
+        "jumpPoint": 450,
+        "wearAllowance": 1078
+      },
+      "extremeConditions": {
+        "jumpPoint": 150,
+        "wearAllowance": 357
+      }
     }
   },
   {
@@ -489,11 +615,11 @@
     }
   },
   {
-    "name": "Tru Tension Tungsten Race",
+    "name": "Tru Tension Tungsten Race (D.A)",
     "category": "wax drip",
-    "note": "Re lube applications doubled. Total test kilometers truncated due to missing block 6.",
     "costPackageAUD": 25,
     "usagesMainTest": 5,
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 6.",
     "mainTest": {
       "blockWear": [
         {
@@ -518,7 +644,7 @@
   {
     "name": "Private Immersive wax (3)",
     "category": "immersive wax",
-    "note": "Total test kilometers truncated due to missing block 5.",
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -567,7 +693,7 @@
   {
     "name": "Private Immersive wax",
     "category": "immersive wax",
-    "note": "Total test kilometers truncated due to missing block 5.",
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -607,6 +733,20 @@
         }
       ],
       "testKilometerEquivalent": 3971.4285714285716
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 2089,
+        "wearAllowance": 2089
+      },
+      "dryGravel": {
+        "jumpPoint": 1265,
+        "wearAllowance": 1551
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 450
+      }
     }
   },
   {
@@ -737,12 +877,26 @@
         }
       ],
       "testKilometerEquivalent": 5434.782608695652
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 2333,
+        "wearAllowance": 2333
+      },
+      "dryGravel": {
+        "jumpPoint": 500,
+        "wearAllowance": 690
+      },
+      "extremeConditions": {
+        "jumpPoint": 500,
+        "wearAllowance": 690
+      }
     }
   },
   {
     "name": "Private wax drip (1)",
     "category": "wax drip",
-    "note": "Total test kilometers truncated due to missing block 5.",
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -785,6 +939,20 @@
         }
       ],
       "testKilometerEquivalent": 5138.74614594039
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 5602,
+        "wearAllowance": 5602
+      },
+      "dryGravel": {
+        "jumpPoint": 1476,
+        "wearAllowance": 1476
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 538
+      }
     }
   },
   {
@@ -828,6 +996,20 @@
         }
       ],
       "testKilometerEquivalent": 4324.324324324324
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 3210,
+        "wearAllowance": 3210
+      },
+      "dryGravel": {
+        "jumpPoint": 1154,
+        "wearAllowance": 1154
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 427
+      }
     }
   },
   {
@@ -880,12 +1062,26 @@
         }
       ],
       "testKilometerEquivalent": 3723.6286919831223
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 513,
+        "wearAllowance": 513
+      },
+      "dryGravel": {
+        "jumpPoint": 150,
+        "wearAllowance": 279
+      },
+      "extremeConditions": {
+        "jumpPoint": 150,
+        "wearAllowance": 193
+      }
     }
   },
   {
     "name": "Nano Titanium Armour",
     "category": "wet-drip",
-    "note": "Extended lube application intervals",
+    "note": "Extended Intervals",
     "mainTest": {
       "blockWear": [
         {
@@ -905,6 +1101,12 @@
         }
       ],
       "testKilometerEquivalent": 4719.047619047619
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 6750,
+        "wearAllowance": 7287
+      }
     }
   },
   {
@@ -1061,6 +1263,20 @@
         }
       ],
       "testKilometerEquivalent": 3977.3095623987037
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 3416,
+        "wearAllowance": 3416
+      },
+      "dryGravel": {
+        "jumpPoint": 1100,
+        "wearAllowance": 1588
+      },
+      "extremeConditions": {
+        "jumpPoint": 150,
+        "wearAllowance": 300
+      }
     }
   },
   {
@@ -1213,6 +1429,20 @@
         }
       ],
       "testKilometerEquivalent": 3961.8528610354224
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 9412,
+        "wearAllowance": 9412
+      },
+      "dryGravel": {
+        "jumpPoint": 1440,
+        "wearAllowance": 1440
+      },
+      "extremeConditions": {
+        "jumpPoint": 150,
+        "wearAllowance": 330
+      }
     }
   },
   {
@@ -1236,6 +1466,20 @@
         }
       ],
       "testKilometerEquivalent": 3142.8571428571427
+    },
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 300,
+        "wearAllowance": 420
+      },
+      "dryGravel": {
+        "jumpPoint": 300,
+        "wearAllowance": 420
+      },
+      "extremeConditions": {
+        "jumpPoint": 200,
+        "wearAllowance": 344
+      }
     }
   },
   {
@@ -1457,7 +1701,7 @@
   {
     "name": "Shimano Factory Grease",
     "category": "other",
-    "note": "Total test kilometers truncated due to missing block 3.",
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 3.",
     "mainTest": {
       "blockWear": [
         {
@@ -1504,6 +1748,62 @@
         }
       ],
       "testKilometerEquivalent": 1107.4197120708748
+    }
+  },
+  {
+    "name": "Squirt Hot Wax",
+    "category": "immersive wax",
+    "costPackageAUD": 65,
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 11350,
+        "wearAllowance": 11350
+      },
+      "dryGravel": {
+        "jumpPoint": 4050,
+        "wearAllowance": 4050
+      },
+      "extremeConditions": {
+        "jumpPoint": 600,
+        "wearAllowance": 750
+      }
+    }
+  },
+  {
+    "name": "Rex Black Diamond +  Race Day Spray",
+    "category": "immersive wax",
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 3415,
+        "wearAllowance": 3415
+      },
+      "dryGravel": {
+        "jumpPoint": 2642,
+        "wearAllowance": 3071
+      },
+      "extremeConditions": {
+        "jumpPoint": 300,
+        "wearAllowance": 525
+      }
+    }
+  },
+  {
+    "name": "AB Graphene Lube",
+    "category": "wax drip",
+    "costPackageAUD": 30,
+    "longevity": {
+      "dryRoad": {
+        "jumpPoint": 3254,
+        "wearAllowance": 3254
+      },
+      "dryGravel": {
+        "jumpPoint": 1449,
+        "wearAllowance": 1449
+      },
+      "extremeConditions": {
+        "jumpPoint": 600,
+        "wearAllowance": 807
+      }
     }
   }
 ]
