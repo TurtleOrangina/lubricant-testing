@@ -92,12 +92,12 @@ const option = computed((): EChartsOption => {
         );
       },
     },
-    grid: { left: 72, right: 24, top: 40, bottom: 100 },
+    grid: { left: 72, right: 24, top: 40, bottom: 130 },
     xAxis: {
       type: "category",
       data: entries.map((e) => e.name),
       axisLabel: {
-        rotate: 35,
+        rotate: 90,
         fontSize: 11,
         interval: 0,
         overflow: "truncate",
