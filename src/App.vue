@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { products } from "./data";
-import ProductSummary from "./components/ProductSummary.vue";
-import MainTestChart from "./components/MainTestChart.vue";
+import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
+import MainTestBlockChart from "./components/MainTestBlockChart.vue";
+import LubricantDetails from "./components/LubricantDetails.vue";
 import LongevityChart from "./components/LongevityChart.vue";
+
+type TabId = "overview" | "blocks" | "details" | "longevity";
+
+const TABS: { id: TabId; label: string }[] = [
+  { id: "overview", label: "Main Test Overview" },
+  { id: "blocks", label: "Main Test Blocks" },
+  { id: "longevity", label: "Single Application Longevity" },
+  { id: "details", label: "Lubricant Details" },
+];
+
+const activeTab = ref<TabId>("overview");
 </script>
 
 <template>
@@ -12,25 +25,47 @@ import LongevityChart from "./components/LongevityChart.vue";
   </header>
 
   <main>
-    <ProductSummary :products="products" />
+    <nav class="tab-nav" role="tablist">
+      <button
+        v-for="tab in TABS"
+        :key="tab.id"
+        role="tab"
+        :aria-selected="activeTab === tab.id"
+        :class="['tab-btn', { active: activeTab === tab.id }]"
+        @click="activeTab = tab.id"
+      >
+        {{ tab.label }}
+      </button>
+    </nav>
 
-    <section class="chart-section">
-      <h2>Main Test: Chain Wear Rate</h2>
-      <p class="section-desc">
-        Chain wear (mm / 1000 km) across up to 6 × 1000 km blocks under varying conditions. Lower is
-        better.
-      </p>
-      <MainTestChart :products="products" />
-    </section>
+    <div class="tab-panel">
+      <template v-if="activeTab === 'overview'">
+        <p class="section-desc">
+          Test kilometers to fully wear one chain, derived from cumulative chain wear across all
+          completed blocks. Higher is better.
+        </p>
+        <MainTestOverviewChart :products="products" />
+      </template>
 
-    <section class="chart-section">
-      <h2>Single Application Longevity</h2>
-      <p class="section-desc">
-        Total distance (km) until chain replacement is needed per single application, by riding
-        condition. Higher is better. Hover to see jump point (when wear rate accelerates).
-      </p>
-      <LongevityChart :products="products" />
-    </section>
+      <template v-else-if="activeTab === 'blocks'">
+        <p class="section-desc">
+          Chain wear in the selected 1000 km block of the Main Test. Lower is better.
+        </p>
+        <MainTestBlockChart :products="products" />
+      </template>
+
+      <template v-else-if="activeTab === 'longevity'">
+        <p class="section-desc">
+          Total distance (km) until chain replacement is needed per single application, by riding
+          condition. Higher is better. Hover to see jump point (when wear rate accelerates).
+        </p>
+        <LongevityChart :products="products" />
+      </template>
+
+      <template v-else-if="activeTab === 'details'">
+        <LubricantDetails :products="products" />
+      </template>
+    </div>
   </main>
 </template>
 
@@ -51,18 +86,46 @@ h1 {
   font-size: 0.95rem;
 }
 
-.chart-section {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-top: 20px;
-  box-shadow: var(--shadow-sm);
+.tab-nav {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  flex-wrap: wrap;
 }
 
-.chart-section h2 {
-  font-size: 1.05rem;
-  margin-bottom: 4px;
+.tab-btn {
+  padding: 10px 18px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-radius: 4px 4px 0 0;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.tab-btn:hover {
+  color: var(--text-heading);
+}
+
+.tab-btn.active {
+  color: var(--text-heading);
+  border-bottom-color: #3b82f6;
+}
+
+.tab-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
 .section-desc {

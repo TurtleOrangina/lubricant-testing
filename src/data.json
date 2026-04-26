@@ -1481,7 +1481,7 @@
     }
   },
   {
-    "name": "<no lubricant>",
+    "name": "no lubricant",
     "category": "other",
     "mainTest": {
       "blockWear": [

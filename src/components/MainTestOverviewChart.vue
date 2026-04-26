@@ -4,47 +4,39 @@ import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
 import { CATEGORY_COLORS } from "../constants";
+import LubricantCard from "./LubricantCard.vue";
 
 const props = defineProps<{ products: Product[] }>();
 
-const BLOCK_LABELS: Record<number, string> = {
-  0: "Block 1 – No Contamination",
-  1: "Block 2 – Dry Offroad",
-  2: "Block 3 – No Contamination",
-  3: "Block 4 – Wet Conditions",
-  4: "Block 5 – No Contamination",
-  5: "Block 6 – Harsh Wet",
-};
+const selectedName = ref<string | null>(null);
 
-const selectedBlock = ref(0);
-
-const availableBlocks = computed(() =>
-  Object.entries(BLOCK_LABELS)
-    .map(([k, v]) => ({ index: Number(k), label: v }))
-    .filter(({ index }) =>
-      props.products.some((p) => p.mainTest != null && p.mainTest[index] != null),
-    ),
+const selectedProduct = computed(
+  () => props.products.find((p) => p.name === selectedName.value) ?? null,
 );
+
+function onChartClick(params: unknown) {
+  const { name } = params as { name: string };
+  selectedName.value = selectedName.value === name ? null : name;
+}
 
 interface BarEntry {
   name: string;
-  wearRate: number;
+  equivalent: number;
   category: Product["category"];
   color: string;
 }
 
-const sortedEntries = computed((): BarEntry[] => {
-  const idx = selectedBlock.value;
-  return props.products
-    .filter((p) => p.mainTest != null && p.mainTest[idx] != null)
+const sortedEntries = computed((): BarEntry[] =>
+  props.products
+    .filter((p) => p.mainTest != null)
     .map((p) => ({
       name: p.name,
-      wearRate: p.mainTest![idx].wearRate,
+      equivalent: p.mainTest!.testKilometerEquivalent,
       category: p.category,
       color: CATEGORY_COLORS[p.category],
     }))
-    .sort((a, b) => b.wearRate - a.wearRate);
-});
+    .sort((a, b) => b.equivalent - a.equivalent),
+);
 
 const legendItems = computed(() => {
   const seen = new Set<string>();
@@ -60,6 +52,7 @@ const legendItems = computed(() => {
 
 const option = computed((): EChartsOption => {
   const entries = sortedEntries.value;
+  const selected = selectedName.value;
   return {
     tooltip: {
       trigger: "axis",
@@ -70,7 +63,7 @@ const option = computed((): EChartsOption => {
           value: number;
           marker: string;
         };
-        return `${item.marker}<b>${item.name}</b>: ${item.value.toFixed(2)} mm/1000km`;
+        return `${item.marker}<b>${item.name}</b>: ${Math.round(item.value)} km`;
       },
     },
     grid: { left: 72, right: 24, top: 40, bottom: 100 },
@@ -87,28 +80,22 @@ const option = computed((): EChartsOption => {
     },
     yAxis: {
       type: "value",
-      name: "mm / 1000 km",
+      name: "Equivalent Test Kilometers",
       nameLocation: "middle",
       nameGap: 52,
       nameTextStyle: { fontSize: 12 },
-      axisLabel: { formatter: (val: number) => val.toFixed(2) },
+      axisLabel: { formatter: (val: number) => String(Math.round(val)) },
     },
     series: [
       {
         type: "bar",
         data: entries.map((e) => ({
-          value: e.wearRate,
-          itemStyle: { color: e.color },
-        })),
-        label: {
-          show: true,
-          position: "top",
-          formatter: (params: unknown) => {
-            const p = params as { value: number };
-            return p.value.toFixed(2);
+          value: e.equivalent,
+          itemStyle: {
+            color: e.color,
+            ...(e.name === selected ? { borderColor: "#111827", borderWidth: 2 } : {}),
           },
-          fontSize: 11,
-        },
+        })),
         barMaxWidth: 56,
       },
     ],
@@ -117,39 +104,26 @@ const option = computed((): EChartsOption => {
 </script>
 
 <template>
-  <div class="main-test-chart">
-    <select v-model="selectedBlock" class="block-select">
-      <option v-for="b in availableBlocks" :key="b.index" :value="b.index">
-        {{ b.label }}
-      </option>
-    </select>
-
-    <VChart :option="option" style="height: 420px" autoresize />
-
+  <div class="main-test-overview-chart">
+    <VChart :option="option" style="height: 420px" autoresize @click="onChartClick" />
     <div class="legend">
       <span v-for="item in legendItems" :key="item.category" class="legend-item">
         <span class="legend-swatch" :style="{ background: item.color }" />
         {{ item.category }}
       </span>
     </div>
+    <div v-if="selectedProduct" class="selected-card">
+      <p class="selected-label">Selected lubricant</p>
+      <LubricantCard :product="selectedProduct" />
+    </div>
   </div>
 </template>
 
 <style scoped>
-.main-test-chart {
+.main-test-overview-chart {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.block-select {
-  align-self: flex-start;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  background: #fff;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .legend {
@@ -171,5 +145,16 @@ const option = computed((): EChartsOption => {
   height: 14px;
   border-radius: 3px;
   flex-shrink: 0;
+}
+
+.selected-card {
+  margin-top: 8px;
+  max-width: 320px;
+}
+
+.selected-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
 }
 </style>
