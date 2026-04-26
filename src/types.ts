@@ -1,7 +1,12 @@
 export type ProductCategory = "immersive wax" | "wax drip" | "wet-drip" | "other";
 
+export interface MainTest {
+  blockWear?: MainTestBlock[]; // 1–6 sequential blocks, 1000km each.
+  testKilometerEquivalent: number; // How many test kilometers does this performance equate to (higher is better)
+}
+
 export interface MainTestBlock {
-  wearRate: number; // mm per 1000 km, lower is better
+  wearRate: number; // percent of chain worn (100% corresponds to  0.5% chain elongation)
 }
 
 export interface LongevityCondition {
@@ -20,6 +25,6 @@ export interface Product {
   category: ProductCategory;
   costPackageAUD?: number;
   usagesMainTest?: number;
-  mainTest?: MainTestBlock[]; // 1–6 sequential blocks, never skipped
+  mainTest?: MainTest;
   longevity?: SingleApplicationLongevity;
 }

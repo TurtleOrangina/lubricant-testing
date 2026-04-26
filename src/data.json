@@ -4,1300 +4,1492 @@
     "category": "immersive wax",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0.003
-      },
-      {
-        "wearRate": 0.017
-      },
-      {
-        "wearRate": 0.046
-      },
-      {
-        "wearRate": 0.08
-      },
-      {
-        "wearRate": 0.04
-      },
-      {
-        "wearRate": 0.086
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.003
+        },
+        {
+          "wearRate": 0.017
+        },
+        {
+          "wearRate": 0.046
+        },
+        {
+          "wearRate": 0.08
+        },
+        {
+          "wearRate": 0.04
+        },
+        {
+          "wearRate": 0.086
+        }
+      ],
+      "testKilometerEquivalent": 22058.823529411762
+    }
   },
   {
     "name": "Cyclowax Race Wax",
     "category": "immersive wax",
     "costPackageAUD": 83,
     "usagesMainTest": 2.5,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.0086
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.026
-      },
-      {
-        "wearRate": 0.006
-      },
-      {
-        "wearRate": 0.143
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.0086
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.026
+        },
+        {
+          "wearRate": 0.006
+        },
+        {
+          "wearRate": 0.143
+        }
+      ],
+      "testKilometerEquivalent": 29469.54813359529
+    }
   },
   {
     "name": "Finish Line Halo IM wax (re-test Jan 25)",
     "category": "immersive wax",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0.046
-      },
-      {
-        "wearRate": 0.071
-      },
-      {
-        "wearRate": 0.006
-      },
-      {
-        "wearRate": 0.094
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.16
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.046
+        },
+        {
+          "wearRate": 0.071
+        },
+        {
+          "wearRate": 0.006
+        },
+        {
+          "wearRate": 0.094
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.16
+        }
+      ],
+      "testKilometerEquivalent": 15113.350125944584
+    }
   },
   {
     "name": "Mspeedwax New Formula",
     "category": "immersive wax",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.011
-      },
-      {
-        "wearRate": 0.006
-      },
-      {
-        "wearRate": 0.091
-      },
-      {
-        "wearRate": 0.011
-      },
-      {
-        "wearRate": 0.197
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.011
+        },
+        {
+          "wearRate": 0.006
+        },
+        {
+          "wearRate": 0.091
+        },
+        {
+          "wearRate": 0.011
+        },
+        {
+          "wearRate": 0.197
+        }
+      ],
+      "testKilometerEquivalent": 18987.3417721519
+    }
   },
   {
     "name": "Silca + Endurance Chip - *Extended intervals*",
     "category": "immersive wax",
     "costPackageAUD": 105,
     "usagesMainTest": 0.2,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.0286
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.111
-      },
-      {
-        "wearRate": 0.043
-      },
-      {
-        "wearRate": 0.211
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.0286
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.111
+        },
+        {
+          "wearRate": 0.043
+        },
+        {
+          "wearRate": 0.211
+        }
+      ],
+      "testKilometerEquivalent": 14506.769825918764
+    }
   },
   {
     "name": "Candle wax",
     "category": "immersive wax",
     "costPackageAUD": 5,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0.053
-      },
-      {
-        "wearRate": 0.095
-      },
-      {
-        "wearRate": 0.055
-      },
-      {
-        "wearRate": 0.141
-      },
-      {
-        "wearRate": 0.058
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.053
+        },
+        {
+          "wearRate": 0.095
+        },
+        {
+          "wearRate": 0.055
+        },
+        {
+          "wearRate": 0.141
+        },
+        {
+          "wearRate": 0.058
+        }
+      ],
+      "testKilometerEquivalent": 6000
+    }
   },
   {
     "name": "Optimize Bike Graphene Wax",
     "category": "immersive wax",
     "costPackageAUD": 110,
     "usagesMainTest": 0.7,
-    "mainTest": [
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.057
-      },
-      {
-        "wearRate": 0.017
-      },
-      {
-        "wearRate": 0.16
-      },
-      {
-        "wearRate": 0.069
-      },
-      {
-        "wearRate": 0.234
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.057
+        },
+        {
+          "wearRate": 0.017
+        },
+        {
+          "wearRate": 0.16
+        },
+        {
+          "wearRate": 0.069
+        },
+        {
+          "wearRate": 0.234
+        }
+      ],
+      "testKilometerEquivalent": 10771.992818671453
+    }
   },
   {
     "name": "Rex Black Diamond Wax - 4+1 Mix",
     "category": "immersive wax",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0.003
-      },
-      {
-        "wearRate": 0.057
-      },
-      {
-        "wearRate": 0.009
-      },
-      {
-        "wearRate": 0.183
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.28
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.003
+        },
+        {
+          "wearRate": 0.057
+        },
+        {
+          "wearRate": 0.009
+        },
+        {
+          "wearRate": 0.183
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.28
+        }
+      ],
+      "testKilometerEquivalent": 10869.565217391304
+    }
   },
   {
     "name": "Silca Hot wax X",
     "category": "immersive wax",
     "costPackageAUD": 300,
     "usagesMainTest": 0.8,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.231
-      },
-      {
-        "wearRate": 0.051
-      },
-      {
-        "wearRate": 0.32
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.231
+        },
+        {
+          "wearRate": 0.051
+        },
+        {
+          "wearRate": 0.32
+        }
+      ],
+      "testKilometerEquivalent": 9966.777408637872
+    }
   },
   {
     "name": "Tru Tension Tungsten All Weather",
     "category": "wax drip",
     "costPackageAUD": 25,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.14
-      },
-      {
-        "wearRate": 0.1
-      },
-      {
-        "wearRate": 0.12
-      },
-      {
-        "wearRate": 0.31
-      },
-      {
-        "wearRate": 0.18
-      },
-      {
-        "wearRate": 0.32
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.14
+        },
+        {
+          "wearRate": 0.1
+        },
+        {
+          "wearRate": 0.12
+        },
+        {
+          "wearRate": 0.31
+        },
+        {
+          "wearRate": 0.18
+        },
+        {
+          "wearRate": 0.32
+        }
+      ],
+      "testKilometerEquivalent": 5468.75
+    }
   },
   {
     "name": "Effetto Mariposa Flower power wax",
     "category": "wax drip",
     "costPackageAUD": 29.9,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.023
-      },
-      {
-        "wearRate": 0.023
-      },
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.32
-      },
-      {
-        "wearRate": 0.114
-      },
-      {
-        "wearRate": 0.32
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.023
+        },
+        {
+          "wearRate": 0.023
+        },
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.32
+        },
+        {
+          "wearRate": 0.114
+        },
+        {
+          "wearRate": 0.32
+        }
+      ],
+      "testKilometerEquivalent": 7500
+    }
   },
   {
     "name": "Immersive Wax + Wax Drip Combo (Silca)",
     "category": "other",
     "costPackageAUD": 110,
     "usagesMainTest": 0.4,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.029
-      },
-      {
-        "wearRate": 0.029
-      },
-      {
-        "wearRate": 0.146
-      },
-      {
-        "wearRate": 0.049
-      },
-      {
-        "wearRate": 0.34
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.029
+        },
+        {
+          "wearRate": 0.029
+        },
+        {
+          "wearRate": 0.146
+        },
+        {
+          "wearRate": 0.049
+        },
+        {
+          "wearRate": 0.34
+        }
+      ],
+      "testKilometerEquivalent": 10118.043844856662
+    }
   },
   {
     "name": "Rex Black Diamond Wax - 11+1 mix",
     "category": "immersive wax",
     "costPackageAUD": 90,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.014
-      },
-      {
-        "wearRate": 0.009
-      },
-      {
-        "wearRate": 0.046
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.357
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.014
+        },
+        {
+          "wearRate": 0.009
+        },
+        {
+          "wearRate": 0.046
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.357
+        }
+      ],
+      "testKilometerEquivalent": 13452.914798206279
+    }
   },
   {
     "name": "Ceramic Speed Ultra Endurance Wax",
     "category": "immersive wax",
     "costPackageAUD": 87.5,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0.0086
-      },
-      {
-        "wearRate": 0.0057
-      },
-      {
-        "wearRate": 0.03
-      },
-      {
-        "wearRate": 0.284
-      },
-      {
-        "wearRate": 0.2
-      },
-      {
-        "wearRate": 0.363
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.0086
+        },
+        {
+          "wearRate": 0.0057
+        },
+        {
+          "wearRate": 0.03
+        },
+        {
+          "wearRate": 0.284
+        },
+        {
+          "wearRate": 0.2
+        },
+        {
+          "wearRate": 0.363
+        }
+      ],
+      "testKilometerEquivalent": 6731.740154830024
+    }
   },
   {
     "name": "Session S-wax",
     "category": "wax drip",
     "costPackageAUD": 50,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.146
-      },
-      {
-        "wearRate": 0.057
-      },
-      {
-        "wearRate": 0.051
-      },
-      {
-        "wearRate": 0.326
-      },
-      {
-        "wearRate": 0.266
-      },
-      {
-        "wearRate": 0.365
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.146
+        },
+        {
+          "wearRate": 0.057
+        },
+        {
+          "wearRate": 0.051
+        },
+        {
+          "wearRate": 0.326
+        },
+        {
+          "wearRate": 0.266
+        },
+        {
+          "wearRate": 0.365
+        }
+      ],
+      "testKilometerEquivalent": 5421.9178082191775
+    }
   },
   {
     "name": "Ceramic Spd UFO Drip New Formula",
     "category": "wax drip",
     "costPackageAUD": 29.9,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.023
-      },
-      {
-        "wearRate": 0.034
-      },
-      {
-        "wearRate": 0.006
-      },
-      {
-        "wearRate": 0.323
-      },
-      {
-        "wearRate": 0.17
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.023
+        },
+        {
+          "wearRate": 0.034
+        },
+        {
+          "wearRate": 0.006
+        },
+        {
+          "wearRate": 0.323
+        },
+        {
+          "wearRate": 0.17
+        }
+      ],
+      "testKilometerEquivalent": 6000
+    }
   },
   {
     "name": "Ceramic Speed Wet Conditions",
     "category": "wax drip",
     "costPackageAUD": 29,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.123
-      },
-      {
-        "wearRate": 0.16
-      },
-      {
-        "wearRate": 0.166
-      },
-      {
-        "wearRate": 0.411
-      },
-      {
-        "wearRate": 0.237
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.123
+        },
+        {
+          "wearRate": 0.16
+        },
+        {
+          "wearRate": 0.166
+        },
+        {
+          "wearRate": 0.411
+        },
+        {
+          "wearRate": 0.237
+        }
+      ],
+      "testKilometerEquivalent": 4590.71729957806
+    }
   },
   {
     "name": "Tru Tension Tungsten Race (D.A)",
     "category": "wax drip",
     "costPackageAUD": 25,
     "usagesMainTest": 5,
-    "mainTest": [
-      {
-        "wearRate": 0.054
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.023
-      },
-      {
-        "wearRate": 0.383
-      },
-      {
-        "wearRate": 0.3
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.054
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.023
+        },
+        {
+          "wearRate": 0.383
+        },
+        {
+          "wearRate": 0.3
+        }
+      ],
+      "testKilometerEquivalent": 6000
+    }
   },
   {
     "name": "Private Immersive wax (3)",
     "category": "immersive wax",
-    "mainTest": [
-      {
-        "wearRate": 0.006
-      },
-      {
-        "wearRate": 0.023
-      },
-      {
-        "wearRate": 0.003
-      },
-      {
-        "wearRate": 0.317
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.006
+        },
+        {
+          "wearRate": 0.023
+        },
+        {
+          "wearRate": 0.003
+        },
+        {
+          "wearRate": 0.317
+        }
+      ],
+      "testKilometerEquivalent": 5000
+    }
   },
   {
     "name": "Private Immersive wax (2)",
     "category": "immersive wax",
-    "mainTest": [
-      {
-        "wearRate": 0.009
-      },
-      {
-        "wearRate": 0.011
-      },
-      {
-        "wearRate": 0.009
-      },
-      {
-        "wearRate": 0.369
-      },
-      {
-        "wearRate": 0.057
-      },
-      {
-        "wearRate": 0.417
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.009
+        },
+        {
+          "wearRate": 0.011
+        },
+        {
+          "wearRate": 0.009
+        },
+        {
+          "wearRate": 0.369
+        },
+        {
+          "wearRate": 0.057
+        },
+        {
+          "wearRate": 0.417
+        }
+      ],
+      "testKilometerEquivalent": 6880.733944954129
+    }
   },
   {
     "name": "Private Immersive wax",
     "category": "immersive wax",
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.057
-      },
-      {
-        "wearRate": 0.003
-      },
-      {
-        "wearRate": 0.34
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.057
+        },
+        {
+          "wearRate": 0.003
+        },
+        {
+          "wearRate": 0.34
+        }
+      ],
+      "testKilometerEquivalent": 5000
+    }
   },
   {
     "name": "Allied GRAX",
     "category": "wax drip",
     "costPackageAUD": 30,
     "usagesMainTest": 0.5,
-    "mainTest": [
-      {
-        "wearRate": 0.22
-      },
-      {
-        "wearRate": 0.183
-      },
-      {
-        "wearRate": 0.189
-      },
-      {
-        "wearRate": 0.42
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.22
+        },
+        {
+          "wearRate": 0.183
+        },
+        {
+          "wearRate": 0.189
+        },
+        {
+          "wearRate": 0.42
+        }
+      ],
+      "testKilometerEquivalent": 3971.4285714285716
+    }
   },
   {
     "name": "Nix Frix Shun",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 0.3,
-    "mainTest": [
-      {
-        "wearRate": 0.126
-      },
-      {
-        "wearRate": 0.274
-      },
-      {
-        "wearRate": 0.143
-      },
-      {
-        "wearRate": 0.274
-      },
-      {
-        "wearRate": 0.725
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.126
+        },
+        {
+          "wearRate": 0.274
+        },
+        {
+          "wearRate": 0.143
+        },
+        {
+          "wearRate": 0.274
+        },
+        {
+          "wearRate": 0.725
+        }
+      ],
+      "testKilometerEquivalent": 4252.413793103448
+    }
   },
   {
     "name": "Smoove",
     "category": "wax drip",
     "costPackageAUD": 25,
     "usagesMainTest": 0.5,
-    "mainTest": [
-      {
-        "wearRate": 0.191
-      },
-      {
-        "wearRate": 0.174
-      },
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.451
-      },
-      {
-        "wearRate": 0.343
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.191
+        },
+        {
+          "wearRate": 0.174
+        },
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.451
+        },
+        {
+          "wearRate": 0.343
+        }
+      ],
+      "testKilometerEquivalent": 4478.134110787172
+    }
   },
   {
     "name": "Squirt",
     "category": "wax drip",
     "costPackageAUD": 22,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.191
-      },
-      {
-        "wearRate": 0.22
-      },
-      {
-        "wearRate": 0.18
-      },
-      {
-        "wearRate": 0.489
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.191
+        },
+        {
+          "wearRate": 0.22
+        },
+        {
+          "wearRate": 0.18
+        },
+        {
+          "wearRate": 0.489
+        }
+      ],
+      "testKilometerEquivalent": 3836.4008179959096
+    }
   },
   {
     "name": "Dynamic Wander Wax",
     "category": "immersive wax",
     "costPackageAUD": 50,
     "usagesMainTest": 0.7,
-    "mainTest": [
-      {
-        "wearRate": 0.069
-      },
-      {
-        "wearRate": 0.054
-      },
-      {
-        "wearRate": 0.017
-      },
-      {
-        "wearRate": 0.3
-      },
-      {
-        "wearRate": 0.063
-      },
-      {
-        "wearRate": 0.517
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.069
+        },
+        {
+          "wearRate": 0.054
+        },
+        {
+          "wearRate": 0.017
+        },
+        {
+          "wearRate": 0.3
+        },
+        {
+          "wearRate": 0.063
+        },
+        {
+          "wearRate": 0.517
+        }
+      ],
+      "testKilometerEquivalent": 5961.315280464216
+    }
   },
   {
     "name": "Silca Synergetic",
     "category": "wet-drip",
     "costPackageAUD": 45,
     "usagesMainTest": 0.3,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.186
-      },
-      {
-        "wearRate": 0.243
-      },
-      {
-        "wearRate": 0.274
-      },
-      {
-        "wearRate": 0.217
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.186
+        },
+        {
+          "wearRate": 0.243
+        },
+        {
+          "wearRate": 0.274
+        },
+        {
+          "wearRate": 0.217
+        }
+      ],
+      "testKilometerEquivalent": 5434.782608695652
+    }
   },
   {
     "name": "Private wax drip (1)",
     "category": "wax drip",
-    "mainTest": [
-      {
-        "wearRate": 0.051
-      },
-      {
-        "wearRate": 0.046
-      },
-      {
-        "wearRate": 0.003
-      },
-      {
-        "wearRate": 0.591
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.051
+        },
+        {
+          "wearRate": 0.046
+        },
+        {
+          "wearRate": 0.003
+        },
+        {
+          "wearRate": 0.591
+        }
+      ],
+      "testKilometerEquivalent": 5000
+    }
   },
   {
     "name": "Rex Black Diamond",
     "category": "wet-drip",
     "costPackageAUD": 55,
     "usagesMainTest": 0.5,
-    "mainTest": [
-      {
-        "wearRate": 0.023
-      },
-      {
-        "wearRate": 0.111
-      },
-      {
-        "wearRate": 0.17
-      },
-      {
-        "wearRate": 0.426
-      },
-      {
-        "wearRate": 0.243
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.023
+        },
+        {
+          "wearRate": 0.111
+        },
+        {
+          "wearRate": 0.17
+        },
+        {
+          "wearRate": 0.426
+        },
+        {
+          "wearRate": 0.243
+        }
+      ],
+      "testKilometerEquivalent": 5138.74614594039
+    }
   },
   {
     "name": "Wend Wax test 2 (dissolved in)",
     "category": "wax drip",
     "costPackageAUD": 65,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.357
-      },
-      {
-        "wearRate": 0.336
-      },
-      {
-        "wearRate": 0.286
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.357
+        },
+        {
+          "wearRate": 0.336
+        },
+        {
+          "wearRate": 0.286
+        }
+      ],
+      "testKilometerEquivalent": 3064.35137895812
+    }
   },
   {
     "name": "Rex Domestique",
     "category": "wet-drip",
     "costPackageAUD": 45,
     "usagesMainTest": 0.5,
-    "mainTest": [
-      {
-        "wearRate": 0.051
-      },
-      {
-        "wearRate": 0.286
-      },
-      {
-        "wearRate": 0.151
-      },
-      {
-        "wearRate": 0.437
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.051
+        },
+        {
+          "wearRate": 0.286
+        },
+        {
+          "wearRate": 0.151
+        },
+        {
+          "wearRate": 0.437
+        }
+      ],
+      "testKilometerEquivalent": 4324.324324324324
+    }
   },
   {
     "name": "Silca Super Secret Drip",
     "category": "wax drip",
     "costPackageAUD": 50,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.029
-      },
-      {
-        "wearRate": 0.046
-      },
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.369
-      },
-      {
-        "wearRate": 0.294
-      },
-      {
-        "wearRate": 0.66
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.029
+        },
+        {
+          "wearRate": 0.046
+        },
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.369
+        },
+        {
+          "wearRate": 0.294
+        },
+        {
+          "wearRate": 0.66
+        }
+      ],
+      "testKilometerEquivalent": 5396.969696969696
+    }
   },
   {
     "name": "Boeshield T9- Aerosol",
     "category": "wet-drip",
     "costPackageAUD": 35,
     "usagesMainTest": 1.5,
-    "mainTest": [
-      {
-        "wearRate": 0.111
-      },
-      {
-        "wearRate": 0.323
-      },
-      {
-        "wearRate": 0.223
-      },
-      {
-        "wearRate": 0.474
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.111
+        },
+        {
+          "wearRate": 0.323
+        },
+        {
+          "wearRate": 0.223
+        },
+        {
+          "wearRate": 0.474
+        }
+      ],
+      "testKilometerEquivalent": 3723.6286919831223
+    }
   },
   {
     "name": "Nano Titanium Armour (*Extended Intervals)",
     "category": "wet-drip",
-    "mainTest": [
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.143
-      },
-      {
-        "wearRate": 0.166
-      },
-      {
-        "wearRate": 0.52
-      },
-      {
-        "wearRate": 0.21
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.143
+        },
+        {
+          "wearRate": 0.166
+        },
+        {
+          "wearRate": 0.52
+        },
+        {
+          "wearRate": 0.21
+        }
+      ],
+      "testKilometerEquivalent": 4719.047619047619
+    }
   },
   {
     "name": "Molten Speed Wax Original Formula",
     "category": "immersive wax",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
-    "mainTest": [
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.12
-      },
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.08
-      },
-      {
-        "wearRate": 0
-      },
-      {
-        "wearRate": 0.78
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.12
+        },
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.08
+        },
+        {
+          "wearRate": 0
+        },
+        {
+          "wearRate": 0.78
+        }
+      ],
+      "testKilometerEquivalent": 6122.448979591837
+    }
   },
   {
     "name": "Wolf tooth WT-1",
     "category": "wet-drip",
     "costPackageAUD": 40,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.169
-      },
-      {
-        "wearRate": 0.529
-      },
-      {
-        "wearRate": 0.54
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.169
+        },
+        {
+          "wearRate": 0.529
+        },
+        {
+          "wearRate": 0.54
+        }
+      ],
+      "testKilometerEquivalent": 2559.259259259259
+    }
   },
   {
     "name": "Finish Line Dry",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.149
-      },
-      {
-        "wearRate": 0.351
-      },
-      {
-        "wearRate": 0.269
-      },
-      {
-        "wearRate": 0.543
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.149
+        },
+        {
+          "wearRate": 0.351
+        },
+        {
+          "wearRate": 0.269
+        },
+        {
+          "wearRate": 0.543
+        }
+      ],
+      "testKilometerEquivalent": 3425.4143646408843
+    }
   },
   {
     "name": "WD-40 Original",
     "category": "wet-drip",
     "costPackageAUD": 10,
     "usagesMainTest": 1.5,
-    "mainTest": [
-      {
-        "wearRate": 0.134
-      },
-      {
-        "wearRate": 0.451
-      },
-      {
-        "wearRate": 0.511
-      },
-      {
-        "wearRate": 0.563
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.134
+        },
+        {
+          "wearRate": 0.451
+        },
+        {
+          "wearRate": 0.511
+        },
+        {
+          "wearRate": 0.563
+        }
+      ],
+      "testKilometerEquivalent": 2812.133072407045
+    }
   },
   {
     "name": "Cycle Star Gold",
     "category": "wet-drip",
-    "mainTest": [
-      {
-        "wearRate": 0.223
-      },
-      {
-        "wearRate": 0.309
-      },
-      {
-        "wearRate": 0.451
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.223
+        },
+        {
+          "wearRate": 0.309
+        },
+        {
+          "wearRate": 0.451
+        }
+      ],
+      "testKilometerEquivalent": 3051.8819938962356
+    }
   },
   {
     "name": "White Lightning Epic Ride",
     "category": "wet-drip",
     "costPackageAUD": 19,
     "usagesMainTest": 4,
-    "mainTest": [
-      {
-        "wearRate": 0.229
-      },
-      {
-        "wearRate": 0.337
-      },
-      {
-        "wearRate": 1.043
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.229
+        },
+        {
+          "wearRate": 0.337
+        },
+        {
+          "wearRate": 1.043
+        }
+      ],
+      "testKilometerEquivalent": 2416.107382550336
+    }
   },
   {
     "name": "Revolubes",
     "category": "wet-drip",
     "costPackageAUD": 35,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.04
-      },
-      {
-        "wearRate": 0.183
-      },
-      {
-        "wearRate": 0.174
-      },
-      {
-        "wearRate": 0.617
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.04
+        },
+        {
+          "wearRate": 0.183
+        },
+        {
+          "wearRate": 0.174
+        },
+        {
+          "wearRate": 0.617
+        }
+      ],
+      "testKilometerEquivalent": 3977.3095623987037
+    }
   },
   {
     "name": "Wolf tooth WT-1 on Factory Grease",
     "category": "wet-drip",
     "costPackageAUD": 40,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.177
-      },
-      {
-        "wearRate": 0.371
-      },
-      {
-        "wearRate": 0.483
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.177
+        },
+        {
+          "wearRate": 0.371
+        },
+        {
+          "wearRate": 0.483
+        }
+      ],
+      "testKilometerEquivalent": 2935.8178053830225
+    }
   },
   {
     "name": "Singer General Purpose ($6.95)",
     "category": "wet-drip",
     "costPackageAUD": 6.95,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.091
-      },
-      {
-        "wearRate": 0.383
-      },
-      {
-        "wearRate": 0.4
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.091
+        },
+        {
+          "wearRate": 0.383
+        },
+        {
+          "wearRate": 0.4
+        }
+      ],
+      "testKilometerEquivalent": 3432.4942791762014
+    }
   },
   {
     "name": "Rock N Roll Gold",
     "category": "wet-drip",
     "costPackageAUD": 15,
     "usagesMainTest": 3,
-    "mainTest": [
-      {
-        "wearRate": 0.089
-      },
-      {
-        "wearRate": 0.29
-      },
-      {
-        "wearRate": 0.2
-      },
-      {
-        "wearRate": 0.65
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.089
+        },
+        {
+          "wearRate": 0.29
+        },
+        {
+          "wearRate": 0.2
+        },
+        {
+          "wearRate": 0.65
+        }
+      ],
+      "testKilometerEquivalent": 3647.692307692307
+    }
   },
   {
     "name": "Finish Line Halo Drip wax - re test.",
     "category": "wax drip",
     "costPackageAUD": 50,
     "usagesMainTest": 1.5,
-    "mainTest": [
-      {
-        "wearRate": 0.157
-      },
-      {
-        "wearRate": 0.126
-      },
-      {
-        "wearRate": 0.046
-      },
-      {
-        "wearRate": 0.994
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.157
+        },
+        {
+          "wearRate": 0.126
+        },
+        {
+          "wearRate": 0.046
+        },
+        {
+          "wearRate": 0.994
+        }
+      ],
+      "testKilometerEquivalent": 3675.050301810865
+    }
   },
   {
     "name": "Private test - wet lubricant",
     "category": "wet-drip",
-    "mainTest": [
-      {
-        "wearRate": 0.149
-      },
-      {
-        "wearRate": 0.44
-      },
-      {
-        "wearRate": 0.309
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.149
+        },
+        {
+          "wearRate": 0.44
+        },
+        {
+          "wearRate": 0.309
+        }
+      ],
+      "testKilometerEquivalent": 3340.75723830735
+    }
   },
   {
     "name": "Tunap Eco Ultimate Synthetic",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.103
-      },
-      {
-        "wearRate": 0.363
-      },
-      {
-        "wearRate": 0.411
-      },
-      {
-        "wearRate": 0.731
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.103
+        },
+        {
+          "wearRate": 0.363
+        },
+        {
+          "wearRate": 0.411
+        },
+        {
+          "wearRate": 0.731
+        }
+      ],
+      "testKilometerEquivalent": 3168.2626538987683
+    }
   },
   {
     "name": "Silca Synerg-E",
     "category": "wet-drip",
     "costPackageAUD": 45,
     "usagesMainTest": 0.3,
-    "mainTest": [
-      {
-        "wearRate": 0.02
-      },
-      {
-        "wearRate": 0.077
-      },
-      {
-        "wearRate": 0.197
-      },
-      {
-        "wearRate": 0.734
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.02
+        },
+        {
+          "wearRate": 0.077
+        },
+        {
+          "wearRate": 0.197
+        },
+        {
+          "wearRate": 0.734
+        }
+      ],
+      "testKilometerEquivalent": 3961.8528610354224
+    }
   },
   {
     "name": "AB Graphene Wax",
     "category": "immersive wax",
     "costPackageAUD": 50,
     "usagesMainTest": 0.8,
-    "mainTest": [
-      {
-        "wearRate": 0.22
-      },
-      {
-        "wearRate": 0.383
-      },
-      {
-        "wearRate": 0.249
-      },
-      {
-        "wearRate": 1.036
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.22
+        },
+        {
+          "wearRate": 0.383
+        },
+        {
+          "wearRate": 0.249
+        },
+        {
+          "wearRate": 1.036
+        }
+      ],
+      "testKilometerEquivalent": 3142.8571428571427
+    }
   },
   {
     "name": "Tunap Eco",
     "category": "wet-drip",
     "costPackageAUD": 20,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.106
-      },
-      {
-        "wearRate": 1.126
-      },
-      {
-        "wearRate": 0.494
-      },
-      {
-        "wearRate": 0.817
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.106
+        },
+        {
+          "wearRate": 1.126
+        },
+        {
+          "wearRate": 0.494
+        },
+        {
+          "wearRate": 0.817
+        }
+      ],
+      "testKilometerEquivalent": 1793.960923623446
+    }
   },
   {
     "name": "Muc Off C3 Ceramic Dry",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 1.5,
-    "mainTest": [
-      {
-        "wearRate": 0.106
-      },
-      {
-        "wearRate": 0.617
-      },
-      {
-        "wearRate": 0.523
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.106
+        },
+        {
+          "wearRate": 0.617
+        },
+        {
+          "wearRate": 0.523
+        }
+      ],
+      "testKilometerEquivalent": 2529.636711281071
+    }
   },
   {
     "name": "Dumonde Tech Pro X-Lite",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.16
-      },
-      {
-        "wearRate": 0.689
-      },
-      {
-        "wearRate": 0.217
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.16
+        },
+        {
+          "wearRate": 0.689
+        },
+        {
+          "wearRate": 0.217
+        }
+      ],
+      "testKilometerEquivalent": 2695.852534562212
+    }
   },
   {
     "name": "Private test wet lubricant (2)",
     "category": "wet-drip",
-    "mainTest": [
-      {
-        "wearRate": 0.111
-      },
-      {
-        "wearRate": 0.254
-      },
-      {
-        "wearRate": 0.563
-      },
-      {
-        "wearRate": 1.017
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.111
+        },
+        {
+          "wearRate": 0.254
+        },
+        {
+          "wearRate": 0.563
+        },
+        {
+          "wearRate": 1.017
+        }
+      ],
+      "testKilometerEquivalent": 3070.7964601769913
+    }
   },
   {
     "name": "Muc Off Ludicrous AF",
     "category": "wet-drip",
     "costPackageAUD": 70,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.089
-      },
-      {
-        "wearRate": 0.78
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.089
+        },
+        {
+          "wearRate": 0.78
+        }
+      ],
+      "testKilometerEquivalent": 2301.4959723820484
+    }
   },
   {
     "name": "Finish Line Wet (green bottle)",
     "category": "wet-drip",
     "costPackageAUD": 20,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.151
-      },
-      {
-        "wearRate": 0.911
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.151
+        },
+        {
+          "wearRate": 0.911
+        }
+      ],
+      "testKilometerEquivalent": 1931.9429198682765
+    }
   },
   {
     "name": "Prestacycle One",
     "category": "wet-drip",
     "costPackageAUD": 50,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.079
-      },
-      {
-        "wearRate": 0.95
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.079
+        },
+        {
+          "wearRate": 0.95
+        }
+      ],
+      "testKilometerEquivalent": 1969.4736842105262
+    }
   },
   {
     "name": "Muc Off Hydro Dynamic",
     "category": "wet-drip",
     "costPackageAUD": 49,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.276
-      },
-      {
-        "wearRate": 0.989
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.276
+        },
+        {
+          "wearRate": 0.989
+        }
+      ],
+      "testKilometerEquivalent": 1732.0525783619817
+    }
   },
   {
     "name": "Muc  Off Nano",
     "category": "wet-drip",
     "costPackageAUD": 65,
     "usagesMainTest": 2,
-    "mainTest": [
-      {
-        "wearRate": 0.377
-      },
-      {
-        "wearRate": 1.077
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.377
+        },
+        {
+          "wearRate": 1.077
+        }
+      ],
+      "testKilometerEquivalent": 1578.4586815227483
+    }
   },
   {
     "name": "Cyclon All weather",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.243
-      },
-      {
-        "wearRate": 0.963
-      },
-      {
-        "wearRate": 0.882
-      },
-      {
-        "wearRate": 1.64
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.243
+        },
+        {
+          "wearRate": 0.963
+        },
+        {
+          "wearRate": 0.882
+        },
+        {
+          "wearRate": 1.64
+        }
+      ],
+      "testKilometerEquivalent": 1786.0851505711319
+    }
   },
   {
     "name": "Airolube",
     "category": "wet-drip",
     "costPackageAUD": 25,
     "usagesMainTest": 1,
-    "mainTest": [
-      {
-        "wearRate": 0.097
-      },
-      {
-        "wearRate": 0.989
-      },
-      {
-        "wearRate": 0.58
-      },
-      {
-        "wearRate": 1.651
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.097
+        },
+        {
+          "wearRate": 0.989
+        },
+        {
+          "wearRate": 0.58
+        },
+        {
+          "wearRate": 1.651
+        }
+      ],
+      "testKilometerEquivalent": 1913.0434782608695
+    }
   },
   {
     "name": "Shimano Factory Grease",
     "category": "other",
-    "mainTest": [
-      {
-        "wearRate": 0.1086
-      },
-      {
-        "wearRate": 0.208
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.1086
+        },
+        {
+          "wearRate": 0.208
+        }
+      ],
+      "testKilometerEquivalent": 3000
+    }
   },
   {
     "name": "Finish line Ceramic Wax",
     "category": "wet-drip",
-    "mainTest": [
-      {
-        "wearRate": 0.723
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.723
+        }
+      ],
+      "testKilometerEquivalent": 1383.1258644536654
+    }
   },
   {
     "name": "Wend Wax test 1 - stick only",
     "category": "other",
-    "mainTest": [
-      {
-        "wearRate": 0.74
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.74
+        }
+      ],
+      "testKilometerEquivalent": 1351.3513513513515
+    }
   },
   {
     "name": "<no lubricant>",
     "category": "other",
-    "mainTest": [
-      {
-        "wearRate": 0.903
-      }
-    ]
+    "mainTest": {
+      "blockWear": [
+        {
+          "wearRate": 0.903
+        }
+      ],
+      "testKilometerEquivalent": 1107.4197120708748
+    }
   }
 ]

@@ -46,6 +46,33 @@ function mapCategory(raw: string): ProductCategory {
   }
 }
 
+function calculateEquivalentTestKilometers(productName: string, mainTestBlocks: number[]): number {
+  let cumWear = 0;
+  let idx = mainTestBlocks.length - 1;
+
+  for (let i = 0; i < mainTestBlocks.length; i++) {
+    cumWear += mainTestBlocks[i];
+    if (cumWear >= 1.0) {
+      idx = i;
+      break;
+    }
+  }
+
+  if (cumWear < 1.0) {
+    let res = (1000 * (idx + 1)) / cumWear;
+    if (idx < 5 && res > 1000 * (idx + 2)) {
+      let truncated_res = 1000 * (idx + 2);
+      console.log(
+        `Warning: Truncating equivalent kilometers to ${truncated_res} km (instead of ${Math.round(res)} km) for ${productName}`,
+      );
+      return truncated_res;
+    }
+    return res;
+  } else {
+    return 1000 * (idx + (1.0 + mainTestBlocks[idx] - cumWear) / mainTestBlocks[idx]);
+  }
+}
+
 const csvText = readFileSync(resolve(ROOT, "data.csv"), "utf-8");
 const [_header, ...dataLines] = csvText.split("\n").filter((l) => l.trim() !== "");
 
@@ -54,11 +81,11 @@ const products: Product[] = dataLines.map((line) => {
   const get = (i: number): string => (cols[i] ?? "").trim();
 
   // Collect consecutive non-empty main test blocks (no gaps by spec)
-  const mainTest = [];
+  const mainTestBlocks = [];
   for (let i = COL_MAIN_FIRST; i <= COL_MAIN_LAST; i++) {
     const v = parseNum(cols[i] ?? "");
     if (v === undefined) break;
-    mainTest.push({ wearRate: v });
+    mainTestBlocks.push({ wearRate: v });
   }
 
   const longevityCondition = (
@@ -99,7 +126,15 @@ const products: Product[] = dataLines.map((line) => {
   const usages = parseNum(get(COL_USAGES));
   if (usages !== undefined) product.usagesMainTest = usages;
 
-  if (mainTest.length > 0) product.mainTest = mainTest;
+  if (mainTestBlocks.length > 0) {
+    product.mainTest = {
+      blockWear: mainTestBlocks,
+      testKilometerEquivalent: calculateEquivalentTestKilometers(
+        product.name,
+        mainTestBlocks.map((block) => block.wearRate),
+      ),
+    };
+  }
   if (longevity !== undefined) product.longevity = longevity;
 
   return product;
