@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { products } from "./data";
+import { useSelectionStore } from "./stores/selection";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
 import LubricantDetails from "./components/LubricantDetails.vue";
@@ -16,6 +17,7 @@ const TABS: { id: TabId; label: string }[] = [
 ];
 
 const activeTab = ref<TabId>("overview");
+const store = useSelectionStore();
 </script>
 
 <template>
@@ -25,6 +27,13 @@ const activeTab = ref<TabId>("overview");
   </header>
 
   <main>
+    <div v-if="store.selectedName" class="selection-banner">
+      <span
+        >Selected lubricant: <strong>{{ store.selectedName }}</strong></span
+      >
+      <button class="clear-btn" @click="store.clear()">✕</button>
+    </div>
+
     <nav class="tab-nav" role="tablist">
       <button
         v-for="tab in TABS"
@@ -84,6 +93,33 @@ h1 {
 .subtitle {
   color: var(--text-muted);
   font-size: 0.95rem;
+}
+
+.selection-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+  color: var(--text-heading);
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-muted);
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.clear-btn:hover {
+  color: var(--text-heading);
 }
 
 .tab-nav {

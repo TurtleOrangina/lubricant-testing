@@ -2,7 +2,7 @@
 import type { Product } from "../types";
 import { BLOCK_DESCRIPTIONS, CATEGORY_COLORS } from "../constants";
 
-defineProps<{ product: Product }>();
+const props = defineProps<{ product: Product; highlighted?: boolean }>();
 
 const BLOCK_LABELS: Record<number, string> = {
   0: "Chain wear block 1",
@@ -44,7 +44,7 @@ function costTooltip(p: Product): string {
 </script>
 
 <template>
-  <div class="product-card">
+  <div :class="['product-card', { highlighted: props.highlighted }]">
     <div class="product-name">{{ product.name }}</div>
     <div class="product-meta">
       <span
@@ -105,6 +105,13 @@ function costTooltip(p: Product): string {
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow-sm);
+}
+
+.product-card.highlighted {
+  border-color: #3b82f6;
+  box-shadow:
+    0 0 0 2px rgba(59, 130, 246, 0.2),
+    var(--shadow-sm);
 }
 
 .product-name {

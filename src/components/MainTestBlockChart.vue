@@ -4,21 +4,18 @@ import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
 import { BLOCK_DESCRIPTIONS, BLOCK_LABELS, CATEGORY_COLORS } from "../constants";
+import { useSelectionStore } from "../stores/selection";
 import LubricantCard from "./LubricantCard.vue";
 
 const props = defineProps<{ products: Product[] }>();
 
+const store = useSelectionStore();
 const selectedBlock = ref(0);
-const selectedName = ref<string | null>(null);
+const chartRef = ref<InstanceType<typeof VChart> | null>(null);
 
 const selectedProduct = computed(
-  () => props.products.find((p) => p.name === selectedName.value) ?? null,
+  () => props.products.find((p) => p.name === store.selectedName) ?? null,
 );
-
-function onChartClick(params: unknown) {
-  const { name } = params as { name: string };
-  selectedName.value = selectedName.value === name ? null : name;
-}
 
 const availableBlocks = computed(() =>
   Object.entries(BLOCK_LABELS)
@@ -63,13 +60,27 @@ const legendItems = computed(() => {
   return items;
 });
 
-function tooltip(value: number): string {
-  const percentage = Math.round(100 * value);
-  return `${percentage}%`;
+function formatPct(value: number): string {
+  return `${Math.round(100 * value)}%`;
+}
+
+function handleChartClick(event: MouseEvent) {
+  if (!chartRef.value) return;
+  const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+  const result = chartRef.value.convertFromPixel({ seriesIndex: 0 }, [x, y]) as number[] | null;
+  if (!result) return;
+  const dataIdx = Math.round(result[0]);
+  if (dataIdx < 0 || dataIdx >= sortedEntries.value.length) return;
+  store.select(sortedEntries.value[dataIdx].name);
 }
 
 const option = computed((): EChartsOption => {
   const entries = sortedEntries.value;
+  const selected = store.selectedName;
+  const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
+
   return {
     tooltip: {
       trigger: "axis",
@@ -80,8 +91,7 @@ const option = computed((): EChartsOption => {
           value: number;
           marker: string;
         };
-        const percentage = Math.round(100 * item.value);
-        return `${item.marker}<b>${item.name}</b>: ${percentage}%`;
+        return `${item.marker}<b>${item.name}</b>: ${formatPct(item.value)}`;
       },
     },
     title: {
@@ -101,6 +111,8 @@ const option = computed((): EChartsOption => {
         interval: 0,
         overflow: "truncate",
         width: 120,
+        formatter: (value: string) => (value === selected ? `{b|${value}}` : value),
+        rich: { b: { fontWeight: "bold", fontSize: 11, width: 120 } },
       },
     },
     yAxis: {
@@ -109,19 +121,24 @@ const option = computed((): EChartsOption => {
       nameLocation: "middle",
       nameGap: 52,
       nameTextStyle: { fontSize: 12 },
-      axisLabel: { formatter: tooltip },
+      axisLabel: { formatter: (v: number) => formatPct(v) },
     },
     series: [
       {
         type: "bar",
         data: entries.map((e) => ({
           value: e.wearRate,
-          itemStyle: {
-            color: e.color,
-            ...(e.name === selectedName.value ? { borderColor: "#111827", borderWidth: 2 } : {}),
-          },
+          itemStyle: { color: e.color },
         })),
         barMaxWidth: 56,
+        markArea:
+          selIdx >= 0
+            ? {
+                silent: true,
+                data: [[{ xAxis: entries[selIdx].name }, { xAxis: entries[selIdx].name }]],
+                itemStyle: { color: "rgba(59, 130, 246, 0.12)" },
+              }
+            : undefined,
       },
     ],
   };
@@ -136,7 +153,9 @@ const option = computed((): EChartsOption => {
       </option>
     </select>
 
-    <VChart :option="option" style="height: 420px" autoresize @click="onChartClick" />
+    <div class="chart-wrapper" @click="handleChartClick">
+      <VChart ref="chartRef" :option="option" style="height: 420px" autoresize />
+    </div>
 
     <div class="legend">
       <span v-for="item in legendItems" :key="item.category" class="legend-item">
@@ -147,7 +166,7 @@ const option = computed((): EChartsOption => {
 
     <div v-if="selectedProduct" class="selected-card">
       <p class="selected-label">Selected lubricant</p>
-      <LubricantCard :product="selectedProduct" />
+      <LubricantCard :product="selectedProduct" :highlighted="true" />
     </div>
   </div>
 </template>
@@ -166,6 +185,10 @@ const option = computed((): EChartsOption => {
   border: 1px solid #d1d5db;
   background: #fff;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.chart-wrapper {
   cursor: pointer;
 }
 

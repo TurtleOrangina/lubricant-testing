@@ -4,8 +4,11 @@ import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
 import { PRODUCT_COLORS } from "../constants";
+import { useSelectionStore } from "../stores/selection";
 
 const props = defineProps<{ products: Product[] }>();
+
+const store = useSelectionStore();
 
 const CONDITIONS = ["Dry Road", "Dry Gravel", "Extreme Conditions"] as const;
 const CONDITION_KEYS = ["dryRoad", "dryGravel", "extremeConditions"] as const;
@@ -16,8 +19,14 @@ const productsWithLongevity = computed(() =>
     .filter(({ product }) => product.longevity != null),
 );
 
+function onChartClick(params: unknown) {
+  const { seriesName } = params as { seriesName: string };
+  store.select(seriesName);
+}
+
 const option = computed((): EChartsOption => {
   const filtered = productsWithLongevity.value;
+  const selected = store.selectedName;
 
   return {
     tooltip: {
@@ -51,7 +60,13 @@ const option = computed((): EChartsOption => {
         return html;
       },
     },
-    legend: { bottom: 0, type: "scroll", textStyle: { fontSize: 12 } },
+    legend: {
+      bottom: 0,
+      type: "scroll",
+      formatter: (name: string) => (name === selected ? `{b|${name}}` : name),
+      textStyle: { fontSize: 12 },
+      rich: { b: { fontWeight: "bold", fontSize: 12 } },
+    },
     grid: { left: 60, right: 24, top: 24, bottom: 80 },
     xAxis: {
       type: "category",
@@ -76,5 +91,5 @@ const option = computed((): EChartsOption => {
 </script>
 
 <template>
-  <VChart :option="option" style="height: 420px" autoresize />
+  <VChart :option="option" style="height: 420px" autoresize @click="onChartClick" />
 </template>

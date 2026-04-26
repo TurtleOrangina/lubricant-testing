@@ -1,9 +1,11 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart, BarChart } from "echarts/charts";
 import {
   GridComponent,
+  MarkAreaComponent,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -16,9 +18,10 @@ use([
   LineChart,
   BarChart,
   GridComponent,
+  MarkAreaComponent,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
 ]);
 
-createApp(App).mount("#app");
+createApp(App).use(createPinia()).mount("#app");
