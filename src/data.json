@@ -25,7 +25,8 @@
           "wearRate": 0.086
         }
       ],
-      "testKilometerEquivalent": 22058.823529411762
+      "testKilometerEquivalent": 22059,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -68,7 +69,8 @@
           "wearRate": 0.143
         }
       ],
-      "testKilometerEquivalent": 29469.54813359529
+      "testKilometerEquivalent": 29470,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -112,7 +114,8 @@
           "wearRate": 0.16
         }
       ],
-      "testKilometerEquivalent": 15113.350125944584
+      "testKilometerEquivalent": 15113,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     }
   },
   {
@@ -142,7 +145,8 @@
           "wearRate": 0.197
         }
       ],
-      "testKilometerEquivalent": 18987.3417721519
+      "testKilometerEquivalent": 18987,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -186,7 +190,8 @@
           "wearRate": 0.211
         }
       ],
-      "testKilometerEquivalent": 14506.769825918764
+      "testKilometerEquivalent": 14507,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -208,7 +213,6 @@
     "category": "immersive wax",
     "costPackageAUD": 5,
     "usagesMainTest": 0.6,
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 6.",
     "mainTest": {
       "blockWear": [
         {
@@ -227,8 +231,10 @@
           "wearRate": 0.058
         }
       ],
-      "testKilometerEquivalent": 6000
-    }
+      "testKilometerEquivalent": 6000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
+    },
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 6."
   },
   {
     "name": "Optimize Bike Graphene Wax",
@@ -256,7 +262,8 @@
           "wearRate": 0.234
         }
       ],
-      "testKilometerEquivalent": 10771.992818671453
+      "testKilometerEquivalent": 10772,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     }
   },
   {
@@ -285,7 +292,8 @@
           "wearRate": 0.28
         }
       ],
-      "testKilometerEquivalent": 10869.565217391304
+      "testKilometerEquivalent": 10870,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -328,7 +336,8 @@
           "wearRate": 0.32
         }
       ],
-      "testKilometerEquivalent": 9966.777408637872
+      "testKilometerEquivalent": 9967,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -371,7 +380,8 @@
           "wearRate": 0.32
         }
       ],
-      "testKilometerEquivalent": 5468.75
+      "testKilometerEquivalent": 5469,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -400,7 +410,8 @@
           "wearRate": 0.32
         }
       ],
-      "testKilometerEquivalent": 7500
+      "testKilometerEquivalent": 7500,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -443,7 +454,8 @@
           "wearRate": 0.34
         }
       ],
-      "testKilometerEquivalent": 10118.043844856662
+      "testKilometerEquivalent": 10118,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     }
   },
   {
@@ -472,7 +484,8 @@
           "wearRate": 0.357
         }
       ],
-      "testKilometerEquivalent": 13452.914798206279
+      "testKilometerEquivalent": 13453,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -515,7 +528,8 @@
           "wearRate": 0.363
         }
       ],
-      "testKilometerEquivalent": 6731.740154830024
+      "testKilometerEquivalent": 6732,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     }
   },
   {
@@ -544,7 +558,8 @@
           "wearRate": 0.365
         }
       ],
-      "testKilometerEquivalent": 5421.9178082191775
+      "testKilometerEquivalent": 5422,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -571,7 +586,8 @@
           "wearRate": 0.17
         }
       ],
-      "testKilometerEquivalent": 6000
+      "testKilometerEquivalent": 6000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     },
     "longevity": {
       "dryRoad": {
@@ -611,7 +627,8 @@
           "wearRate": 0.237
         }
       ],
-      "testKilometerEquivalent": 4590.71729957806
+      "testKilometerEquivalent": 4591,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -619,7 +636,6 @@
     "category": "wax drip",
     "costPackageAUD": 25,
     "usagesMainTest": 5,
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 6.",
     "mainTest": {
       "blockWear": [
         {
@@ -638,13 +654,14 @@
           "wearRate": 0.3
         }
       ],
-      "testKilometerEquivalent": 6000
-    }
+      "testKilometerEquivalent": 6000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
+    },
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 6."
   },
   {
     "name": "Private Immersive wax (3)",
     "category": "immersive wax",
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -660,8 +677,10 @@
           "wearRate": 0.317
         }
       ],
-      "testKilometerEquivalent": 5000
-    }
+      "testKilometerEquivalent": 5000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
+    },
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 5."
   },
   {
     "name": "Private Immersive wax (2)",
@@ -687,13 +706,13 @@
           "wearRate": 0.417
         }
       ],
-      "testKilometerEquivalent": 6880.733944954129
+      "testKilometerEquivalent": 6881,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     }
   },
   {
     "name": "Private Immersive wax",
     "category": "immersive wax",
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -709,8 +728,10 @@
           "wearRate": 0.34
         }
       ],
-      "testKilometerEquivalent": 5000
-    }
+      "testKilometerEquivalent": 5000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
+    },
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 5."
   },
   {
     "name": "Allied GRAX",
@@ -732,7 +753,8 @@
           "wearRate": 0.42
         }
       ],
-      "testKilometerEquivalent": 3971.4285714285716
+      "testKilometerEquivalent": 3971,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -772,7 +794,8 @@
           "wearRate": 0.725
         }
       ],
-      "testKilometerEquivalent": 4252.413793103448
+      "testKilometerEquivalent": 4252,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -798,7 +821,8 @@
           "wearRate": 0.343
         }
       ],
-      "testKilometerEquivalent": 4478.134110787172
+      "testKilometerEquivalent": 4478,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -821,7 +845,8 @@
           "wearRate": 0.489
         }
       ],
-      "testKilometerEquivalent": 3836.4008179959096
+      "testKilometerEquivalent": 3836,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -850,7 +875,8 @@
           "wearRate": 0.517
         }
       ],
-      "testKilometerEquivalent": 5961.315280464216
+      "testKilometerEquivalent": 5961,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -876,7 +902,8 @@
           "wearRate": 0.217
         }
       ],
-      "testKilometerEquivalent": 5434.782608695652
+      "testKilometerEquivalent": 5435,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     },
     "longevity": {
       "dryRoad": {
@@ -896,7 +923,6 @@
   {
     "name": "Private wax drip (1)",
     "category": "wax drip",
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 5.",
     "mainTest": {
       "blockWear": [
         {
@@ -912,8 +938,10 @@
           "wearRate": 0.591
         }
       ],
-      "testKilometerEquivalent": 5000
-    }
+      "testKilometerEquivalent": 5000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
+    },
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 5."
   },
   {
     "name": "Rex Black Diamond",
@@ -938,7 +966,8 @@
           "wearRate": 0.243
         }
       ],
-      "testKilometerEquivalent": 5138.74614594039
+      "testKilometerEquivalent": 5139,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     },
     "longevity": {
       "dryRoad": {
@@ -972,7 +1001,8 @@
           "wearRate": 0.286
         }
       ],
-      "testKilometerEquivalent": 3064.35137895812
+      "testKilometerEquivalent": 3064,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -995,7 +1025,8 @@
           "wearRate": 0.437
         }
       ],
-      "testKilometerEquivalent": 4324.324324324324
+      "testKilometerEquivalent": 4324,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     },
     "longevity": {
       "dryRoad": {
@@ -1038,7 +1069,8 @@
           "wearRate": 0.66
         }
       ],
-      "testKilometerEquivalent": 5396.969696969696
+      "testKilometerEquivalent": 5397,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1061,7 +1093,8 @@
           "wearRate": 0.474
         }
       ],
-      "testKilometerEquivalent": 3723.6286919831223
+      "testKilometerEquivalent": 3724,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -1100,7 +1133,8 @@
           "wearRate": 0.21
         }
       ],
-      "testKilometerEquivalent": 4719.047619047619
+      "testKilometerEquivalent": 4719,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -1135,7 +1169,8 @@
           "wearRate": 0.78
         }
       ],
-      "testKilometerEquivalent": 6122.448979591837
+      "testKilometerEquivalent": 6122,
+      "testKilometerCalculationType": "test_completed_with_less_than_hundred_percent_wear"
     }
   },
   {
@@ -1155,7 +1190,8 @@
           "wearRate": 0.54
         }
       ],
-      "testKilometerEquivalent": 2559.259259259259
+      "testKilometerEquivalent": 2559,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1178,7 +1214,8 @@
           "wearRate": 0.543
         }
       ],
-      "testKilometerEquivalent": 3425.4143646408843
+      "testKilometerEquivalent": 3425,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1201,7 +1238,8 @@
           "wearRate": 0.563
         }
       ],
-      "testKilometerEquivalent": 2812.133072407045
+      "testKilometerEquivalent": 2812,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1219,7 +1257,8 @@
           "wearRate": 0.451
         }
       ],
-      "testKilometerEquivalent": 3051.8819938962356
+      "testKilometerEquivalent": 3052,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -1239,7 +1278,8 @@
           "wearRate": 1.043
         }
       ],
-      "testKilometerEquivalent": 2416.107382550336
+      "testKilometerEquivalent": 2416,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1262,7 +1302,8 @@
           "wearRate": 0.617
         }
       ],
-      "testKilometerEquivalent": 3977.3095623987037
+      "testKilometerEquivalent": 3977,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -1296,7 +1337,8 @@
           "wearRate": 0.483
         }
       ],
-      "testKilometerEquivalent": 2935.8178053830225
+      "testKilometerEquivalent": 2936,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1317,7 +1359,8 @@
           "wearRate": 0.4
         }
       ],
-      "testKilometerEquivalent": 3432.4942791762014
+      "testKilometerEquivalent": 3432,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -1340,7 +1383,8 @@
           "wearRate": 0.65
         }
       ],
-      "testKilometerEquivalent": 3647.692307692307
+      "testKilometerEquivalent": 3648,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1364,7 +1408,8 @@
           "wearRate": 0.994
         }
       ],
-      "testKilometerEquivalent": 3675.050301810865
+      "testKilometerEquivalent": 3675,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1382,7 +1427,8 @@
           "wearRate": 0.309
         }
       ],
-      "testKilometerEquivalent": 3340.75723830735
+      "testKilometerEquivalent": 3341,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -1405,7 +1451,8 @@
           "wearRate": 0.731
         }
       ],
-      "testKilometerEquivalent": 3168.2626538987683
+      "testKilometerEquivalent": 3168,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1428,7 +1475,8 @@
           "wearRate": 0.734
         }
       ],
-      "testKilometerEquivalent": 3961.8528610354224
+      "testKilometerEquivalent": 3962,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -1465,7 +1513,8 @@
           "wearRate": 1.036
         }
       ],
-      "testKilometerEquivalent": 3142.8571428571427
+      "testKilometerEquivalent": 3143,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     },
     "longevity": {
       "dryRoad": {
@@ -1502,7 +1551,8 @@
           "wearRate": 0.817
         }
       ],
-      "testKilometerEquivalent": 1793.960923623446
+      "testKilometerEquivalent": 1794,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1522,7 +1572,8 @@
           "wearRate": 0.523
         }
       ],
-      "testKilometerEquivalent": 2529.636711281071
+      "testKilometerEquivalent": 2530,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1542,7 +1593,8 @@
           "wearRate": 0.217
         }
       ],
-      "testKilometerEquivalent": 2695.852534562212
+      "testKilometerEquivalent": 2696,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1563,7 +1615,8 @@
           "wearRate": 1.017
         }
       ],
-      "testKilometerEquivalent": 3070.7964601769913
+      "testKilometerEquivalent": 3071,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1580,7 +1633,8 @@
           "wearRate": 0.78
         }
       ],
-      "testKilometerEquivalent": 2301.4959723820484
+      "testKilometerEquivalent": 2301,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -1598,7 +1652,8 @@
           "wearRate": 0.911
         }
       ],
-      "testKilometerEquivalent": 1931.9429198682765
+      "testKilometerEquivalent": 1932,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1615,7 +1670,8 @@
           "wearRate": 0.95
         }
       ],
-      "testKilometerEquivalent": 1969.4736842105262
+      "testKilometerEquivalent": 1969,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1632,7 +1688,8 @@
           "wearRate": 0.989
         }
       ],
-      "testKilometerEquivalent": 1732.0525783619817
+      "testKilometerEquivalent": 1732,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1649,7 +1706,8 @@
           "wearRate": 1.077
         }
       ],
-      "testKilometerEquivalent": 1578.4586815227483
+      "testKilometerEquivalent": 1578,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1672,7 +1730,8 @@
           "wearRate": 1.64
         }
       ],
-      "testKilometerEquivalent": 1786.0851505711319
+      "testKilometerEquivalent": 1786,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
@@ -1695,13 +1754,13 @@
           "wearRate": 1.651
         }
       ],
-      "testKilometerEquivalent": 1913.0434782608695
+      "testKilometerEquivalent": 1913,
+      "testKilometerCalculationType": "have_data_past_hundred_percent_wear"
     }
   },
   {
     "name": "Shimano Factory Grease",
     "category": "other",
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 3.",
     "mainTest": {
       "blockWear": [
         {
@@ -1711,8 +1770,10 @@
           "wearRate": 0.208
         }
       ],
-      "testKilometerEquivalent": 3000
-    }
+      "testKilometerEquivalent": 3000,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
+    },
+    "note": "\"Main Test Kilometers\" are truncated due to missing block 3."
   },
   {
     "name": "Finish line Ceramic Wax",
@@ -1723,7 +1784,8 @@
           "wearRate": 0.723
         }
       ],
-      "testKilometerEquivalent": 1383.1258644536654
+      "testKilometerEquivalent": 1383,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -1735,7 +1797,8 @@
           "wearRate": 0.74
         }
       ],
-      "testKilometerEquivalent": 1351.3513513513515
+      "testKilometerEquivalent": 1351,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {
@@ -1747,7 +1810,8 @@
           "wearRate": 0.903
         }
       ],
-      "testKilometerEquivalent": 1107.4197120708748
+      "testKilometerEquivalent": 1107,
+      "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
     }
   },
   {

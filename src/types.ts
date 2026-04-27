@@ -3,6 +3,7 @@ export type ProductCategory = "immersive wax" | "wax drip" | "wet-drip" | "other
 export interface MainTest {
   blockWear?: MainTestBlock[]; // 1–6 sequential blocks, 1000km each.
   testKilometerEquivalent: number; // How many test kilometers does this performance equate to (higher is better)
+  testKilometerCalculationType: string; // One of "have_data_past_hundred_percent_wear" "no_data_past_hundred_test_aborted_early" "test_completed_with_less_than_hundred_percent_wear"
 }
 
 export interface MainTestBlock {

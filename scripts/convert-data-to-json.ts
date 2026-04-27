@@ -47,8 +47,9 @@ function mapCategory(raw: string): ProductCategory {
   }
 }
 
-function calculateEquivalentTestKilometers(product: Product, mainTestBlocks: number[]): number {
+function calculateEquivalentTestKilometers(product: Product) {
   let cumWear = 0;
+  const mainTestBlocks = product.mainTest!.blockWear!.map((block) => block.wearRate);
   let idx = mainTestBlocks.length - 1;
 
   for (let i = 0; i < mainTestBlocks.length; i++) {
@@ -61,6 +62,12 @@ function calculateEquivalentTestKilometers(product: Product, mainTestBlocks: num
 
   if (cumWear < 1.0) {
     let res = (1000 * (idx + 1)) / cumWear;
+    if (idx == 5) {
+      product.mainTest!.testKilometerCalculationType =
+        "test_completed_with_less_than_hundred_percent_wear";
+    } else {
+      product.mainTest!.testKilometerCalculationType = "no_data_past_hundred_test_aborted_early";
+    }
     if (idx < 5 && res > 1000 * (idx + 2)) {
       let truncated_res = 1000 * (idx + 2);
       console.log(
@@ -72,11 +79,15 @@ function calculateEquivalentTestKilometers(product: Product, mainTestBlocks: num
       } else {
         product.note = append_string;
       }
-      return truncated_res;
+      product.mainTest!.testKilometerEquivalent = Math.round(truncated_res);
+    } else {
+      product.mainTest!.testKilometerEquivalent = Math.round(res);
     }
-    return res;
   } else {
-    return 1000 * (idx + (1.0 + mainTestBlocks[idx] - cumWear) / mainTestBlocks[idx]);
+    product.mainTest!.testKilometerCalculationType = "have_data_past_hundred_percent_wear";
+    product.mainTest!.testKilometerEquivalent = Math.round(
+      1000 * (idx + (1.0 + mainTestBlocks[idx] - cumWear) / mainTestBlocks[idx]),
+    );
   }
 }
 
@@ -139,11 +150,10 @@ const products: Product[] = dataLines.map((line) => {
   if (mainTestBlocks.length > 0) {
     product.mainTest = {
       blockWear: mainTestBlocks,
-      testKilometerEquivalent: calculateEquivalentTestKilometers(
-        product,
-        mainTestBlocks.map((block) => block.wearRate),
-      ),
+      testKilometerEquivalent: -1,
+      testKilometerCalculationType: "unknown",
     };
+    calculateEquivalentTestKilometers(product);
   }
   if (longevity !== undefined) product.longevity = longevity;
 
@@ -152,4 +162,29 @@ const products: Product[] = dataLines.map((line) => {
 
 const outputPath = resolve(ROOT, "src", "data.json");
 writeFileSync(outputPath, JSON.stringify(products, null, 2) + "\n");
+
+const calculationTypeCounts: Record<string, number> = {};
+
+for (const product of products) {
+  const type = product.mainTest?.testKilometerCalculationType;
+  if (!type) continue;
+
+  calculationTypeCounts[type] = (calculationTypeCounts[type] ?? 0) + 1;
+}
+
+console.log("=====");
+const beat_the_test =
+  calculationTypeCounts["test_completed_with_less_than_hundred_percent_wear"] ?? 0;
+const tested_until_chain_fully_worn =
+  calculationTypeCounts["have_data_past_hundred_percent_wear"] ?? 0;
+const test_aborted_before_chain_fully_worn =
+  calculationTypeCounts["no_data_past_hundred_test_aborted_early"] ?? 0;
+console.log(`${beat_the_test} products beat the main test (chain < 100% worn at end)`);
+console.log(
+  `${tested_until_chain_fully_worn} products were beaten by the main test (chain >= 100% worn reached)`,
+);
+console.log(
+  `${test_aborted_before_chain_fully_worn} products weren't tested until chain fully worn, test aborted before.`,
+);
+
 console.log(`Wrote ${products.length} products → ${outputPath}`);
