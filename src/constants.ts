@@ -27,10 +27,10 @@ export const BLOCK_LABELS: Record<number, string> = {
 };
 
 export const BLOCK_DESCRIPTIONS: Record<number, string> = {
-  0: "1000km dry and clean (no water and no contamination). Includes 2 re lubrication points.",
-  1: "1000km dry dust contamination. At 7 points dry dust is added, and 7 re lubrications are done.",
-  2: "1000km dry and clean. Includes 3 re lubrication points. Tests clearing of left over contamination from Block 2.",
-  3: "1000km wet contamination. At 7 points wet contamination is added, and 7 re lubrications are done.",
-  4: "1000km dry and clean. Includes 3 re lubrication points. Tests clearing of left over contamination from Block 4.",
-  5: "1000km extreme wet contamination. At 14 points wet contamination is added, and 7 re lubrications are done.",
+  0: "1000km dry and clean (no water and no contamination). Includes 3 re lubrication points (or 1 for extended intervals)",
+  1: "1000km dry dust contamination. At 7 points dry dust is added, and 6 re lubrications are done (or 2 for extended intervals).",
+  2: "1000km dry and clean. Includes 3 re lubrication points (or 1 for extended intervals). Tests clearing of left over contamination from Block 2.",
+  3: "1000km wet contamination. At 7 points wet contamination is added, and 6 re lubrications are done (or 2 for extended intervals).",
+  4: "1000km dry and clean. Includes 3 re lubrication points (or 1 for extended intervals). Tests clearing of left over contamination from Block 4.",
+  5: "1000km extreme wet contamination. At 14 points wet contamination is added, and 6 re lubrications are done (or 3 for extended intervals).",
 };

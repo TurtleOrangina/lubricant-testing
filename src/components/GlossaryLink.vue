@@ -17,7 +17,7 @@ const nav = useNavigationStore();
   border: none;
   padding: 0;
   margin: 0;
-  color: #3b82f6;
+  color: var(--text-muted);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   cursor: pointer;
@@ -29,6 +29,6 @@ const nav = useNavigationStore();
 }
 
 .glossary-link:hover {
-  color: #1d4ed8;
+  color: var(--text);
 }
 </style>

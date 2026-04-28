@@ -67,10 +67,10 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         test whether a lubricant can clear contamination and recover performance during clean
         blocks, and how well it protects under increasingly harsh contamination in the later blocks.
       </p>
-      For lubricants that are meant to be applied less frequently or more frequently than the
-      standard re lubrication protocol provides, the note "Extended Intervals" or "Double
-      applications" were added, and the amount of lubrication points was halved or doubled,
-      respectively.
+      <strong>Extended Intervals/Double applications</strong>: For lubricants that are meant to be
+      applied less frequently or more frequently than the standard re lubrication protocol provides,
+      the note "Extended Intervals" or "Double applications" was added, and the amount of
+      lubrication points reduced or doubled, respectively.
     </section>
 
     <section id="chain-wear" class="glossary-section">

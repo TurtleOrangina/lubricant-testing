@@ -69,11 +69,7 @@ function costTooltip(p: Product): string {
           <span class="stat-label">
             <GlossaryLink section="main-test-blocks">{{ BLOCK_LABELS[i] }}</GlossaryLink>
           </span>
-          <span class="stat-value">
-            <GlossaryLink section="chain-wear"
-              >{{ Math.round(100 * block.wearRate) }}% wear</GlossaryLink
-            >
-          </span>
+          <span class="stat-value"> {{ Math.round(100 * block.wearRate) }}% </span>
         </div>
       </template>
 
