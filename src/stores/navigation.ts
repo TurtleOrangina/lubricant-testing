@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export type TabId = "overview" | "blocks" | "longevity" | "details" | "glossary";
+export type TabId = "overview" | "blocks" | "longevity" | "details" | "glossary" | "admin";
 
 interface NavHistoryState {
   tab: TabId;

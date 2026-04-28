@@ -90,7 +90,7 @@
   {
     "name": "Finish Line Halo hot wax",
     "category": "immersive wax",
-    "note": "re-test Jan 25",
+    "note": "Re-test Jan 25",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -121,7 +121,7 @@
   {
     "name": "Mspeedwax",
     "category": "immersive wax",
-    "note": "new formula",
+    "note": "New Formula",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -1640,7 +1640,7 @@
   {
     "name": "Finish Line Wet",
     "category": "wet-drip",
-    "note": "green bottle",
+    "note": "Green bottle",
     "costPackageAUD": 20,
     "usagesMainTest": 1,
     "mainTest": {

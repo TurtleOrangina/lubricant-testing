@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from "vue";
-import { products } from "./data";
+import { storeToRefs } from "pinia";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
 import LubricantDetails from "./components/LubricantDetails.vue";
 import LongevityChart from "./components/LongevityChart.vue";
 import Glossary from "./components/Glossary.vue";
 import GlossaryLink from "./components/GlossaryLink.vue";
+import AdminTab from "./components/AdminTab.vue";
 import { useNavigationStore } from "./stores/navigation";
+import { useProductsStore } from "./stores/products";
 import type { TabId } from "./stores/navigation";
 
 const nav = useNavigationStore();
+const { products } = storeToRefs(useProductsStore());
 
 function onPopState(event: PopStateEvent) {
   nav.restoreFromHistory(event.state);
@@ -31,6 +34,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "longevity", label: "Single Application Longevity" },
   { id: "details", label: "Lubricant Details" },
   { id: "glossary", label: "Glossary" },
+  { id: "admin", label: "Admin" },
 ];
 </script>
 
@@ -88,6 +92,10 @@ const TABS: { id: TabId; label: string }[] = [
 
       <template v-else-if="nav.activeTab === 'glossary'">
         <Glossary />
+      </template>
+
+      <template v-else-if="nav.activeTab === 'admin'">
+        <AdminTab />
       </template>
     </div>
   </main>
