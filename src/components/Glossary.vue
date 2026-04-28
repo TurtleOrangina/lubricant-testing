@@ -35,15 +35,16 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         The Main Test consists of 6000 km of ride simulation to evaluate how well a lubricant
         protects the chain over extended use. The test machine is Tacx Neo smart trainer set to 250w
         resistance, driven by an industrial motor at 100 cadence - testing on a real bicylcle drive
-        train. Throughout the test the chain is
-        <strong>never cleaned</strong> — only re-lubricated at predetermined intervals — to simulate
-        realistic long-distance riding where the lubricant accumulates grime over time. Up to 30
-        re-lubrications are performed across all six blocks.
+        train. During the test, contamination and water is added at defined points. Throughout the
+        test the chain is <strong>never cleaned</strong> — only re-lubricated at predetermined
+        intervals — to simulate typical use where the lubricant accumulates grime over time. Up to
+        30 re-lubrications are performed across all six blocks.
       </p>
       <p>
         <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> is tracked at the end of each
-        block. The test ends early if the chain reaches 100% wear before all blocks are complete, or
-        if ZFC decides to stop (e.g. for private lubricants showing poor results early on).
+        block. The test can end early if the chain is deemed too worn already, or if further testing
+        would not provide useful insights (e.g. for private lubricants showing poor results early
+        on).
       </p>
       <p>
         The test is divided into six sequential 1000 km
@@ -57,11 +58,11 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         The <GlossaryLink section="main-test">Main Test</GlossaryLink> is divided into six
         sequential 1000 km blocks:
       </p>
-      <ol class="block-list">
+      <ul class="block-list">
         <li v-for="block in BLOCKS" :key="block.index">
           <strong>{{ block.label }}</strong> — {{ block.description }}
         </li>
-      </ol>
+      </ul>
       <p class="note">
         The blocks alternate between clean/dry conditions and contamination conditions, designed to
         test whether a lubricant can clear contamination and recover performance during clean
@@ -94,7 +95,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
       <h3>Main Test Kilometers</h3>
       <p>
         The Main Test Kilometers is a single number that summarises a lubricant's performance in the
-        <GlossaryLink section="main-test">Main Test</GlossaryLink>: roughly,
+        <GlossaryLink section="main-test">Main Test</GlossaryLink>: Roughly,
         <em
           >how many kilometres of the Main Test does it take to fully
           <GlossaryLink section="chain-wear">wear</GlossaryLink> one chain?
@@ -106,15 +107,17 @@ watch(() => nav.glossaryTarget, scrollToTarget);
       <h4>Lubricant beats the test (chain survives all 6000 km)</h4>
       <p>
         If the chain's cumulative wear is below 100% at the end of all six blocks, the result is
-        extrapolated linearly. A lubricant that wore the chain to only 50% over 6000 km would last
-        twice as long, and is awarded
-        <strong>12 000 km</strong>.
+        extrapolated linearly.
+      </p>
+      <p class="example">
+        Example: A lubricant that wore the chain to only 50% over 6000 km would last twice as long,
+        and is awarded <strong>12 000 km</strong>.
       </p>
       <div class="formula-box">Main Test km = 6000 km ÷ (cumulative wear %)</div>
 
       <h4>Test beats the lubricant (chain reaches 100% wear during the test)</h4>
       <p>
-        The lubricant scores 1000 km for completed block prior to reaching 100% cumulative chain
+        The lubricant scores 1000 km for all completed block prior to reaching 100% cumulative chain
         wear. For the block in which the chain crossed 100% wear, it scores a proportional fraction
         of 1000 km based on how far into that block the failure would have occurred (assuming wear
         accumulates linearly within a block).
@@ -130,15 +133,29 @@ watch(() => nav.glossaryTarget, scrollToTarget);
 
       <h4>Test stopped early (chain below 100% wear when test is aborted)</h4>
       <p>
-        When a test is aborted before the chain reaches 100% wear — often because results are
-        already known to be uncompetitive — the lubricant receives 1000 km for each completed block,
-        plus an extrapolation for the next block based on the average wear rate seen so far.
+        When a test is aborted before the chain reaches 100% wear, typically because the chain is
+        deemed too worn already, or if further testing would not provide useful insights (e.g. for
+        private lubricants showing poor results early on). The lubricant receives 1000 km for each
+        completed block, plus an extrapolation for the next block based on the average wear rate
+        seen so far.
       </p>
       <p class="example">
-        Example: a lubricant wore the chain to 74% in block 1 and the test was stopped. The score is
+        Example: A lubricant wore the chain to 74% in block 1 and the test was stopped. The score is
         1000 km ÷ 0.74 = <strong>1351 km</strong>. This can be a slightly generous estimate, as it
         assumes the upcoming block would be as demanding as the blocks already completed — in
         reality, later blocks tend to be harder.
+      </p>
+      <p>
+        It is not possible to increase the score by more than 1000km from the extrapolation, and all
+        lubricants where the 1000km extrapolation cap was hit are marked with a comment, indicating
+        that Main Test kilometers were truncated.
+      </p>
+      <p class="example">
+        Example: A private immersive wax test has reached a total of 40% of wear in the first three
+        blocks of testing. The test was aborted because it was already clear this wax was not
+        performing as hoped. The formula would indicate 3000km ÷ 0.5 = 7500km as score, but since
+        that would be more than 1000km above the actually completed 3000km, the result is truncated
+        at <stong>4000 km</stong>.
       </p>
     </section>
 
@@ -148,7 +165,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         The Single Application Longevity test measures how long a single application of lubricant
         protects the chain before the chain needs to be re-lubed or replaced. Unlike the
         <GlossaryLink section="main-test">Main Test</GlossaryLink>, the lubricant is applied once
-        and the chain is ridden until wear thresholds are reached — no re-lubrication is performed.
+        and the chain is tested until wear thresholds are reached — no re-lubrication is performed.
       </p>
       <p>The test is run under three riding conditions:</p>
       <ul class="condition-list">
@@ -175,7 +192,11 @@ watch(() => nav.glossaryTarget, scrollToTarget);
           <GlossaryLink section="chain-wear">wear</GlossaryLink> and should be replaced.
         </li>
       </ul>
-      <p>Higher values are better for both metrics.</p>
+      <p>
+        Higher values are better for both metrics. Note that the kilometers on a test machine should
+        not be equated 1:1 with real world kilometers. Please lubricate your chain more often than
+        indicated by the single application longevity test.
+      </p>
     </section>
 
     <section id="lubricant-cost" class="glossary-section">
