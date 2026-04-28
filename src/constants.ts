@@ -1,4 +1,12 @@
-import type { ProductCategory } from "./types";
+import type { ProductCategory, SingleApplicationLongevity } from "./types";
+
+export type ConditionKey = keyof SingleApplicationLongevity;
+
+export const LONGEVITY_CONDITIONS: { key: ConditionKey; label: string }[] = [
+  { key: "dryRoad", label: "Dry Road Conditions" },
+  { key: "dryGravel", label: "Dry Gravel / MTB / CX" },
+  { key: "extremeConditions", label: "Extreme Conditions" },
+];
 
 export const PRODUCT_COLORS = ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444"] as const;
 

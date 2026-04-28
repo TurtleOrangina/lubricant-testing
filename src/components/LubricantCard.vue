@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Product } from "../types";
-import { BLOCK_DESCRIPTIONS, CATEGORY_COLORS } from "../constants";
+import { BLOCK_DESCRIPTIONS, CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
 
 const props = defineProps<{ product: Product; highlighted?: boolean; closable?: boolean }>();
 const emit = defineEmits<{ close: [] }>();
@@ -23,12 +23,6 @@ const LONGEVITY_TOOLTIP =
 function roundToHundreds(n: number): number {
   return Math.round(n / 100) * 100;
 }
-
-const LONGEVITY_CONDITIONS = [
-  { key: "dryRoad" as const, label: "Dry Road Conditions" },
-  { key: "dryGravel" as const, label: "Dry Gravel / MTB / CX" },
-  { key: "extremeConditions" as const, label: "Extreme Conditions" },
-];
 
 function priceFor6000km(p: Product): string {
   if (p.costPackageAUD == null || p.usagesMainTest == null) return "Unknown";

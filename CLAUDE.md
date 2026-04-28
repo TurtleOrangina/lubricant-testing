@@ -45,6 +45,16 @@ Note that partially filled data is possible:
 - Use type checking, linting, code auto-formatting (all provided through vite+). Enable strict
   rules where possible to improve code quality.
 
+# File access/permissions
+
+- You can _only_ read/write files inside of the project directory (cwd)
+- This especially includes not being able to write files to /tmp
+  => So if you run shell scripts do not try and redirect the output into /tmp, as that will
+  result in EACCESS errors. If you need the output in a file, you have to put it into the
+  working directory and delete it when finished with it.
+- Additionally, this also means no read access to typical binaries from /bin /usr/bin /usr/local/bin
+  etc. - so you need to ask the user to execute those commands for you (e.g. vp check --fix)
+
 <!--VITE PLUS START-->
 
 # Using Vite+, the Unified Toolchain for the Web

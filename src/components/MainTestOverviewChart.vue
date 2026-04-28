@@ -1,20 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
 import { CATEGORY_COLORS } from "../constants";
-import { useSelectionStore } from "../stores/selection";
+import { useBarChart } from "../composables/useBarChart";
+import { makeCategoryBarData, makeProductXAxis, makeSelectionMarkArea } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 
 const props = defineProps<{ products: Product[] }>();
-
-const store = useSelectionStore();
-const chartRef = ref<InstanceType<typeof VChart> | null>(null);
-
-const selectedProduct = computed(
-  () => props.products.find((p) => p.name === store.selectedName) ?? null,
-);
 
 interface BarEntry {
   name: string;
@@ -35,29 +29,10 @@ const sortedEntries = computed((): BarEntry[] =>
     .sort((a, b) => b.equivalent - a.equivalent),
 );
 
-const legendItems = computed(() => {
-  const seen = new Set<string>();
-  const items: { category: string; color: string }[] = [];
-  for (const e of sortedEntries.value) {
-    if (!seen.has(e.category)) {
-      seen.add(e.category);
-      items.push({ category: e.category, color: e.color });
-    }
-  }
-  return items;
-});
-
-function handleChartClick(event: MouseEvent) {
-  if (!chartRef.value) return;
-  const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  const result = chartRef.value.convertFromPixel({ seriesIndex: 0 }, [x, y]) as number[] | null;
-  if (!result) return;
-  const dataIdx = Math.round(result[0]);
-  if (dataIdx < 0 || dataIdx >= sortedEntries.value.length) return;
-  store.select(sortedEntries.value[dataIdx].name);
-}
+const { store, chartRef, selectedProduct, legendItems, handleChartClick } = useBarChart(
+  () => props.products,
+  sortedEntries,
+);
 
 const option = computed((): EChartsOption => {
   const entries = sortedEntries.value;
@@ -78,19 +53,10 @@ const option = computed((): EChartsOption => {
       },
     },
     grid: { left: 72, right: 24, top: 40, bottom: 130 },
-    xAxis: {
-      type: "category",
-      data: entries.map((e) => e.name),
-      axisLabel: {
-        rotate: 90,
-        fontSize: 11,
-        interval: 0,
-        overflow: "truncate",
-        width: 120,
-        formatter: (value: string) => (value === selected ? `{b|${value}}` : value),
-        rich: { b: { fontWeight: "bold", fontSize: 11, width: 120 } },
-      },
-    },
+    xAxis: makeProductXAxis(
+      entries.map((e) => e.name),
+      selected,
+    ),
     yAxis: {
       type: "value",
       name: "Main Test Kilometers",
@@ -102,19 +68,9 @@ const option = computed((): EChartsOption => {
     series: [
       {
         type: "bar",
-        data: entries.map((e) => ({
-          value: e.equivalent,
-          itemStyle: { color: e.color },
-        })),
+        data: makeCategoryBarData(entries, (e) => e.equivalent),
         barMaxWidth: 56,
-        markArea:
-          selIdx >= 0
-            ? {
-                silent: true,
-                data: [[{ xAxis: entries[selIdx].name }, { xAxis: entries[selIdx].name }]],
-                itemStyle: { color: "rgba(59, 130, 246, 0.12)" },
-              }
-            : undefined,
+        markArea: selIdx >= 0 ? makeSelectionMarkArea(entries[selIdx].name) : undefined,
       },
     ],
   };
@@ -143,15 +99,15 @@ const option = computed((): EChartsOption => {
   </div>
 </template>
 
+<style>
+@import "../styles/chart.css";
+</style>
+
 <style scoped>
 .main-test-overview-chart {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.chart-wrapper {
-  cursor: pointer;
 }
 
 .legend {
@@ -160,29 +116,5 @@ const option = computed((): EChartsOption => {
   gap: 16px;
   justify-content: center;
   font-size: 13px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.legend-swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
-
-.selected-card {
-  margin-top: 8px;
-  max-width: 320px;
-}
-
-.selected-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 6px;
 }
 </style>

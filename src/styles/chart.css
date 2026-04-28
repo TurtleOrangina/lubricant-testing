@@ -1,0 +1,21 @@
+.chart-wrapper {
+  cursor: pointer;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.selected-card {
+  margin-top: 8px;
+  max-width: 320px;
+}
