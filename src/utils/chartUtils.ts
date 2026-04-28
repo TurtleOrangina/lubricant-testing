@@ -37,3 +37,11 @@ export function makeCategoryBarData<T extends ColoredBarEntry>(
     itemStyle: { color: e.color, opacity },
   }));
 }
+
+export function makeCategorySeriesData<T extends { category: string }>(
+  entries: T[],
+  category: string,
+  getValue: (e: T) => number,
+): Array<number | null> {
+  return entries.map((e) => (e.category === category ? getValue(e) : null));
+}

@@ -5,7 +5,11 @@ import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
 import { BLOCK_DESCRIPTIONS, BLOCK_LABELS, CATEGORY_COLORS } from "../constants";
 import { useBarChart } from "../composables/useBarChart";
-import { makeCategoryBarData, makeProductXAxis, makeSelectionMarkArea } from "../utils/chartUtils";
+import {
+  makeCategorySeriesData,
+  makeProductXAxis,
+  makeSelectionMarkArea,
+} from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 
 const props = defineProps<{ products: Product[] }>();
@@ -44,11 +48,15 @@ const sortedEntries = computed((): BarEntry[] => {
 });
 
 const chartRef = useTemplateRef<InstanceType<typeof VChart>>("chartRef");
-const { store, selectedProduct, legendItems, handleChartClick, chartMinWidth } = useBarChart(
-  () => props.products,
-  sortedEntries,
-  chartRef,
-);
+const {
+  store,
+  selectedProduct,
+  legendItems,
+  hiddenCategories,
+  handleLegendChange,
+  handleChartClick,
+  chartMinWidth,
+} = useBarChart(() => props.products, sortedEntries, chartRef);
 
 function formatPct(value: number): string {
   return `${Math.round(100 * value)}%`;
@@ -58,18 +66,37 @@ const option = computed((): EChartsOption => {
   const entries = sortedEntries.value;
   const selected = store.selectedName;
   const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
+  const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
+  const categories = [...new Set(entries.map((e) => e.category))];
 
   return {
+    legend: {
+      top: 42,
+      left: "center",
+      itemWidth: 14,
+      itemHeight: 14,
+      itemGap: 20,
+      textStyle: { fontSize: 13 },
+      data: legendItems.value.map((item) => ({ name: item.category })),
+      selected: Object.fromEntries(
+        legendItems.value.map((item) => [
+          item.category,
+          !hiddenCategories.value.has(item.category),
+        ]),
+      ),
+    },
     tooltip: {
       trigger: "axis",
       axisPointer: { type: "shadow" },
       formatter: (params: unknown) => {
-        const item = (Array.isArray(params) ? params[0] : params) as {
+        const items = (Array.isArray(params) ? params : [params]) as Array<{
           name: string;
-          value: number;
+          value: number | null;
           marker: string;
-        };
-        return `${item.marker}<b>${item.name}</b>: ${formatPct(item.value)}`;
+        }>;
+        const item = items.find((i) => i.value != null);
+        if (!item) return "";
+        return `${item.marker}<b>${item.name}</b>: ${formatPct(item.value!)}`;
       },
     },
     title: {
@@ -79,7 +106,7 @@ const option = computed((): EChartsOption => {
       top: 8,
       left: 60,
     },
-    grid: { left: 72, right: 24, top: 72, bottom: 130 },
+    grid: { left: 72, right: 24, top: 80, bottom: 130 },
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
@@ -92,14 +119,18 @@ const option = computed((): EChartsOption => {
       nameTextStyle: { fontSize: 12 },
       axisLabel: { formatter: (v: number) => formatPct(v) },
     },
-    series: [
-      {
-        type: "bar",
-        data: makeCategoryBarData(entries, (e) => e.wearRate),
-        barMaxWidth: 56,
-        markArea: selIdx >= 0 ? makeSelectionMarkArea(entries[selIdx].name) : undefined,
-      },
-    ],
+    series: categories.map((cat) => ({
+      name: cat,
+      type: "bar" as const,
+      stack: "main",
+      color: CATEGORY_COLORS[cat],
+      data: makeCategorySeriesData(entries, cat, (e) => e.wearRate),
+      barMaxWidth: 56,
+      markArea:
+        selIdx >= 0 && cat === selectedCategory
+          ? makeSelectionMarkArea(entries[selIdx].name)
+          : undefined,
+    })),
   };
 });
 </script>
@@ -118,15 +149,14 @@ const option = computed((): EChartsOption => {
         :style="{ minWidth: chartMinWidth + 'px' }"
         @click="handleChartClick"
       >
-        <VChart ref="chartRef" :option="option" style="height: 420px" autoresize />
+        <VChart
+          ref="chartRef"
+          :option="option"
+          style="height: 420px"
+          autoresize
+          @legendselectchanged="handleLegendChange"
+        />
       </div>
-    </div>
-
-    <div class="legend">
-      <span v-for="item in legendItems" :key="item.category" class="legend-item">
-        <span class="legend-swatch" :style="{ background: item.color }" />
-        {{ item.category }}
-      </span>
     </div>
 
     <div v-if="selectedProduct" class="selected-card">
@@ -159,13 +189,5 @@ const option = computed((): EChartsOption => {
   background: #fff;
   font-size: 14px;
   cursor: pointer;
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  font-size: 13px;
 }
 </style>

@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import type { MaybeRefOrGetter } from "vue";
 import { toValue } from "vue";
 import VChart from "vue-echarts";
@@ -34,6 +34,16 @@ export function useBarChart<T extends ChartEntry>(
     return items;
   });
 
+  const hiddenCategories = ref<Set<string>>(new Set());
+
+  function handleLegendChange({ selected }: { selected: Record<string, boolean> }) {
+    hiddenCategories.value = new Set(
+      Object.entries(selected)
+        .filter(([, v]) => !v)
+        .map(([k]) => k),
+    );
+  }
+
   function handleChartClick(event: MouseEvent) {
     if (!chartRef.value) return;
     const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
@@ -49,5 +59,13 @@ export function useBarChart<T extends ChartEntry>(
 
   const chartMinWidth = computed(() => 150 + toValue(sortedEntries).length * 8);
 
-  return { store, selectedProduct, legendItems, handleChartClick, chartMinWidth };
+  return {
+    store,
+    selectedProduct,
+    legendItems,
+    hiddenCategories,
+    handleLegendChange,
+    handleChartClick,
+    chartMinWidth,
+  };
 }

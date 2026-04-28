@@ -6,7 +6,11 @@ import type { Product } from "../types";
 import { CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
 import type { ConditionKey } from "../constants";
 import { useBarChart } from "../composables/useBarChart";
-import { makeCategoryBarData, makeProductXAxis, makeSelectionMarkArea } from "../utils/chartUtils";
+import {
+  makeCategorySeriesData,
+  makeProductXAxis,
+  makeSelectionMarkArea,
+} from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 
 const props = defineProps<{ products: Product[] }>();
@@ -36,18 +40,43 @@ const sortedEntries = computed((): BarEntry[] => {
 });
 
 const chartRef = useTemplateRef<InstanceType<typeof VChart>>("chartRef");
-const { store, selectedProduct, legendItems, handleChartClick, chartMinWidth } = useBarChart(
-  () => props.products,
-  sortedEntries,
-  chartRef,
-);
+const {
+  store,
+  selectedProduct,
+  legendItems,
+  hiddenCategories,
+  handleLegendChange,
+  handleChartClick,
+  chartMinWidth,
+} = useBarChart(() => props.products, sortedEntries, chartRef);
 
 const option = computed((): EChartsOption => {
   const entries = sortedEntries.value;
   const selected = store.selectedName;
   const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
+  const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
+  const categories = [...new Set(entries.map((e) => e.category))];
 
   return {
+    legend: {
+      top: 4,
+      left: "center",
+      itemWidth: 14,
+      itemHeight: 14,
+      itemGap: 20,
+      textStyle: { fontSize: 13 },
+      data: legendItems.value.map((item) => ({ name: item.category })),
+      selected: Object.fromEntries([
+        ...legendItems.value.map((item) => [
+          item.category,
+          !hiddenCategories.value.has(item.category),
+        ]),
+        ...legendItems.value.map((item) => [
+          `${item.category}_`,
+          !hiddenCategories.value.has(item.category),
+        ]),
+      ]),
+    },
     tooltip: {
       trigger: "axis",
       axisPointer: { type: "shadow" },
@@ -74,23 +103,29 @@ const option = computed((): EChartsOption => {
       nameTextStyle: { fontSize: 12 },
       axisLabel: { formatter: (v: number) => v.toLocaleString() },
     },
-    series: [
+    series: categories.flatMap((cat) => [
       {
-        name: "Until jump point",
-        type: "bar",
+        name: cat,
+        type: "bar" as const,
         stack: "longevity",
-        data: makeCategoryBarData(entries, (e) => e.jumpPoint),
+        color: CATEGORY_COLORS[cat],
+        data: makeCategorySeriesData(entries, cat, (e) => e.jumpPoint),
         barMaxWidth: 56,
-        markArea: selIdx >= 0 ? makeSelectionMarkArea(entries[selIdx].name) : undefined,
+        markArea:
+          selIdx >= 0 && cat === selectedCategory
+            ? makeSelectionMarkArea(entries[selIdx].name)
+            : undefined,
       },
       {
-        name: "Until replacement",
-        type: "bar",
+        name: `${cat}_`,
+        type: "bar" as const,
         stack: "longevity",
-        data: makeCategoryBarData(entries, (e) => e.wearAllowance - e.jumpPoint, 0.35),
+        color: CATEGORY_COLORS[cat],
+        itemStyle: { opacity: 0.35 },
+        data: makeCategorySeriesData(entries, cat, (e) => e.wearAllowance - e.jumpPoint),
         barMaxWidth: 56,
       },
-    ],
+    ]),
   };
 });
 </script>
@@ -109,26 +144,13 @@ const option = computed((): EChartsOption => {
         :style="{ minWidth: chartMinWidth + 'px' }"
         @click="handleChartClick"
       >
-        <VChart ref="chartRef" :option="option" style="height: 420px" autoresize />
-      </div>
-    </div>
-
-    <div class="legend-row">
-      <div class="legend">
-        <span v-for="item in legendItems" :key="item.category" class="legend-item">
-          <span class="legend-swatch" :style="{ background: item.color }" />
-          {{ item.category }}
-        </span>
-      </div>
-      <div class="bar-key">
-        <span class="bar-key-item">
-          <span class="bar-key-swatch bar-key-swatch--solid" />
-          Until jump point
-        </span>
-        <span class="bar-key-item">
-          <span class="bar-key-swatch bar-key-swatch--light" />
-          Until replacement
-        </span>
+        <VChart
+          ref="chartRef"
+          :option="option"
+          style="height: 420px"
+          autoresize
+          @legendselectchanged="handleLegendChange"
+        />
       </div>
     </div>
 
@@ -163,46 +185,6 @@ const option = computed((): EChartsOption => {
   background: #fff;
   font-size: 14px;
   cursor: pointer;
-}
-
-.legend-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 13px;
-}
-
-.bar-key {
-  display: flex;
-  gap: 16px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.bar-key-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.bar-key-swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  flex-shrink: 0;
-  background: #6b7280;
-}
-
-.bar-key-swatch--light {
-  opacity: 0.35;
 }
 
 .selected-label {
