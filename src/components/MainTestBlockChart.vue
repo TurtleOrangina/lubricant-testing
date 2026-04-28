@@ -71,7 +71,7 @@ const option = computed((): EChartsOption => {
 
   return {
     legend: {
-      top: 42,
+      top: 52,
       left: "center",
       itemWidth: 14,
       itemHeight: 14,

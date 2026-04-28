@@ -33,8 +33,7 @@ const unselectedProducts = computed(() =>
         :product="selectedProduct"
         :highlighted="true"
         :closable="true"
-        class="selected-card selectable"
-        @click="store.select(selectedProduct.name)"
+        class="selected-card"
         @close="store.clear()"
       />
     </div>
@@ -44,8 +43,8 @@ const unselectedProducts = computed(() =>
         v-for="product in unselectedProducts"
         :key="product.name"
         :product="product"
-        class="selectable"
-        @click="store.select(product.name)"
+        :selectable="true"
+        @select="store.select(product.name)"
       />
     </div>
   </div>
@@ -67,10 +66,6 @@ const unselectedProducts = computed(() =>
 
 .selected-card {
   max-width: 320px;
-}
-
-.selectable {
-  cursor: pointer;
 }
 
 .product-grid {

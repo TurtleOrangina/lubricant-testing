@@ -3,8 +3,13 @@ import type { Product } from "../types";
 import { BLOCK_LABELS, CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
 import GlossaryLink from "./GlossaryLink.vue";
 
-const props = defineProps<{ product: Product; highlighted?: boolean; closable?: boolean }>();
-const emit = defineEmits<{ close: [] }>();
+const props = defineProps<{
+  product: Product;
+  highlighted?: boolean;
+  closable?: boolean;
+  selectable?: boolean;
+}>();
+const emit = defineEmits<{ close: []; select: [] }>();
 
 function roundToHundreds(n: number): number {
   return Math.round(n / 100) * 100;
@@ -24,21 +29,27 @@ function costTooltip(p: Product): string {
 
 <template>
   <div :class="['product-card', { highlighted: props.highlighted }]">
-    <div class="card-header">
-      <div class="product-name">{{ product.name }}</div>
-      <button v-if="props.closable" class="close-btn" @click.stop="emit('close')">✕</button>
-    </div>
-    <div v-if="product.note" class="product-note">{{ product.note }}</div>
-    <div class="product-meta">
-      <span
-        class="category-badge"
-        :style="{
-          backgroundColor: CATEGORY_COLORS[product.category] + '22',
-          color: CATEGORY_COLORS[product.category],
-        }"
-      >
-        {{ product.category }}
-      </span>
+    <div
+      class="card-top"
+      :class="{ 'card-top--selectable': props.selectable }"
+      @click="props.selectable ? emit('select') : undefined"
+    >
+      <div class="card-header">
+        <div class="product-name">{{ product.name }}</div>
+        <button v-if="props.closable" class="close-btn" @click.stop="emit('close')">✕</button>
+      </div>
+      <div v-if="product.note" class="product-note">{{ product.note }}</div>
+      <div class="product-meta">
+        <span
+          class="category-badge"
+          :style="{
+            backgroundColor: CATEGORY_COLORS[product.category] + '22',
+            color: CATEGORY_COLORS[product.category],
+          }"
+        >
+          {{ product.category }}
+        </span>
+      </div>
     </div>
 
     <div class="stats">
@@ -125,6 +136,20 @@ function costTooltip(p: Product): string {
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow-sm);
+}
+
+.card-top {
+  margin: -16px -16px 0;
+  padding: 16px 16px 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card-top--selectable {
+  cursor: pointer;
+}
+
+.card-top--selectable:hover {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .card-header {
