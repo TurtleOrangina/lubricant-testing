@@ -18,12 +18,12 @@ export const CATEGORY_COLORS: Record<ProductCategory, string> = {
 };
 
 export const BLOCK_LABELS: Record<number, string> = {
-  0: "Block 1 – No Contamination",
-  1: "Block 2 – Dry Offroad",
-  2: "Block 3 – No Contamination",
-  3: "Block 4 – Wet Conditions",
-  4: "Block 5 – No Contamination",
-  5: "Block 6 – Harsh Wet",
+  0: "Block 1 (clean)",
+  1: "Block 2 (dry dirt)",
+  2: "Block 3 (clean)",
+  3: "Block 4 (wet dirt)",
+  4: "Block 5 (clean)",
+  5: "Block 6 (harsh wet)",
 };
 
 export const BLOCK_DESCRIPTIONS: Record<number, string> = {

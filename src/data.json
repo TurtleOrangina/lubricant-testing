@@ -632,8 +632,9 @@
     }
   },
   {
-    "name": "Tru Tension Tungsten Race (D.A)",
+    "name": "Tru Tension Tungsten Race",
     "category": "wax drip",
+    "note": "Double applications. \"Main Test Kilometers\" are truncated due to missing block 6.",
     "costPackageAUD": 25,
     "usagesMainTest": 5,
     "mainTest": {
@@ -656,8 +657,7 @@
       ],
       "testKilometerEquivalent": 6000,
       "testKilometerCalculationType": "no_data_past_hundred_test_aborted_early"
-    },
-    "note": "\"Main Test Kilometers\" are truncated due to missing block 6."
+    }
   },
   {
     "name": "Private Immersive wax (3)",

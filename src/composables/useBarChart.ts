@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import type { MaybeRefOrGetter } from "vue";
 import { toValue } from "vue";
 import VChart from "vue-echarts";
@@ -14,9 +14,9 @@ export interface ChartEntry {
 export function useBarChart<T extends ChartEntry>(
   products: MaybeRefOrGetter<Product[]>,
   sortedEntries: MaybeRefOrGetter<T[]>,
+  chartRef: { readonly value: InstanceType<typeof VChart> | null },
 ) {
   const store = useSelectionStore();
-  const chartRef = ref<InstanceType<typeof VChart> | null>(null);
 
   const selectedProduct = computed(
     () => toValue(products).find((p) => p.name === store.selectedName) ?? null,
@@ -49,5 +49,5 @@ export function useBarChart<T extends ChartEntry>(
 
   const chartMinWidth = computed(() => 150 + toValue(sortedEntries).length * 8);
 
-  return { store, chartRef, selectedProduct, legendItems, handleChartClick, chartMinWidth };
+  return { store, selectedProduct, legendItems, handleChartClick, chartMinWidth };
 }

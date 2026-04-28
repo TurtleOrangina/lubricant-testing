@@ -1,27 +1,43 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { products } from "./data";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
 import LubricantDetails from "./components/LubricantDetails.vue";
 import LongevityChart from "./components/LongevityChart.vue";
+import Glossary from "./components/Glossary.vue";
+import GlossaryLink from "./components/GlossaryLink.vue";
+import { useNavigationStore } from "./stores/navigation";
+import type { TabId } from "./stores/navigation";
 
-type TabId = "overview" | "blocks" | "details" | "longevity";
+const nav = useNavigationStore();
+
+function onPopState(event: PopStateEvent) {
+  nav.restoreFromHistory(event.state);
+}
+
+onMounted(() => {
+  history.replaceState({ tab: nav.activeTab }, "");
+  window.addEventListener("popstate", onPopState);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("popstate", onPopState);
+});
 
 const TABS: { id: TabId; label: string }[] = [
   { id: "overview", label: "Main Test Overview" },
   { id: "blocks", label: "Main Test Blocks" },
   { id: "longevity", label: "Single Application Longevity" },
   { id: "details", label: "Lubricant Details" },
+  { id: "glossary", label: "Glossary" },
 ];
-
-const activeTab = ref<TabId>("overview");
 </script>
 
 <template>
   <header class="app-header">
     <h1>Chain Lubricant Test Results</h1>
-    <p class="subtitle">Comparative performance analysis of bicycle chain lubricants</p>
+    <p class="subtitle">Comparative chain wear analysis of bicycle chain lubricants</p>
   </header>
 
   <main>
@@ -30,40 +46,48 @@ const activeTab = ref<TabId>("overview");
         v-for="tab in TABS"
         :key="tab.id"
         role="tab"
-        :aria-selected="activeTab === tab.id"
-        :class="['tab-btn', { active: activeTab === tab.id }]"
-        @click="activeTab = tab.id"
+        :aria-selected="nav.activeTab === tab.id"
+        :class="['tab-btn', { active: nav.activeTab === tab.id }]"
+        @click="nav.navigateTo(tab.id)"
       >
         {{ tab.label }}
       </button>
     </nav>
 
     <div class="tab-panel">
-      <template v-if="activeTab === 'overview'">
+      <template v-if="nav.activeTab === 'overview'">
         <p class="section-desc">
-          Test kilometers to fully wear one chain, derived from cumulative chain wear across all
-          completed blocks. Higher is better.
+          How many kilometres of the <GlossaryLink section="main-test">Main Test</GlossaryLink> does
+          it take to fully <GlossaryLink section="chain-wear">wear</GlossaryLink> one chain? See
+          <GlossaryLink section="main-test-kilometers"> Main Test Kilometers</GlossaryLink> for
+          details. Higher is better.
         </p>
         <MainTestOverviewChart :products="products" />
       </template>
 
-      <template v-else-if="activeTab === 'blocks'">
+      <template v-else-if="nav.activeTab === 'blocks'">
         <p class="section-desc">
-          Chain wear in the selected 1000 km block of the Main Test. Lower is better.
+          <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> in the selected 1000 km block
+          of the <GlossaryLink section="main-test">Main Test</GlossaryLink>. Lower is better.
         </p>
         <MainTestBlockChart :products="products" />
       </template>
 
-      <template v-else-if="activeTab === 'longevity'">
+      <template v-else-if="nav.activeTab === 'longevity'">
         <p class="section-desc">
-          Total distance (km) until chain replacement is needed per single application, by riding
-          condition. Higher is better. Hover to see jump point (when wear rate accelerates).
+          Total distance (km) until chain replacement is needed with a
+          <GlossaryLink section="single-application-longevity">single application</GlossaryLink> of
+          lubricant, depending on the selected riding condition. Higher is better.
         </p>
         <LongevityChart :products="products" />
       </template>
 
-      <template v-else-if="activeTab === 'details'">
+      <template v-else-if="nav.activeTab === 'details'">
         <LubricantDetails :products="products" />
+      </template>
+
+      <template v-else-if="nav.activeTab === 'glossary'">
+        <Glossary />
       </template>
     </div>
   </main>

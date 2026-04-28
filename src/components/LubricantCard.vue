@@ -1,24 +1,10 @@
 <script setup lang="ts">
 import type { Product } from "../types";
-import { BLOCK_DESCRIPTIONS, CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
+import { BLOCK_LABELS, CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
+import GlossaryLink from "./GlossaryLink.vue";
 
 const props = defineProps<{ product: Product; highlighted?: boolean; closable?: boolean }>();
 const emit = defineEmits<{ close: [] }>();
-
-const BLOCK_LABELS: Record<number, string> = {
-  0: "Chain wear block 1",
-  1: "Chain wear block 2",
-  2: "Chain wear block 3",
-  3: "Chain wear block 4",
-  4: "Chain wear block 5",
-  5: "Chain wear block 6",
-};
-
-const MAIN_TEST_KM_TOOLTIP =
-  'Full Main Test - 6000km. Alternating clean and contamination test blocks including wet + extreme contamination. Unless specified otherwise, 30x relubrication during the test, without any cleaning maintenance. The Main Test Kilometers is the number of kilometers of the main test it takes to fully wear one chain (100% worn means 0.5% chain elongation). If a lubricant survives all 6000km of the main test, the kilometers is calculated linearly based on how worn the chain was at the end (e.g. if the chain was 50% worn after the 6000km main test, we list the "Main test Kilometers" as 12000km).';
-
-const LONGEVITY_TOOLTIP =
-  "How well a single application of the lubricant protects the chain - how long it lasts.";
 
 function roundToHundreds(n: number): number {
   return Math.round(n / 100) * 100;
@@ -32,7 +18,7 @@ function priceFor6000km(p: Product): string {
 function costTooltip(p: Product): string {
   const unitCost = p.costPackageAUD != null ? `${p.costPackageAUD.toFixed(2)} AUD` : "Unknown";
   const usages = p.usagesMainTest != null ? String(p.usagesMainTest) : "Unknown";
-  return `Total lubricant cost to run the full 6000km main test, in Australian Dollars.\nProduct cost per unit: ${unitCost}\nUnits used for 6000km Main Test: ${usages}`;
+  return `Product cost per unit: ${unitCost}\nUnits used in Main Test: ${usages}`;
 }
 </script>
 
@@ -56,8 +42,10 @@ function costTooltip(p: Product): string {
     </div>
 
     <div class="stats">
-      <div class="stat-row has-tooltip">
-        <span class="stat-label">Main Test Kilometers</span>
+      <div class="stat-row">
+        <span class="stat-label">
+          <GlossaryLink section="main-test-kilometers">Main Test Kilometers</GlossaryLink>
+        </span>
         <span class="stat-value">
           {{
             product.mainTest
@@ -65,31 +53,43 @@ function costTooltip(p: Product): string {
               : "No data"
           }}
         </span>
-        <div class="tooltip-bubble">{{ MAIN_TEST_KM_TOOLTIP }}</div>
       </div>
 
       <template v-if="product.mainTest?.blockWear?.length">
+        <div class="stat-row">
+          <span class="stat-label">
+            Main Test <GlossaryLink section="chain-wear">chain wear</GlossaryLink>
+          </span>
+        </div>
         <div
           v-for="(block, i) in product.mainTest.blockWear"
           :key="i"
-          class="stat-row stat-row--indented has-tooltip"
+          class="stat-row stat-row--indented"
         >
-          <span class="stat-label">{{ BLOCK_LABELS[i] }}</span>
-          <span class="stat-value">{{ Math.round(100 * block.wearRate) }}%</span>
-          <div class="tooltip-bubble">{{ BLOCK_DESCRIPTIONS[i] }}</div>
+          <span class="stat-label">
+            <GlossaryLink section="main-test-blocks">{{ BLOCK_LABELS[i] }}</GlossaryLink>
+          </span>
+          <span class="stat-value">
+            <GlossaryLink section="chain-wear"
+              >{{ Math.round(100 * block.wearRate) }}% wear</GlossaryLink
+            >
+          </span>
         </div>
       </template>
 
       <div class="stat-row has-tooltip">
-        <span class="stat-label">Lubricant cost</span>
+        <span class="stat-label">
+          <GlossaryLink section="lubricant-cost">Lubricant cost</GlossaryLink>
+        </span>
         <span class="stat-value">{{ priceFor6000km(product) }}</span>
         <div class="tooltip-bubble tooltip-bubble--pre">{{ costTooltip(product) }}</div>
       </div>
 
-      <div class="stat-row has-tooltip">
-        <span class="stat-label">Longevity</span>
+      <div class="stat-row">
+        <span class="stat-label">
+          <GlossaryLink section="single-application-longevity">Longevity</GlossaryLink>
+        </span>
         <span v-if="!product.longevity" class="stat-value">Not tested</span>
-        <div class="tooltip-bubble">{{ LONGEVITY_TOOLTIP }}</div>
       </div>
 
       <template v-if="product.longevity">

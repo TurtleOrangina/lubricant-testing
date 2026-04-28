@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
@@ -29,9 +29,11 @@ const sortedEntries = computed((): BarEntry[] =>
     .sort((a, b) => b.equivalent - a.equivalent),
 );
 
+const chartRef = useTemplateRef<InstanceType<typeof VChart>>("chartRef");
 const { store, selectedProduct, legendItems, handleChartClick, chartMinWidth } = useBarChart(
   () => props.products,
   sortedEntries,
+  chartRef,
 );
 
 const option = computed((): EChartsOption => {
