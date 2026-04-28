@@ -18,6 +18,7 @@ const COL_GRAVEL_JUMP = 13;
 const COL_GRAVEL_ALLOWANCE = 14;
 const COL_EXTREME_JUMP = 15;
 const COL_EXTREME_ALLOWANCE = 16;
+const COL_COMMERCIALLY_AVAILABLE = 17;
 
 function parseNum(s: string): number | undefined {
   const trimmed = s.trim();
@@ -123,7 +124,11 @@ export function convertCsvToProducts(csvText: string): Product[] {
           }
         : undefined;
 
-    const product: Product = { name: get(COL_NAME), category: mapCategory(get(COL_CATEGORY)) };
+    const product: Product = {
+      name: get(COL_NAME),
+      category: mapCategory(get(COL_CATEGORY)),
+      commerciallyAvailable: get(COL_COMMERCIALLY_AVAILABLE).trim() === "1",
+    };
 
     const note = get(COL_NOTE);
     if (note) product.note = note;

@@ -73,6 +73,11 @@ function costTooltip(p: Product): string {
         </div>
       </template>
 
+      <div class="stat-row">
+        <span class="stat-label">Commercially available</span>
+        <span class="stat-value">{{ product.commerciallyAvailable ? "Yes" : "No" }}</span>
+      </div>
+
       <div class="stat-row has-tooltip">
         <span class="stat-label">
           <GlossaryLink section="lubricant-cost">Lubricant cost</GlossaryLink>

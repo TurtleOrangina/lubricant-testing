@@ -2,6 +2,7 @@
   {
     "name": "Silca Hot Melt",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -46,6 +47,7 @@
   {
     "name": "Cyclowax Race Wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 83,
     "usagesMainTest": 2.5,
     "mainTest": {
@@ -90,6 +92,7 @@
   {
     "name": "Finish Line Halo hot wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "note": "Re-test Jan 25",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
@@ -121,6 +124,7 @@
   {
     "name": "Mspeedwax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "note": "New Formula",
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
@@ -166,6 +170,7 @@
   {
     "name": "Silca + Endurance Chip",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "note": "Extended Intervals",
     "costPackageAUD": 105,
     "usagesMainTest": 0.2,
@@ -211,6 +216,7 @@
   {
     "name": "Candle wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 5,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -239,6 +245,7 @@
   {
     "name": "Optimize Bike Graphene Wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 110,
     "usagesMainTest": 0.7,
     "mainTest": {
@@ -269,6 +276,7 @@
   {
     "name": "Rex Black Diamond Wax - 4+1 Mix",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -313,6 +321,7 @@
   {
     "name": "Silca Hot wax X",
     "category": "immersive wax",
+    "commerciallyAvailable": false,
     "costPackageAUD": 300,
     "usagesMainTest": 0.8,
     "mainTest": {
@@ -357,6 +366,7 @@
   {
     "name": "Tru Tension Tungsten All Weather",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 2,
     "mainTest": {
@@ -387,6 +397,7 @@
   {
     "name": "Effetto Mariposa Flower power wax",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 29.9,
     "usagesMainTest": 1,
     "mainTest": {
@@ -431,6 +442,7 @@
   {
     "name": "Immersive Wax + Wax Drip Combo (Silca)",
     "category": "other",
+    "commerciallyAvailable": true,
     "costPackageAUD": 110,
     "usagesMainTest": 0.4,
     "mainTest": {
@@ -461,6 +473,7 @@
   {
     "name": "Rex Black Diamond Wax - 11+1 mix",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 90,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -505,6 +518,7 @@
   {
     "name": "Ceramic Speed Ultra Endurance Wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 87.5,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -535,6 +549,7 @@
   {
     "name": "Session S-wax",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 50,
     "usagesMainTest": 1,
     "mainTest": {
@@ -565,6 +580,7 @@
   {
     "name": "CeramicSpeed UFO Drip",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "note": "New Formula. \"Main Test Kilometers\" are truncated due to missing block 6.",
     "costPackageAUD": 29.9,
     "usagesMainTest": 2,
@@ -607,6 +623,7 @@
   {
     "name": "Ceramic Speed Wet Conditions",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 29,
     "usagesMainTest": 2,
     "mainTest": {
@@ -634,6 +651,7 @@
   {
     "name": "Tru Tension Tungsten Race",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "note": "Double applications. \"Main Test Kilometers\" are truncated due to missing block 6.",
     "costPackageAUD": 25,
     "usagesMainTest": 5,
@@ -662,6 +680,7 @@
   {
     "name": "Private Immersive wax (3)",
     "category": "immersive wax",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -685,6 +704,7 @@
   {
     "name": "Private Immersive wax (2)",
     "category": "immersive wax",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -713,6 +733,7 @@
   {
     "name": "Private Immersive wax",
     "category": "immersive wax",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -736,6 +757,7 @@
   {
     "name": "Allied GRAX",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 30,
     "usagesMainTest": 0.5,
     "mainTest": {
@@ -774,6 +796,7 @@
   {
     "name": "Nix Frix Shun",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 0.3,
     "mainTest": {
@@ -801,6 +824,7 @@
   {
     "name": "Smoove",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 0.5,
     "mainTest": {
@@ -828,6 +852,7 @@
   {
     "name": "Squirt",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 22,
     "usagesMainTest": 1,
     "mainTest": {
@@ -852,6 +877,7 @@
   {
     "name": "Dynamic Wander Wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 50,
     "usagesMainTest": 0.7,
     "mainTest": {
@@ -882,6 +908,7 @@
   {
     "name": "Silca Synergetic",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 45,
     "usagesMainTest": 0.3,
     "mainTest": {
@@ -923,6 +950,7 @@
   {
     "name": "Private wax drip (1)",
     "category": "wax drip",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -946,6 +974,7 @@
   {
     "name": "Rex Black Diamond",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 55,
     "usagesMainTest": 0.5,
     "mainTest": {
@@ -987,6 +1016,7 @@
   {
     "name": "Wend Wax test 2 (dissolved in)",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 65,
     "usagesMainTest": 2,
     "mainTest": {
@@ -1008,6 +1038,7 @@
   {
     "name": "Rex Domestique",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 45,
     "usagesMainTest": 0.5,
     "mainTest": {
@@ -1046,6 +1077,7 @@
   {
     "name": "Silca Super Secret Drip",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 50,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1076,6 +1108,7 @@
   {
     "name": "Boeshield T9- Aerosol",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 35,
     "usagesMainTest": 1.5,
     "mainTest": {
@@ -1114,6 +1147,7 @@
   {
     "name": "Nano Titanium Armour",
     "category": "wet-drip",
+    "commerciallyAvailable": false,
     "note": "Extended Intervals",
     "mainTest": {
       "blockWear": [
@@ -1146,6 +1180,7 @@
   {
     "name": "Molten Speed Wax Original Formula",
     "category": "immersive wax",
+    "commerciallyAvailable": false,
     "costPackageAUD": 60,
     "usagesMainTest": 0.6,
     "mainTest": {
@@ -1176,6 +1211,7 @@
   {
     "name": "Wolf tooth WT-1",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 40,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1197,6 +1233,7 @@
   {
     "name": "Finish Line Dry",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1221,6 +1258,7 @@
   {
     "name": "WD-40 Original",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 10,
     "usagesMainTest": 1.5,
     "mainTest": {
@@ -1245,6 +1283,7 @@
   {
     "name": "Cycle Star Gold",
     "category": "wet-drip",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -1264,6 +1303,7 @@
   {
     "name": "White Lightning Epic Ride",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 19,
     "usagesMainTest": 4,
     "mainTest": {
@@ -1285,6 +1325,7 @@
   {
     "name": "Revolubes",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 35,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1323,6 +1364,7 @@
   {
     "name": "Wolf tooth WT-1 on Factory Grease",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 40,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1344,6 +1386,7 @@
   {
     "name": "Singer General Purpose",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "note": "$6.95",
     "costPackageAUD": 6.95,
     "usagesMainTest": 1,
@@ -1366,6 +1409,7 @@
   {
     "name": "Rock N Roll Gold",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 15,
     "usagesMainTest": 3,
     "mainTest": {
@@ -1390,6 +1434,7 @@
   {
     "name": "Finish Line Halo Drip wax",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "note": "re test",
     "costPackageAUD": 50,
     "usagesMainTest": 1.5,
@@ -1415,6 +1460,7 @@
   {
     "name": "Private test - wet lubricant",
     "category": "wet-drip",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -1434,6 +1480,7 @@
   {
     "name": "Tunap Eco Ultimate Synthetic",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1458,6 +1505,7 @@
   {
     "name": "Silca Synerg-E",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 45,
     "usagesMainTest": 0.3,
     "mainTest": {
@@ -1496,6 +1544,7 @@
   {
     "name": "AB Graphene Wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 50,
     "usagesMainTest": 0.8,
     "mainTest": {
@@ -1534,6 +1583,7 @@
   {
     "name": "Tunap Eco",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 20,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1558,6 +1608,7 @@
   {
     "name": "Muc Off C3 Ceramic Dry",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 1.5,
     "mainTest": {
@@ -1579,6 +1630,7 @@
   {
     "name": "Dumonde Tech Pro X-Lite",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1600,6 +1652,7 @@
   {
     "name": "Private test wet lubricant (2)",
     "category": "wet-drip",
+    "commerciallyAvailable": false,
     "mainTest": {
       "blockWear": [
         {
@@ -1622,6 +1675,7 @@
   {
     "name": "Muc Off Ludicrous AF",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 70,
     "usagesMainTest": 2,
     "mainTest": {
@@ -1640,6 +1694,7 @@
   {
     "name": "Finish Line Wet",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "note": "Green bottle",
     "costPackageAUD": 20,
     "usagesMainTest": 1,
@@ -1659,6 +1714,7 @@
   {
     "name": "Prestacycle One",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 50,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1677,6 +1733,7 @@
   {
     "name": "Muc Off Hydro Dynamic",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 49,
     "usagesMainTest": 2,
     "mainTest": {
@@ -1695,6 +1752,7 @@
   {
     "name": "Muc  Off Nano",
     "category": "wet-drip",
+    "commerciallyAvailable": false,
     "costPackageAUD": 65,
     "usagesMainTest": 2,
     "mainTest": {
@@ -1713,6 +1771,7 @@
   {
     "name": "Cyclon All weather",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1737,6 +1796,7 @@
   {
     "name": "Airolube",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 25,
     "usagesMainTest": 1,
     "mainTest": {
@@ -1761,6 +1821,7 @@
   {
     "name": "Shimano Factory Grease",
     "category": "other",
+    "commerciallyAvailable": true,
     "mainTest": {
       "blockWear": [
         {
@@ -1778,6 +1839,7 @@
   {
     "name": "Finish line Ceramic Wax",
     "category": "wet-drip",
+    "commerciallyAvailable": true,
     "mainTest": {
       "blockWear": [
         {
@@ -1791,6 +1853,7 @@
   {
     "name": "Wend Wax test 1 - stick only",
     "category": "other",
+    "commerciallyAvailable": true,
     "mainTest": {
       "blockWear": [
         {
@@ -1804,6 +1867,7 @@
   {
     "name": "No lubricant",
     "category": "other",
+    "commerciallyAvailable": true,
     "mainTest": {
       "blockWear": [
         {
@@ -1817,6 +1881,7 @@
   {
     "name": "Squirt Hot Wax",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "costPackageAUD": 65,
     "longevity": {
       "dryRoad": {
@@ -1836,6 +1901,7 @@
   {
     "name": "Rex Black Diamond +  Race Day Spray",
     "category": "immersive wax",
+    "commerciallyAvailable": true,
     "longevity": {
       "dryRoad": {
         "jumpPoint": 3415,
@@ -1854,6 +1920,7 @@
   {
     "name": "AB Graphene Lube",
     "category": "wax drip",
+    "commerciallyAvailable": true,
     "costPackageAUD": 30,
     "longevity": {
       "dryRoad": {

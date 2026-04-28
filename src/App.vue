@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
@@ -14,6 +14,11 @@ import type { TabId } from "./stores/navigation";
 
 const nav = useNavigationStore();
 const { products } = storeToRefs(useProductsStore());
+
+const includeUnavailable = ref(false);
+const filteredProducts = computed(() =>
+  includeUnavailable.value ? products.value : products.value.filter((p) => p.commerciallyAvailable),
+);
 
 function onPopState(event: PopStateEvent) {
   nav.restoreFromHistory(event.state);
@@ -66,7 +71,7 @@ const TABS: { id: TabId; label: string }[] = [
           <GlossaryLink section="main-test-kilometers"> Main Test Kilometers</GlossaryLink> for
           details. Higher is better.
         </p>
-        <MainTestOverviewChart :products="products" />
+        <MainTestOverviewChart :products="filteredProducts" />
       </template>
 
       <template v-else-if="nav.activeTab === 'blocks'">
@@ -74,7 +79,7 @@ const TABS: { id: TabId; label: string }[] = [
           <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> in the selected 1000 km block
           of the <GlossaryLink section="main-test">Main Test</GlossaryLink>. Lower is better.
         </p>
-        <MainTestBlockChart :products="products" />
+        <MainTestBlockChart :products="filteredProducts" />
       </template>
 
       <template v-else-if="nav.activeTab === 'longevity'">
@@ -83,11 +88,11 @@ const TABS: { id: TabId; label: string }[] = [
           <GlossaryLink section="single-application-longevity">single application</GlossaryLink> of
           lubricant, depending on the selected riding condition. Higher is better.
         </p>
-        <LongevityChart :products="products" />
+        <LongevityChart :products="filteredProducts" />
       </template>
 
       <template v-else-if="nav.activeTab === 'details'">
-        <LubricantDetails :products="products" />
+        <LubricantDetails :products="filteredProducts" />
       </template>
 
       <template v-else-if="nav.activeTab === 'glossary'">
@@ -97,6 +102,13 @@ const TABS: { id: TabId; label: string }[] = [
       <template v-else-if="nav.activeTab === 'admin'">
         <AdminTab />
       </template>
+    </div>
+
+    <div class="filter-bar">
+      <label class="filter-checkbox">
+        <input v-model="includeUnavailable" type="checkbox" />
+        Include unavailable products
+      </label>
     </div>
   </main>
 </template>
@@ -164,5 +176,23 @@ h1 {
   color: var(--text-muted);
   font-size: 0.85rem;
   margin-bottom: 20px;
+}
+
+.filter-bar {
+  padding: 12px 0 4px;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox input[type="checkbox"] {
+  cursor: pointer;
 }
 </style>
