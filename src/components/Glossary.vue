@@ -43,7 +43,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
       <p>
         <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> is tracked at the end of each
         block. The test ends early if the chain reaches 100% wear before all blocks are complete, or
-        if the ZFC decides to stop (e.g. for lubricants showing poor results early on).
+        if ZFC decides to stop (e.g. for private lubricants showing poor results early on).
       </p>
       <p>
         The test is divided into six sequential 1000 km

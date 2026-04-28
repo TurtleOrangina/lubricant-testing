@@ -20,6 +20,24 @@ const COL_EXTREME_JUMP = 15;
 const COL_EXTREME_ALLOWANCE = 16;
 const COL_COMMERCIALLY_AVAILABLE = 17;
 
+const EXPECTED_COLS = 18;
+const WEAR_RATE_MIN = 0;
+const WEAR_RATE_MAX = 10.0;
+const LONGEVITY_MIN = 30;
+const LONGEVITY_MAX = 50_000;
+
+export type ParseLogLevel = "info" | "warning" | "error";
+
+export interface ParseLogEntry {
+  level: ParseLogLevel;
+  message: string;
+}
+
+export interface ConvertResult {
+  products: Product[];
+  log: ParseLogEntry[];
+}
+
 function parseNum(s: string): number | undefined {
   const trimmed = s.trim();
   if (trimmed === "") return undefined;
@@ -27,7 +45,7 @@ function parseNum(s: string): number | undefined {
   return isNaN(n) ? undefined : n;
 }
 
-function mapCategory(raw: string): ProductCategory {
+function mapCategory(raw: string): ProductCategory | undefined {
   switch (raw.trim().toLowerCase()) {
     case "immersive wax":
       return "immersive wax";
@@ -39,7 +57,7 @@ function mapCategory(raw: string): ProductCategory {
     case "other":
       return "other";
     default:
-      throw new Error(`Unknown category: ${JSON.stringify(raw)}`);
+      return undefined;
   }
 }
 
@@ -80,19 +98,97 @@ function calculateEquivalentTestKilometers(product: Product): void {
   }
 }
 
-export function convertCsvToProducts(csvText: string): Product[] {
+export function convertCsvToProducts(csvText: string): ConvertResult {
+  const log: ParseLogEntry[] = [];
+  const products: Product[] = [];
+  const seenNames = new Set<string>();
+
   const [_header, ...dataLines] = csvText.split("\n").filter((l) => l.trim() !== "");
 
-  return dataLines.map((line) => {
+  for (const line of dataLines) {
     const cols = line.split(",");
     const get = (i: number): string => (cols[i] ?? "").trim();
 
-    const mainTestBlocks = [];
+    const rawName = get(COL_NAME);
+
+    if (cols.length !== EXPECTED_COLS) {
+      log.push({
+        level: "error",
+        message: `"${rawName || "(no name)"}": expected ${EXPECTED_COLS} columns, got ${cols.length}.`,
+      });
+      if (cols.length < 3) continue;
+    }
+
+    if (!rawName) {
+      log.push({ level: "error", message: "Row with empty name skipped." });
+      continue;
+    }
+    const name = rawName;
+
+    if (seenNames.has(name)) {
+      log.push({ level: "error", message: `"${name}": duplicate product name. Row skipped.` });
+      continue;
+    }
+    seenNames.add(name);
+
+    const category = mapCategory(get(COL_CATEGORY));
+    if (!category) {
+      log.push({
+        level: "error",
+        message: `"${name}": unknown category "${get(COL_CATEGORY)}". Row skipped.`,
+      });
+      continue;
+    }
+
+    const caRaw = get(COL_COMMERCIALLY_AVAILABLE);
+    if (caRaw !== "0" && caRaw !== "1") {
+      log.push({
+        level: "error",
+        message: `"${name}": "commercially available" must be "0" or "1", got "${caRaw}".`,
+      });
+    }
+    const commerciallyAvailable = caRaw === "1";
+
+    const mainTestBlocks: { wearRate: number }[] = [];
     for (let i = COL_MAIN_FIRST; i <= COL_MAIN_LAST; i++) {
-      const v = parseNum(cols[i] ?? "");
-      if (v === undefined) break;
+      const raw = (cols[i] ?? "").trim();
+      if (raw === "") break;
+      const v = parseNum(raw);
+      if (v === undefined) {
+        log.push({
+          level: "warning",
+          message: `"${name}": block ${i - COL_MAIN_FIRST + 1} wear rate "${raw}" is not a valid number. Stopping block parsing.`,
+        });
+        break;
+      }
+      if (v < WEAR_RATE_MIN || v > WEAR_RATE_MAX) {
+        log.push({
+          level: "warning",
+          message: `"${name}": block ${i - COL_MAIN_FIRST + 1} wear rate ${v} is outside valid range [${WEAR_RATE_MIN}, ${WEAR_RATE_MAX}].`,
+        });
+      }
       mainTestBlocks.push({ wearRate: v });
     }
+
+    const getLongevityNum = (colIdx: number, fieldLabel: string): number | undefined => {
+      const raw = get(colIdx);
+      if (raw === "") return undefined;
+      const v = parseNum(raw);
+      if (v === undefined) {
+        log.push({
+          level: "warning",
+          message: `"${name}": ${fieldLabel} "${raw}" is not a valid number.`,
+        });
+        return undefined;
+      }
+      if (v < LONGEVITY_MIN || v > LONGEVITY_MAX) {
+        log.push({
+          level: "warning",
+          message: `"${name}": ${fieldLabel} ${v} is outside valid range [${LONGEVITY_MIN}, ${LONGEVITY_MAX}].`,
+        });
+      }
+      return v;
+    };
 
     const longevityCondition = (
       jump: number | undefined,
@@ -103,16 +199,16 @@ export function convertCsvToProducts(csvText: string): Product[] {
         : undefined;
 
     const dryRoad = longevityCondition(
-      parseNum(get(COL_ROAD_JUMP)),
-      parseNum(get(COL_ROAD_ALLOWANCE)),
+      getLongevityNum(COL_ROAD_JUMP, "dry road jump"),
+      getLongevityNum(COL_ROAD_ALLOWANCE, "dry road allowance"),
     );
     const dryGravel = longevityCondition(
-      parseNum(get(COL_GRAVEL_JUMP)),
-      parseNum(get(COL_GRAVEL_ALLOWANCE)),
+      getLongevityNum(COL_GRAVEL_JUMP, "dry gravel jump"),
+      getLongevityNum(COL_GRAVEL_ALLOWANCE, "dry gravel allowance"),
     );
     const extremeConditions = longevityCondition(
-      parseNum(get(COL_EXTREME_JUMP)),
-      parseNum(get(COL_EXTREME_ALLOWANCE)),
+      getLongevityNum(COL_EXTREME_JUMP, "extreme jump"),
+      getLongevityNum(COL_EXTREME_ALLOWANCE, "extreme allowance"),
     );
 
     const longevity: SingleApplicationLongevity | undefined =
@@ -124,11 +220,7 @@ export function convertCsvToProducts(csvText: string): Product[] {
           }
         : undefined;
 
-    const product: Product = {
-      name: get(COL_NAME),
-      category: mapCategory(get(COL_CATEGORY)),
-      commerciallyAvailable: get(COL_COMMERCIALLY_AVAILABLE).trim() === "1",
-    };
+    const product: Product = { name, category, commerciallyAvailable };
 
     const note = get(COL_NOTE);
     if (note) product.note = note;
@@ -149,6 +241,32 @@ export function convertCsvToProducts(csvText: string): Product[] {
     }
     if (longevity !== undefined) product.longevity = longevity;
 
-    return product;
-  });
+    products.push(product);
+  }
+
+  const counts: Record<string, number> = {};
+  for (const p of products) {
+    const t = p.mainTest?.testKilometerCalculationType;
+    if (t) counts[t] = (counts[t] ?? 0) + 1;
+  }
+
+  const beatTest = counts["test_completed_with_less_than_hundred_percent_wear"] ?? 0;
+  const fullyWorn = counts["have_data_past_hundred_percent_wear"] ?? 0;
+  const aborted = counts["no_data_past_hundred_test_aborted_early"] ?? 0;
+
+  log.push({ level: "info", message: `Loaded ${products.length} products.` });
+  if (beatTest > 0)
+    log.push({
+      level: "info",
+      message: `${beatTest} beat the main test (chain < 100% worn at end).`,
+    });
+  if (fullyWorn > 0)
+    log.push({
+      level: "info",
+      message: `${fullyWorn} worn through by the main test (≥ 100% wear reached).`,
+    });
+  if (aborted > 0)
+    log.push({ level: "info", message: `${aborted} test aborted before chain fully worn.` });
+
+  return { products, log };
 }
