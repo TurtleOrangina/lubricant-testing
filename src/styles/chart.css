@@ -1,3 +1,7 @@
+.chart-scroll-outer {
+  overflow-x: auto;
+}
+
 .chart-wrapper {
   cursor: pointer;
 }

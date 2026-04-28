@@ -35,7 +35,7 @@ const sortedEntries = computed((): BarEntry[] => {
     .sort((a, b) => b.wearAllowance - a.wearAllowance);
 });
 
-const { store, chartRef, selectedProduct, legendItems, handleChartClick } = useBarChart(
+const { store, selectedProduct, legendItems, handleChartClick, chartMinWidth } = useBarChart(
   () => props.products,
   sortedEntries,
 );
@@ -101,8 +101,14 @@ const option = computed((): EChartsOption => {
       </option>
     </select>
 
-    <div class="chart-wrapper" @click="handleChartClick">
-      <VChart ref="chartRef" :option="option" style="height: 420px" autoresize />
+    <div class="chart-scroll-outer">
+      <div
+        class="chart-wrapper"
+        :style="{ minWidth: chartMinWidth + 'px' }"
+        @click="handleChartClick"
+      >
+        <VChart ref="chartRef" :option="option" style="height: 420px" autoresize />
+      </div>
     </div>
 
     <div class="legend-row">

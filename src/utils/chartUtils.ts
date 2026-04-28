@@ -22,7 +22,7 @@ export function makeProductXAxis(names: string[], selectedName: string | null) {
 export function makeSelectionMarkArea(name: string) {
   return {
     silent: true,
-    data: [[{ xAxis: name }, { xAxis: name }]],
+    data: [[{ xAxis: name }, { xAxis: name }]] as [[{ xAxis: string }, { xAxis: string }]],
     itemStyle: { color: "rgba(59, 130, 246, 0.12)" },
   };
 }
