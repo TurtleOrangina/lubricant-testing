@@ -2,8 +2,9 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { buildUrl, parseUrl } from "../utils/url";
 import { useSelectionStore } from "./selection";
+import type { ConditionKey } from "../constants";
 
-export type TabId = "overview" | "blocks" | "longevity" | "details" | "glossary" | "admin";
+export type TabId = "overview" | "blocks" | "longevity" | "details" | "glossary";
 
 export const GLOSSARY_SECTION_ANCHORS: Record<string, string> = {
   "main-test": "The Main Test",
@@ -23,6 +24,8 @@ export const useNavigationStore = defineStore("navigation", () => {
   const glossaryTarget = ref<string | null>(null);
   const glossaryAnchor = ref<string | null>(null);
   const includeUnavailable = ref(false);
+  const activeBlock = ref<number>(0);
+  const activeCondition = ref<ConditionKey>("dryRoad");
 
   function currentUrl(): string {
     const selection = useSelectionStore();
@@ -31,6 +34,8 @@ export const useNavigationStore = defineStore("navigation", () => {
       selectedLubricant: selection.selectedName,
       includeUnavailable: includeUnavailable.value,
       glossaryAnchor: activeTab.value === "glossary" ? glossaryAnchor.value : null,
+      block: activeTab.value === "blocks" ? activeBlock.value : null,
+      condition: activeTab.value === "longevity" ? activeCondition.value : null,
     });
   }
 
@@ -58,6 +63,16 @@ export const useNavigationStore = defineStore("navigation", () => {
     history.replaceState(null, "", currentUrl());
   }
 
+  function setActiveBlock(index: number) {
+    activeBlock.value = index;
+    history.replaceState(null, "", currentUrl());
+  }
+
+  function setActiveCondition(key: ConditionKey) {
+    activeCondition.value = key;
+    history.replaceState(null, "", currentUrl());
+  }
+
   function syncSelection() {
     history.replaceState(null, "", currentUrl());
   }
@@ -66,6 +81,8 @@ export const useNavigationStore = defineStore("navigation", () => {
     const state = parseUrl();
     activeTab.value = state.tab;
     includeUnavailable.value = state.includeUnavailable;
+    if (state.block != null) activeBlock.value = state.block;
+    if (state.condition != null) activeCondition.value = state.condition;
     if (state.glossaryAnchor && state.tab === "glossary") {
       glossaryAnchor.value = state.glossaryAnchor;
       glossaryTarget.value = GLOSSARY_ANCHOR_TO_ID[state.glossaryAnchor] ?? null;
@@ -77,6 +94,8 @@ export const useNavigationStore = defineStore("navigation", () => {
     const state = parseUrl();
     activeTab.value = state.tab;
     includeUnavailable.value = state.includeUnavailable;
+    if (state.block != null) activeBlock.value = state.block;
+    if (state.condition != null) activeCondition.value = state.condition;
     glossaryAnchor.value = state.tab === "glossary" ? state.glossaryAnchor : null;
     glossaryTarget.value =
       state.tab === "glossary" && state.glossaryAnchor
@@ -94,10 +113,14 @@ export const useNavigationStore = defineStore("navigation", () => {
     glossaryTarget,
     glossaryAnchor,
     includeUnavailable,
+    activeBlock,
+    activeCondition,
     navigateTo,
     navigateToGlossary,
     setGlossarySection,
     setIncludeUnavailable,
+    setActiveBlock,
+    setActiveCondition,
     syncSelection,
     initFromUrl,
     restoreFromUrl,

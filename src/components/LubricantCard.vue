@@ -6,10 +6,9 @@ import GlossaryLink from "./GlossaryLink.vue";
 const props = defineProps<{
   product: Product;
   highlighted?: boolean;
-  closable?: boolean;
   selectable?: boolean;
 }>();
-const emit = defineEmits<{ close: []; select: [] }>();
+const emit = defineEmits<{ select: [] }>();
 
 function roundToHundreds(n: number): number {
   return Math.round(n / 100) * 100;
@@ -36,7 +35,6 @@ function costTooltip(p: Product): string {
     >
       <div class="card-header">
         <div class="product-name">{{ product.name }}</div>
-        <button v-if="props.closable" class="close-btn" @click.stop="emit('close')">✕</button>
       </div>
       <div v-if="product.note" class="product-note">{{ product.note }}</div>
       <div class="product-meta">
@@ -158,22 +156,6 @@ function costTooltip(p: Product): string {
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 0;
-}
-
-.close-btn {
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  padding: 0;
-  line-height: 1;
-  margin-top: 1px;
-}
-
-.close-btn:hover {
-  color: var(--text-heading);
 }
 
 .product-card.highlighted {

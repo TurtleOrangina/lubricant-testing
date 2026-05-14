@@ -5,7 +5,7 @@ import { convertCsvToProducts } from "../src/utils/convertCsv.ts";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
-const csvText = readFileSync(resolve(ROOT, "data.csv"), "utf-8");
+const csvText = readFileSync(resolve(ROOT, "public", "assets", "data.csv"), "utf-8");
 const { products, log } = convertCsvToProducts(csvText);
 
 const PREFIX: Record<string, string> = {

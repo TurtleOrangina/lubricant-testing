@@ -4,12 +4,15 @@ This document explains how to embed the Lubricant Testing Vue app into an existi
 
 ## Overview
 
-The app ships as two static files:
+The app ships as three files, all in `docs/assets/`:
 
 - `docs/assets/index.js` — the compiled Vue application (ES module)
 - `docs/assets/index.css` — all styles
+- `docs/assets/data.csv` — the lubricant test data
 
 A `<div id="lubricant-testing-app"></div>` anywhere on the page is the mount point. The app attaches itself to that element on load.
+
+The app fetches `data.csv` at runtime relative to `index.js`. Because all three files live in the same `assets/` directory, the app finds `data.csv` automatically — this works identically in standalone hosting and in WordPress, with no configuration required.
 
 ---
 
@@ -22,10 +25,11 @@ wp-content/plugins/lubricant-testing/
 ├── lubricant-testing.php
 └── assets/
     ├── index.js
-    └── index.css
+    ├── index.css
+    └── data.csv
 ```
 
-Copy `docs/assets/index.js` and `docs/assets/index.css` from this repository into `wp-content/plugins/lubricant-testing/assets/`.
+Copy `docs/assets/index.js`, `docs/assets/index.css`, and `docs/assets/data.csv` from this repository into `wp-content/plugins/lubricant-testing/assets/`.
 
 ---
 
@@ -116,12 +120,55 @@ at the desired position within the loop or page content area.
 
 When a new version of the app is built:
 
-1. Run `vp build` in this repository to regenerate `docs/assets/index.js` and `docs/assets/index.css`.
-2. Copy the two new files into `wp-content/plugins/lubricant-testing/assets/`, overwriting the old ones.
+1. Run `vp build` in this repository to regenerate `docs/assets/index.js`, `docs/assets/index.css`, and `docs/assets/data.csv`. If you did not change the existing website code, the files found in docs/assets should already be up-to-date, and you can skip this step.
+2. Copy all three files into `wp-content/plugins/lubricant-testing/assets/`, overwriting the old ones.
 3. Bump the `$ver` version string in `lubricant-testing.php` (e.g. `'1.0.1'`) so browsers fetch the new files instead of serving a cached version.
+
+### Updating data only (without rebuilding)
+
+If only the test data has changed, you can update just `data.csv` without a full rebuild or a version bump for the JS/CSS:
+
+1. Replace `public/assets/data.csv` in this repository with the new CSV file.
+2. Upload the new file to `wp-content/plugins/lubricant-testing/assets/data.csv` on the server, overwriting the old one.
+
+That's it — the next page load will fetch and parse the new file automatically. No rebuild, no cache-busting needed (browsers do not aggressively cache CSV files the way they cache versioned JS bundles).
+
+#### Verifying the new data
+
+After uploading a new `data.csv`, navigate to the parse report to check for any parsing errors:
+
+- Visit `https://your-site.com/your-page/#parse_data_csv` — the app detects this hash and shows the CSV parse report instead of the normal visualisation.
+- The report lists every product that was loaded, flags any warnings (unknown categories, out-of-range values, duplicate names), and shows a clear success or error summary.
+- No separate WordPress page is needed; the hash is simply appended to the URL of the page where the app is embedded.
 
 ---
 
-## Style Isolation Note
+## URL Routing Note
 
-The app's CSS resets several global properties (`body`, `h1–h3`, `:root` font settings). These rules may affect the rest of your WordPress theme. If that causes conflicts, wrap all app styles in a more specific selector (e.g. `#lubricant-testing-app`) in `src/style.css` and rebuild, or apply the necessary overrides in your theme's stylesheet.
+The app uses hash-based navigation exclusively. All state — the active tab, selected lubricant, filter flags, and dropdown selections — is encoded after the `#` and never sent to the server.
+
+URL format:
+
+```
+#<tab>[/<glossary-anchor>][?param1=value1&param2=value2]
+```
+
+Examples:
+
+| What the user sees                                         | URL                                                                                                     |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Overview tab                                               | `#main_test_overview`                                                                                   |
+| Blocks tab, Block 2 selected                               | `#main_test_blocks?block=Block%202%20(dry%20dirt)`                                                      |
+| Longevity tab, Extreme Conditions, a lubricant highlighted | `#single_application_longevity?condition=Extreme%20Conditions&selected_lubricant=Cyclowax%20Race%20Wax` |
+| Glossary, Chain Wear section                               | `#glossary/Chain%20Wear`                                                                                |
+
+Supported hash parameters:
+
+| Parameter             | Values                                                               | Description                               |
+| --------------------- | -------------------------------------------------------------------- | ----------------------------------------- |
+| `selected_lubricant`  | product name                                                         | Highlights a lubricant in the chart       |
+| `include_unavailable` | (flag, no value)                                                     | Shows products not commercially available |
+| `block`               | `Block 1 (clean)` … `Block 6 (harsh wet)`                            | Active block on the Blocks tab            |
+| `condition`           | `Dry Road Conditions`, `Dry Gravel / MTB / CX`, `Extreme Conditions` | Active condition on the Longevity tab     |
+
+Because the hash fragment is never sent to the server, WordPress sees only the bare page URL and serves the correct page regardless of which tab or selection is active. Bookmarked and shared links work without any server-side configuration or custom rewrite rules.

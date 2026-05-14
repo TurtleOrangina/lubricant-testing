@@ -12,6 +12,7 @@ import {
 } from "echarts/components";
 import "./style.css";
 import App from "./App.vue";
+import { useProductsStore } from "./stores/products";
 
 use([
   CanvasRenderer,
@@ -24,4 +25,10 @@ use([
   LegendComponent,
 ]);
 
-createApp(App).use(createPinia()).mount("#lubricant-testing-app");
+const pinia = createPinia();
+const app = createApp(App);
+app.use(pinia);
+
+await useProductsStore(pinia).loadProducts();
+
+app.mount("#lubricant-testing-app");

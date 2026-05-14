@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
@@ -7,15 +7,18 @@ import LubricantDetails from "./components/LubricantDetails.vue";
 import LongevityChart from "./components/LongevityChart.vue";
 import Glossary from "./components/Glossary.vue";
 import GlossaryLink from "./components/GlossaryLink.vue";
-import AdminTab from "./components/AdminTab.vue";
+import ParseDataCsv from "./components/ParseDataCsv.vue";
 import { useNavigationStore, type TabId } from "./stores/navigation";
 import { useProductsStore } from "./stores/products";
 import { useSelectionStore } from "./stores/selection";
+import { isParseDataCsvRoute } from "./utils/url";
 
 const nav = useNavigationStore();
 const { products } = storeToRefs(useProductsStore());
 const selection = useSelectionStore();
 const { selectedName } = storeToRefs(selection);
+
+const showParseRoute = ref(isParseDataCsvRoute());
 
 const filteredProducts = computed(() =>
   nav.includeUnavailable ? products.value : products.value.filter((p) => p.commerciallyAvailable),
@@ -26,14 +29,21 @@ watch(selectedName, () => {
 });
 
 function onPopState() {
+  if (isParseDataCsvRoute()) {
+    showParseRoute.value = true;
+    return;
+  }
+  showParseRoute.value = false;
   const selectedLubricant = nav.restoreFromUrl();
   selection.setFromUrl(selectedLubricant);
 }
 
 onMounted(() => {
-  const selectedLubricant = nav.initFromUrl();
-  selection.setFromUrl(selectedLubricant);
-  history.replaceState(null, "", nav.currentUrl());
+  if (!showParseRoute.value) {
+    const selectedLubricant = nav.initFromUrl();
+    selection.setFromUrl(selectedLubricant);
+    history.replaceState(null, "", nav.currentUrl());
+  }
   window.addEventListener("popstate", onPopState);
 });
 
@@ -47,82 +57,85 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "longevity", label: "Single Application Longevity" },
   { id: "details", label: "Lubricant Details" },
   { id: "glossary", label: "Glossary" },
-  { id: "admin", label: "Admin" },
 ];
 </script>
 
 <template>
-  <header class="app-header">
-    <h1>Chain Lubricant Test Results</h1>
-    <p class="subtitle">Comparative chain wear analysis of bicycle chain lubricants</p>
-  </header>
+  <template v-if="showParseRoute">
+    <ParseDataCsv />
+  </template>
 
-  <main>
-    <nav class="tab-nav" role="tablist">
-      <button
-        v-for="tab in TABS"
-        :key="tab.id"
-        role="tab"
-        :aria-selected="nav.activeTab === tab.id"
-        :class="['tab-btn', { active: nav.activeTab === tab.id }]"
-        @click="nav.navigateTo(tab.id)"
-      >
-        {{ tab.label }}
-      </button>
-    </nav>
+  <template v-else>
+    <header class="app-header">
+      <h1>Chain Lubricant Test Results</h1>
+      <p class="subtitle">Comparative chain wear analysis of bicycle chain lubricants</p>
+    </header>
 
-    <div class="tab-panel">
-      <template v-if="nav.activeTab === 'overview'">
-        <p class="section-desc">
-          How many kilometres of the <GlossaryLink section="main-test">Main Test</GlossaryLink> does
-          it take to fully <GlossaryLink section="chain-wear">wear</GlossaryLink> one chain? See
-          <GlossaryLink section="main-test-kilometers"> Main Test Kilometers</GlossaryLink> for
-          details. Higher is better.
-        </p>
-        <MainTestOverviewChart :products="filteredProducts" />
-      </template>
+    <main>
+      <nav class="tab-nav" role="tablist">
+        <button
+          v-for="tab in TABS"
+          :key="tab.id"
+          role="tab"
+          :aria-selected="nav.activeTab === tab.id"
+          :class="['tab-btn', { active: nav.activeTab === tab.id }]"
+          @click="nav.navigateTo(tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+      </nav>
 
-      <template v-else-if="nav.activeTab === 'blocks'">
-        <p class="section-desc">
-          <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> in the selected 1000 km block
-          of the <GlossaryLink section="main-test">Main Test</GlossaryLink>. Lower is better.
-        </p>
-        <MainTestBlockChart :products="filteredProducts" />
-      </template>
+      <div class="tab-panel">
+        <template v-if="nav.activeTab === 'overview'">
+          <p class="section-desc">
+            How many kilometres of the
+            <GlossaryLink section="main-test">Main Test</GlossaryLink> does it take to fully
+            <GlossaryLink section="chain-wear">wear</GlossaryLink> one chain? See
+            <GlossaryLink section="main-test-kilometers"> Main Test Kilometers</GlossaryLink> for
+            details. Higher is better.
+          </p>
+          <MainTestOverviewChart :products="filteredProducts" />
+        </template>
 
-      <template v-else-if="nav.activeTab === 'longevity'">
-        <p class="section-desc">
-          Total distance (km) until chain replacement is needed with a
-          <GlossaryLink section="single-application-longevity">single application</GlossaryLink> of
-          lubricant, depending on the selected riding condition. Higher is better.
-        </p>
-        <LongevityChart :products="filteredProducts" />
-      </template>
+        <template v-else-if="nav.activeTab === 'blocks'">
+          <p class="section-desc">
+            <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> in the selected 1000 km
+            block of the <GlossaryLink section="main-test">Main Test</GlossaryLink>. Lower is
+            better.
+          </p>
+          <MainTestBlockChart :products="filteredProducts" />
+        </template>
 
-      <template v-else-if="nav.activeTab === 'details'">
-        <LubricantDetails :products="filteredProducts" />
-      </template>
+        <template v-else-if="nav.activeTab === 'longevity'">
+          <p class="section-desc">
+            Total distance (km) until chain replacement is needed with a
+            <GlossaryLink section="single-application-longevity">single application</GlossaryLink>
+            of lubricant, depending on the selected riding condition. Higher is better.
+          </p>
+          <LongevityChart :products="filteredProducts" />
+        </template>
 
-      <template v-else-if="nav.activeTab === 'glossary'">
-        <Glossary />
-      </template>
+        <template v-else-if="nav.activeTab === 'details'">
+          <LubricantDetails :products="filteredProducts" />
+        </template>
 
-      <template v-else-if="nav.activeTab === 'admin'">
-        <AdminTab />
-      </template>
-    </div>
+        <template v-else-if="nav.activeTab === 'glossary'">
+          <Glossary />
+        </template>
+      </div>
 
-    <div class="filter-bar">
-      <label class="filter-checkbox">
-        <input
-          type="checkbox"
-          :checked="nav.includeUnavailable"
-          @change="nav.setIncludeUnavailable(($event.target as HTMLInputElement).checked)"
-        />
-        Include unavailable products
-      </label>
-    </div>
-  </main>
+      <div class="filter-bar">
+        <label class="filter-checkbox">
+          <input
+            type="checkbox"
+            :checked="nav.includeUnavailable"
+            @change="nav.setIncludeUnavailable(($event.target as HTMLInputElement).checked)"
+          />
+          Include unavailable products
+        </label>
+      </div>
+    </main>
+  </template>
 </template>
 
 <style scoped>

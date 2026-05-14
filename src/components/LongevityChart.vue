@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
@@ -12,10 +12,15 @@ import {
   makeSelectionMarkArea,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
+import { useNavigationStore } from "../stores/navigation";
 
 const props = defineProps<{ products: Product[] }>();
 
-const selectedCondition = ref<ConditionKey>("dryRoad");
+const nav = useNavigationStore();
+const selectedCondition = computed({
+  get: () => nav.activeCondition,
+  set: (val: ConditionKey) => nav.setActiveCondition(val),
+});
 
 interface BarEntry {
   name: string;

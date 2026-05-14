@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import type { Product } from "../types";
 import { useSelectionStore } from "../stores/selection";
 import LubricantCard from "./LubricantCard.vue";
@@ -16,58 +16,41 @@ const sortedProducts = computed(() =>
   ),
 );
 
-const selectedProduct = computed(
-  () => props.products.find((p) => p.name === store.selectedName) ?? null,
-);
+function toggleSelect(name: string) {
+  if (store.selectedName === name) store.clear();
+  else store.select(name);
+}
 
-const unselectedProducts = computed(() =>
-  sortedProducts.value.filter((p) => p.name !== store.selectedName),
-);
+const cardEls: Record<string, HTMLElement> = {};
+function setCardEl(el: unknown, name: string) {
+  if (el) cardEls[name] = (el as { $el: HTMLElement }).$el;
+  else delete cardEls[name];
+}
+
+onMounted(() => {
+  if (store.selectedName) {
+    cardEls[store.selectedName]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+});
 </script>
 
 <template>
   <div>
-    <div v-if="selectedProduct" class="selected-section">
-      <p class="selected-label">Selected lubricant</p>
-      <LubricantCard
-        :product="selectedProduct"
-        :highlighted="true"
-        :closable="true"
-        class="selected-card"
-        @close="store.clear()"
-      />
-    </div>
-
     <div class="product-grid">
       <LubricantCard
-        v-for="product in unselectedProducts"
+        v-for="product in sortedProducts"
         :key="product.name"
+        :ref="(el) => setCardEl(el, product.name)"
         :product="product"
+        :highlighted="product.name === store.selectedName"
         :selectable="true"
-        @select="store.select(product.name)"
+        @select="toggleSelect(product.name)"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.selected-section {
-  margin-bottom: 20px;
-}
-
-.selected-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #3b82f6;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.selected-card {
-  max-width: 320px;
-}
-
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
