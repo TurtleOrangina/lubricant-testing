@@ -5,7 +5,9 @@ import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
+  base: "./",
   build: {
+    outDir: "docs",
     chunkSizeWarningLimit: 750,
     rollupOptions: {
       output: {
@@ -20,7 +22,7 @@ export default defineConfig({
     "*": "vp check --fix",
   },
   fmt: { ignorePatterns: ["docs/**"] },
-  lint: { options: { typeAware: true, typeCheck: true } },
+  lint: { options: { typeAware: true, typeCheck: true }, ignorePatterns: ["docs/**"] },
   plugins: [vue()],
   resolve: {
     alias: {

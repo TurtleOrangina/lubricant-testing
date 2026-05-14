@@ -24,4 +24,4 @@ use([
   LegendComponent,
 ]);
 
-createApp(App).use(createPinia()).mount("#app");
+createApp(App).use(createPinia()).mount("#lubricant-testing-app");

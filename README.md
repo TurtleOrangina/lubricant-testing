@@ -1,48 +1,48 @@
-# lubricant-testing
+# Lubricant Testing
 
-This template should help get you started developing with Vue 3 in Vite.
+A web application that visualises bicycle chain lubricant test data in an accessible and interactive way. Built with Vue 3, ECharts, and TypeScript.
+
+Can be integrated into existing wordpress websites, see [wordpress.md](wordpress.md).
+Is also hosted as stand-alone [website using github pages](https://turtleorangina.github.io/lubricant-testing/).
+
+## Prerequisites — Install Vite+
+
+This project uses [Vite+](https://viteplus.dev/) (`vp`), a unified toolchain that wraps Vite, Vitest, Oxlint, and Oxfmt behind a single CLI. Install it globally once:
+
+```sh
+# windows:
+irm https://vite.plus/ps1 | iex
+
+# macos / linux
+curl -fsSL https://vite.plus | bash
+```
+
+Verify the installation:
+
+```sh
+vp --version
+```
+
+Vite+ is the only tool you need to actively install on your machine to be able to build the website assets.
+
+## Common Commands
+
+```sh
+vp install      # install dependencies (run after cloning or pulling)
+vp dev          # start the development server with hot-reload
+vp build        # type-check, compile, and minify into docs/
+vp check        # format, lint, and type-check (run before committing)
+vp check --fix  # same, but auto-fixes formatting and lint issues
+```
 
 ## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[VS Code](https://code.visualstudio.com/) with the following extensions:
 
-## Recommended Browser Setup
+- [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) — Vue 3 language support and type-aware `.vue` file handling (disable Vetur if installed)
+- [Oxlint](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) — in-editor linting via Oxlint
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Browser DevTools
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-yarn
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-yarn dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-yarn build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
-```
+- Chromium (Chrome, Edge, Brave): [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) + [enable Custom Object Formatters](http://bit.ly/object-formatters)
+- Firefox: [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/) + [enable Custom Object Formatters](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
