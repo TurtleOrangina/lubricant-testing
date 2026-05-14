@@ -3,6 +3,7 @@ import { onMounted, watch, nextTick } from "vue";
 import { BLOCK_LABELS, BLOCK_DESCRIPTIONS } from "../constants";
 import { useNavigationStore } from "../stores/navigation";
 import GlossaryLink from "./GlossaryLink.vue";
+import GlossarySectionHeading from "./GlossarySectionHeading.vue";
 
 const nav = useNavigationStore();
 
@@ -30,7 +31,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
     <p class="glossary-intro">Explanations of the terminology and methodology.</p>
 
     <section id="main-test" class="glossary-section">
-      <h3>The Main Test</h3>
+      <GlossarySectionHeading section-id="main-test" heading="The Main Test" />
       <p>
         The Main Test consists of 6000 km of ride simulation to evaluate how well a lubricant
         protects the chain over extended use. The test machine is Tacx Neo smart trainer set to 250w
@@ -53,7 +54,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
     </section>
 
     <section id="main-test-blocks" class="glossary-section">
-      <h3>Main Test Blocks</h3>
+      <GlossarySectionHeading section-id="main-test-blocks" heading="Main Test Blocks" />
       <p>
         The <GlossaryLink section="main-test">Main Test</GlossaryLink> is divided into six
         sequential 1000 km blocks:
@@ -75,7 +76,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
     </section>
 
     <section id="chain-wear" class="glossary-section">
-      <h3>Chain Wear</h3>
+      <GlossarySectionHeading section-id="chain-wear" heading="Chain Wear" />
       <p>
         Chain wear is expressed as a percentage of the standard replacement threshold. A chain is
         considered <strong>100% worn</strong> when it reaches 0.5% elongation — the
@@ -92,7 +93,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
     </section>
 
     <section id="main-test-kilometers" class="glossary-section">
-      <h3>Main Test Kilometers</h3>
+      <GlossarySectionHeading section-id="main-test-kilometers" heading="Main Test Kilometers" />
       <p>
         The Main Test Kilometers is a single number that summarises a lubricant's performance in the
         <GlossaryLink section="main-test">Main Test</GlossaryLink>: Roughly,
@@ -160,7 +161,10 @@ watch(() => nav.glossaryTarget, scrollToTarget);
     </section>
 
     <section id="single-application-longevity" class="glossary-section">
-      <h3>Single Application Longevity</h3>
+      <GlossarySectionHeading
+        section-id="single-application-longevity"
+        heading="Single Application Longevity"
+      />
       <p>
         The Single Application Longevity test measures how long a single application of lubricant
         protects the chain before the chain needs to be re-lubed or replaced. Unlike the
@@ -200,7 +204,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
     </section>
 
     <section id="lubricant-cost" class="glossary-section">
-      <h3>Lubricant Cost</h3>
+      <GlossarySectionHeading section-id="lubricant-cost" heading="Lubricant Cost" />
       <p>
         The lubricant cost shown is the total cost in Australian Dollars to run the full 6000 km
         <GlossaryLink section="main-test">Main Test</GlossaryLink>, based on the number of
@@ -236,12 +240,6 @@ watch(() => nav.glossaryTarget, scrollToTarget);
   padding-top: 28px;
   margin-bottom: 36px;
   scroll-margin-top: 16px;
-}
-
-.glossary-section h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-  color: var(--text-heading);
 }
 
 .glossary-section h4 {

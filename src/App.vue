@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
@@ -8,24 +8,32 @@ import LongevityChart from "./components/LongevityChart.vue";
 import Glossary from "./components/Glossary.vue";
 import GlossaryLink from "./components/GlossaryLink.vue";
 import AdminTab from "./components/AdminTab.vue";
-import { useNavigationStore } from "./stores/navigation";
+import { useNavigationStore, type TabId } from "./stores/navigation";
 import { useProductsStore } from "./stores/products";
-import type { TabId } from "./stores/navigation";
+import { useSelectionStore } from "./stores/selection";
 
 const nav = useNavigationStore();
 const { products } = storeToRefs(useProductsStore());
+const selection = useSelectionStore();
+const { selectedName } = storeToRefs(selection);
 
-const includeUnavailable = ref(false);
 const filteredProducts = computed(() =>
-  includeUnavailable.value ? products.value : products.value.filter((p) => p.commerciallyAvailable),
+  nav.includeUnavailable ? products.value : products.value.filter((p) => p.commerciallyAvailable),
 );
 
-function onPopState(event: PopStateEvent) {
-  nav.restoreFromHistory(event.state);
+watch(selectedName, () => {
+  nav.syncSelection();
+});
+
+function onPopState() {
+  const selectedLubricant = nav.restoreFromUrl();
+  selection.setFromUrl(selectedLubricant);
 }
 
 onMounted(() => {
-  history.replaceState({ tab: nav.activeTab }, "");
+  const selectedLubricant = nav.initFromUrl();
+  selection.setFromUrl(selectedLubricant);
+  history.replaceState(null, "", nav.currentUrl());
   window.addEventListener("popstate", onPopState);
 });
 
@@ -106,7 +114,11 @@ const TABS: { id: TabId; label: string }[] = [
 
     <div class="filter-bar">
       <label class="filter-checkbox">
-        <input v-model="includeUnavailable" type="checkbox" />
+        <input
+          type="checkbox"
+          :checked="nav.includeUnavailable"
+          @change="nav.setIncludeUnavailable(($event.target as HTMLInputElement).checked)"
+        />
         Include unavailable products
       </label>
     </div>

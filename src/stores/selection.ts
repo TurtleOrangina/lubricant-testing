@@ -12,5 +12,9 @@ export const useSelectionStore = defineStore("selection", () => {
     selectedName.value = null;
   }
 
-  return { selectedName, select, clear };
+  function setFromUrl(name: string | null) {
+    selectedName.value = name;
+  }
+
+  return { selectedName, select, clear, setFromUrl };
 });
