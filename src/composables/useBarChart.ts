@@ -36,6 +36,12 @@ export function useBarChart<T extends ChartEntry>(
 
   const hiddenCategories = ref<Set<string>>(new Set());
 
+  // Only entries whose category is currently visible — used for the x-axis so
+  // hidden-category products disappear from the axis entirely.
+  const visibleEntries = computed(() =>
+    toValue(sortedEntries).filter((e) => !hiddenCategories.value.has(e.category)),
+  );
+
   function handleLegendChange({ selected }: { selected: Record<string, boolean> }) {
     hiddenCategories.value = new Set(
       Object.entries(selected)
@@ -52,18 +58,19 @@ export function useBarChart<T extends ChartEntry>(
     const result = chartRef.value.convertFromPixel({ seriesIndex: 0 }, [x, y]) as number[] | null;
     if (!result) return;
     const dataIdx = Math.round(result[0]);
-    const entries = toValue(sortedEntries);
+    const entries = visibleEntries.value;
     if (dataIdx < 0 || dataIdx >= entries.length) return;
     store.select(entries[dataIdx].name);
   }
 
-  const chartMinWidth = computed(() => 150 + toValue(sortedEntries).length * 12);
+  const chartMinWidth = computed(() => 150 + visibleEntries.value.length * 12);
 
   return {
     store,
     selectedProduct,
     legendItems,
     hiddenCategories,
+    visibleEntries,
     handleLegendChange,
     handleChartClick,
     chartMinWidth,

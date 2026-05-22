@@ -59,6 +59,7 @@ const {
   selectedProduct,
   legendItems,
   hiddenCategories,
+  visibleEntries,
   handleLegendChange,
   handleChartClick,
   chartMinWidth,
@@ -69,11 +70,11 @@ function formatPct(value: number): string {
 }
 
 const option = computed((): EChartsOption => {
-  const entries = sortedEntries.value;
+  const entries = visibleEntries.value;
+  const allCategories = [...new Set(sortedEntries.value.map((e) => e.category))];
   const selected = store.selectedName;
   const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
   const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
-  const categories = [...new Set(entries.map((e) => e.category))];
 
   return {
     legend: {
@@ -118,7 +119,7 @@ const option = computed((): EChartsOption => {
       nameGap: 52,
       axisLabel: { ...DARK_VALUE_AXIS_STYLE.axisLabel, formatter: (v: number) => formatPct(v) },
     },
-    series: categories.map((cat) => ({
+    series: allCategories.map((cat) => ({
       name: cat,
       type: "bar" as const,
       stack: "main",

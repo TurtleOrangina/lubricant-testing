@@ -51,17 +51,18 @@ const {
   selectedProduct,
   legendItems,
   hiddenCategories,
+  visibleEntries,
   handleLegendChange,
   handleChartClick,
   chartMinWidth,
 } = useBarChart(() => props.products, sortedEntries, chartRef);
 
 const option = computed((): EChartsOption => {
-  const entries = sortedEntries.value;
+  const entries = visibleEntries.value;
+  const allCategories = [...new Set(sortedEntries.value.map((e) => e.category))];
   const selected = store.selectedName;
   const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
   const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
-  const categories = [...new Set(entries.map((e) => e.category))];
 
   return {
     legend: {
@@ -116,7 +117,7 @@ const option = computed((): EChartsOption => {
         formatter: (v: number) => v.toLocaleString(),
       },
     },
-    series: categories.flatMap((cat) => [
+    series: allCategories.flatMap((cat) => [
       {
         name: cat,
         type: "bar" as const,
