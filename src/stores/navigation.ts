@@ -3,8 +3,9 @@ import { ref } from "vue";
 import { buildUrl, parseUrl } from "../utils/url";
 import { useSelectionStore } from "./selection";
 import type { ConditionKey } from "../constants";
+import { DEFAULT_DRIVETRAIN_COST } from "../constants";
 
-export type TabId = "overview" | "blocks" | "longevity" | "details" | "glossary";
+export type TabId = "overview" | "blocks" | "longevity" | "cost-to-run" | "details" | "glossary";
 
 export const GLOSSARY_SECTION_ANCHORS: Record<string, string> = {
   "main-test": "The Main Test",
@@ -13,6 +14,8 @@ export const GLOSSARY_SECTION_ANCHORS: Record<string, string> = {
   "main-test-kilometers": "Main Test Kilometers",
   "single-application-longevity": "Single Application Longevity",
   "lubricant-cost": "Lubricant Cost",
+  "cost-to-run": "Cost to Run",
+  "drive-train-cost": "Drive Train Cost",
 };
 
 export const GLOSSARY_ANCHOR_TO_ID: Record<string, string> = Object.fromEntries(
@@ -26,6 +29,7 @@ export const useNavigationStore = defineStore("navigation", () => {
   const includeUnavailable = ref(true);
   const activeBlock = ref<number>(0);
   const activeCondition = ref<ConditionKey>("dryRoad");
+  const drivetrainCost = ref<number>(DEFAULT_DRIVETRAIN_COST);
 
   function currentUrl(): string {
     const selection = useSelectionStore();
@@ -36,6 +40,7 @@ export const useNavigationStore = defineStore("navigation", () => {
       glossaryAnchor: activeTab.value === "glossary" ? glossaryAnchor.value : null,
       block: activeTab.value === "blocks" ? activeBlock.value : null,
       condition: activeTab.value === "longevity" ? activeCondition.value : null,
+      drivetrainCost: activeTab.value === "cost-to-run" ? drivetrainCost.value : null,
     });
   }
 
@@ -73,6 +78,11 @@ export const useNavigationStore = defineStore("navigation", () => {
     history.replaceState(null, "", currentUrl());
   }
 
+  function setDrivetrainCost(val: number) {
+    drivetrainCost.value = val;
+    history.replaceState(null, "", currentUrl());
+  }
+
   function syncSelection() {
     history.replaceState(null, "", currentUrl());
   }
@@ -83,6 +93,7 @@ export const useNavigationStore = defineStore("navigation", () => {
     includeUnavailable.value = state.includeUnavailable;
     if (state.block != null) activeBlock.value = state.block;
     if (state.condition != null) activeCondition.value = state.condition;
+    if (state.drivetrainCost != null) drivetrainCost.value = state.drivetrainCost;
     if (state.glossaryAnchor && state.tab === "glossary") {
       glossaryAnchor.value = state.glossaryAnchor;
       glossaryTarget.value = GLOSSARY_ANCHOR_TO_ID[state.glossaryAnchor] ?? null;
@@ -96,6 +107,7 @@ export const useNavigationStore = defineStore("navigation", () => {
     includeUnavailable.value = state.includeUnavailable;
     if (state.block != null) activeBlock.value = state.block;
     if (state.condition != null) activeCondition.value = state.condition;
+    if (state.drivetrainCost != null) drivetrainCost.value = state.drivetrainCost;
     glossaryAnchor.value = state.tab === "glossary" ? state.glossaryAnchor : null;
     glossaryTarget.value =
       state.tab === "glossary" && state.glossaryAnchor
@@ -115,12 +127,14 @@ export const useNavigationStore = defineStore("navigation", () => {
     includeUnavailable,
     activeBlock,
     activeCondition,
+    drivetrainCost,
     navigateTo,
     navigateToGlossary,
     setGlossarySection,
     setIncludeUnavailable,
     setActiveBlock,
     setActiveCondition,
+    setDrivetrainCost,
     syncSelection,
     initFromUrl,
     restoreFromUrl,

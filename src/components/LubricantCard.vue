@@ -2,6 +2,7 @@
 import type { Product } from "../types";
 import { BLOCK_LABELS, CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
 import GlossaryLink from "./GlossaryLink.vue";
+import { useNavigationStore } from "../stores/navigation";
 
 const props = defineProps<{
   product: Product;
@@ -10,19 +11,18 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ select: [] }>();
 
+const nav = useNavigationStore();
+
 function roundToHundreds(n: number): number {
   return Math.round(n / 100) * 100;
 }
 
-function priceFor6000km(p: Product): string {
-  if (p.costPackageAUD == null || p.usagesMainTest == null) return "Unknown";
-  return `$${(p.costPackageAUD * p.usagesMainTest).toFixed(0)}`;
+function lubeCostPer1000km(p: Product): number {
+  return Math.round((p.costPackageAUD! * p.usagesMainTest!) / 6);
 }
 
-function costTooltip(p: Product): string {
-  const unitCost = p.costPackageAUD != null ? `${p.costPackageAUD.toFixed(2)} AUD` : "Unknown";
-  const usages = p.usagesMainTest != null ? String(p.usagesMainTest) : "Unknown";
-  return `Product cost per unit: ${unitCost}\nUnits used in Main Test: ${usages}`;
+function dtWearCostPer1000km(p: Product): number {
+  return Math.round(nav.drivetrainCost / ((p.mainTest!.testKilometerEquivalent * 2) / 1000));
 }
 </script>
 
@@ -87,13 +87,22 @@ function costTooltip(p: Product): string {
         <span class="stat-value">{{ product.commerciallyAvailable ? "Yes" : "No" }}</span>
       </div>
 
-      <div class="stat-row has-tooltip">
-        <span class="stat-label">
-          <GlossaryLink section="lubricant-cost">Lubricant cost</GlossaryLink>
-        </span>
-        <span class="stat-value">{{ priceFor6000km(product) }}</span>
-        <div class="tooltip-bubble tooltip-bubble--pre">{{ costTooltip(product) }}</div>
-      </div>
+      <template v-if="product.costPackageAUD != null && product.usagesMainTest != null">
+        <div class="stat-row">
+          <span class="stat-label">
+            <GlossaryLink section="cost-to-run">Cost to run</GlossaryLink>
+            <span class="stat-unit"> ($ / 1000 km)</span>
+          </span>
+        </div>
+        <div v-if="product.mainTest != null" class="stat-row stat-row--indented">
+          <span class="stat-label"> Drivetrain wear (${{ nav.drivetrainCost }}) </span>
+          <span class="stat-value">${{ dtWearCostPer1000km(product) }}</span>
+        </div>
+        <div class="stat-row stat-row--indented">
+          <span class="stat-label">Lubricant</span>
+          <span class="stat-value">${{ lubeCostPer1000km(product) }}</span>
+        </div>
+      </template>
 
       <div class="stat-row">
         <span class="stat-label">
@@ -232,6 +241,11 @@ function costTooltip(p: Product): string {
 .stat-label {
   color: var(--text-muted);
   flex-shrink: 0;
+}
+
+.stat-unit {
+  font-size: 0.7rem;
+  opacity: 0.75;
 }
 
 .stat-value {

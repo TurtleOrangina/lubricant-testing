@@ -6,6 +6,7 @@ export const TAB_PATHS: Record<TabId, string> = {
   overview: "main_test_overview",
   blocks: "main_test_blocks",
   longevity: "single_application_longevity",
+  "cost-to-run": "cost_to_run",
   details: "lubricant_details",
   glossary: "glossary",
 };
@@ -29,6 +30,7 @@ export interface AppUrlState {
   glossaryAnchor: string | null;
   block: number | null;
   condition: ConditionKey | null;
+  drivetrainCost: number | null;
 }
 
 export function isParseDataCsvRoute(): boolean {
@@ -49,6 +51,13 @@ export function parseUrl(): AppUrlState {
   const condition =
     conditionLabel != null ? (CONDITION_LABEL_TO_KEY[conditionLabel] ?? null) : null;
 
+  const drivetrainCostStr = params.get("drivetrain_cost");
+  const drivetrainCostNum = drivetrainCostStr != null ? Number(drivetrainCostStr) : NaN;
+  const drivetrainCost =
+    !isNaN(drivetrainCostNum) && drivetrainCostNum >= 100 && drivetrainCostNum <= 2000
+      ? drivetrainCostNum
+      : null;
+
   return {
     tab,
     selectedLubricant: params.get("selected_lubricant"),
@@ -56,6 +65,7 @@ export function parseUrl(): AppUrlState {
     glossaryAnchor: encodedAnchor ? decodeURIComponent(encodedAnchor) : null,
     block,
     condition,
+    drivetrainCost,
   };
 }
 
@@ -77,6 +87,7 @@ export function buildUrl(state: AppUrlState): string {
     const cond = LONGEVITY_CONDITIONS.find((c) => c.key === state.condition);
     if (cond) parts.push(`condition=${encodeURIComponent(cond.label)}`);
   }
+  if (state.drivetrainCost != null) parts.push(`drivetrain_cost=${state.drivetrainCost}`);
 
   const query = parts.length ? "?" + parts.join("&") : "";
   return `#${hashPath}${query}`;

@@ -216,6 +216,70 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         both price and how frequently they need to be applied.
       </p>
     </section>
+
+    <section id="cost-to-run" class="glossary-section">
+      <GlossarySectionHeading section-id="cost-to-run" heading="Cost to Run" />
+      <p>
+        The cost to run a lubricant estimates the total expenditure per 1000 km, combining two
+        components:
+      </p>
+      <ul class="metric-list">
+        <li>
+          <strong>Lubricant cost</strong> — the cost of the lubricant itself, based on how many
+          applications were used during the
+          <GlossaryLink section="main-test">Main Test</GlossaryLink> and the cost per package.
+          <div class="formula-box">
+            Lubricant cost per 1000 km = (cost per package × packages used in Main Test) ÷ 6
+          </div>
+        </li>
+        <li>
+          <strong>Drivetrain wear cost</strong> — the cost attributed to drivetrain wear. It is
+          assumed you replace your drivetrain (see
+          <GlossaryLink section="drive-train-cost">Drive Train Cost</GlossaryLink>) when you have
+          worn through 2 chains. Each chain lasts
+          <GlossaryLink section="main-test-kilometers">Main Test Kilometers</GlossaryLink>, so the
+          full drivetrain cycle covers 2 × Main Test km.
+          <div class="formula-box">
+            Drivetrain wear cost per 1000 km = drivetrain cost ÷ (Main Test km × 2 ÷ 1000)
+          </div>
+        </li>
+      </ul>
+      <p class="example">
+        Example: A lubricant costs $40 per bottle and requires 2 bottles over the Main Test,
+        achieving a Main Test score of 6000 km. With a drivetrain cost of $500:<br />
+        Lubricant cost = (40 × 2) ÷ 6 = <strong>$13/1000km</strong><br />
+        Drivetrain wear cost = 500 ÷ (6000 × 2 ÷ 1000) = <strong>$42/1000km</strong><br />
+        Total cost to run = <strong>$55/1000km</strong>
+      </p>
+      <p>
+        The drivetrain cost can be adjusted using the slider on the Cost to Run tab to reflect your
+        actual parts costs.
+      </p>
+    </section>
+
+    <section id="drive-train-cost" class="glossary-section">
+      <GlossarySectionHeading section-id="drive-train-cost" heading="Drive Train Cost" />
+      <p>
+        The drive train cost is the AUD cost of the components that need to be replaced due to chain
+        wear: chain, cassette, and chain-rings (or cranks if individual chainring replacement is not
+        possible on your setup).
+      </p>
+      <p>
+        In practice, cassette and chain-rings typically outlast a single chain. A common rule of
+        thumb is that you can replace the chain twice before the cassette and chain-rings are worn
+        enough to require replacement. This means a full drivetrain replacement cycle consists of:
+      </p>
+      <ul class="metric-list">
+        <li>2 × chain replacements</li>
+        <li>1 × cassette replacement</li>
+        <li>1 × chain-ring replacement (or crank replacement)</li>
+      </ul>
+      <p>
+        The slider on the <strong>Cost to Run</strong> tab lets you enter the drivetrain cost that
+        matches your own parts. A typical mid-range drivetrain (2 chains + cassette + chain-rings)
+        might cost around $150–$600 AUD depending on component tier.
+      </p>
+    </section>
   </div>
 </template>
 

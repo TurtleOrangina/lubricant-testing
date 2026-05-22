@@ -5,6 +5,7 @@ import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
 import LubricantDetails from "./components/LubricantDetails.vue";
 import LongevityChart from "./components/LongevityChart.vue";
+import CostToRunChart from "./components/CostToRunChart.vue";
 import Glossary from "./components/Glossary.vue";
 import GlossaryLink from "./components/GlossaryLink.vue";
 import ParseDataCsv from "./components/ParseDataCsv.vue";
@@ -55,6 +56,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "overview", label: "Main Test Overview" },
   { id: "blocks", label: "Main Test Blocks" },
   { id: "longevity", label: "Single Application Longevity" },
+  { id: "cost-to-run", label: "Cost to Run" },
   { id: "details", label: "Lubricant Details" },
   { id: "glossary", label: "Glossary" },
 ];
@@ -113,6 +115,15 @@ const TABS: { id: TabId; label: string }[] = [
             of lubricant, depending on the selected riding condition. Higher is better.
           </p>
           <LongevityChart :products="filteredProducts" />
+        </template>
+
+        <template v-else-if="nav.activeTab === 'cost-to-run'">
+          <p class="section-desc">
+            <GlossaryLink section="cost-to-run">Cost to run</GlossaryLink> a lubricant, based on the
+            cost of the lubricant itself, plus the cost incurred by drive-train wear. Lower is
+            better.
+          </p>
+          <CostToRunChart :products="filteredProducts" />
         </template>
 
         <template v-else-if="nav.activeTab === 'details'">
