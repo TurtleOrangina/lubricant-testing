@@ -7,10 +7,13 @@ import GlossarySectionHeading from "./GlossarySectionHeading.vue";
 
 const nav = useNavigationStore();
 
+const BLOCK_HOURS: Record<number, number> = { 0: 35, 1: 37, 2: 31, 3: 37, 4: 30, 5: 37 };
+
 const BLOCKS = Object.entries(BLOCK_LABELS).map(([k, label]) => ({
   index: Number(k),
   label,
   description: BLOCK_DESCRIPTIONS[Number(k)],
+  hours: BLOCK_HOURS[Number(k)],
 }));
 
 async function scrollToTarget() {
@@ -39,7 +42,15 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         train. During the test, contamination and water is added at defined points. Throughout the
         test the chain is <strong>never cleaned</strong> — only re-lubricated at predetermined
         intervals — to simulate typical use where the lubricant accumulates grime over time. Up to
-        30 re-lubrications are performed across all six blocks.
+        30 re-lubrications are performed across all six blocks. Each block consists of approximately
+        34.5 hours of ride simulation, totalling 207 hours for the full 6000 km test. The full test
+        protocol is available
+        <a
+          href="https://zerofrictioncycling.com.au/wp-content/uploads/2025/01/ZFC-Test-protocol-Full-Brief-v3-Jan-25.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          >here</a
+        >.
       </p>
       <p>
         <GlossaryLink section="chain-wear">Chain wear</GlossaryLink> is tracked at the end of each
@@ -62,6 +73,7 @@ watch(() => nav.glossaryTarget, scrollToTarget);
       <ul class="block-list">
         <li v-for="block in BLOCKS" :key="block.index">
           <strong>{{ block.label }}</strong> — {{ block.description }}
+          <span class="block-duration">({{ block.hours }}h ride simulation)</span>
         </li>
       </ul>
       <p class="note">
@@ -335,6 +347,20 @@ watch(() => nav.glossaryTarget, scrollToTarget);
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text);
+}
+
+a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #60a5fa;
+}
+
+.block-duration {
+  color: var(--text-muted);
+  font-size: 0.85em;
 }
 
 .note {
