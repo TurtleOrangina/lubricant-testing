@@ -95,11 +95,50 @@ function dtWearCostPer1000km(p: Product): number {
           </span>
         </div>
         <div v-if="product.mainTest != null" class="stat-row stat-row--indented">
-          <span class="stat-label"> Drivetrain wear (${{ nav.drivetrainCost }}) </span>
+          <span class="stat-label has-tooltip">
+            Drivetrain wear (${{ nav.drivetrainCost }})
+            <div class="tooltip-bubble">
+              <div class="tooltip-calc-row">
+                <span>Drivetrain replacement cost</span>
+                <span>${{ nav.drivetrainCost }}</span>
+              </div>
+              <div class="tooltip-calc-row">
+                <span>Kilometers to wear chain</span>
+                <span
+                  >{{
+                    roundToHundreds(product.mainTest!.testKilometerEquivalent).toLocaleString()
+                  }}
+                  km</span
+                >
+              </div>
+              <div class="tooltip-divider"></div>
+              <div class="tooltip-calc-row tooltip-calc-row--summary">
+                <span>Drivetrain wear cost per 1000km</span>
+                <span>${{ dtWearCostPer1000km(product) }}</span>
+              </div>
+            </div>
+          </span>
           <span class="stat-value">${{ dtWearCostPer1000km(product) }}</span>
         </div>
         <div class="stat-row stat-row--indented">
-          <span class="stat-label">Lubricant</span>
+          <span class="stat-label has-tooltip">
+            Lubricant
+            <div class="tooltip-bubble">
+              <div class="tooltip-calc-row">
+                <span>Cost of lubricant (per package)</span>
+                <span>${{ product.costPackageAUD }}</span>
+              </div>
+              <div class="tooltip-calc-row">
+                <span>Usages per 6000km main test</span>
+                <span>{{ product.usagesMainTest }}</span>
+              </div>
+              <div class="tooltip-divider"></div>
+              <div class="tooltip-calc-row tooltip-calc-row--summary">
+                <span>Lubricant cost per 1000km</span>
+                <span>${{ lubeCostPer1000km(product) }}</span>
+              </div>
+            </div>
+          </span>
           <span class="stat-value">${{ lubeCostPer1000km(product) }}</span>
         </div>
       </template>
@@ -282,5 +321,23 @@ function dtWearCostPer1000km(p: Product): number {
 
 .has-tooltip:hover .tooltip-bubble {
   display: block;
+}
+
+.tooltip-calc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #9ca3af;
+}
+
+.tooltip-calc-row--summary {
+  color: #f9fafb;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.tooltip-divider {
+  border-top: 1px solid #4b5563;
+  margin: 4px 0;
 }
 </style>
