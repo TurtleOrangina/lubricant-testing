@@ -90,10 +90,14 @@ const option = computed((): EChartsOption => {
         const items = (Array.isArray(params) ? params : [params]) as Array<{ name: string }>;
         const entry = entries.find((e) => e.name === items[0]?.name);
         if (!entry) return "";
+        const tdL = `style="padding-right:20px"`;
+        const tdR = `style="text-align:right"`;
         return (
-          `<b>${entry.name}</b><br>` +
-          `Jump point: <b>${entry.jumpPoint.toLocaleString()} km</b><br>` +
-          `Wear allowance: <b>${entry.wearAllowance.toLocaleString()} km</b>`
+          `<b>${entry.name}</b>` +
+          `<table style="margin-top:6px;width:100%;border-collapse:collapse">` +
+          `<tr><td ${tdL}>Jump point</td><td ${tdR}>${entry.jumpPoint.toLocaleString()} km</td></tr>` +
+          `<tr><td ${tdL}>Wear allowance</td><td ${tdR}>${entry.wearAllowance.toLocaleString()} km</td></tr>` +
+          `</table>`
         );
       },
     },

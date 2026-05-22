@@ -93,10 +93,13 @@ function dtWearCostPer1000km(p: Product): number {
             <GlossaryLink section="cost-to-run">Cost to run</GlossaryLink>
             <span class="stat-unit"> ($ / 1000 km)</span>
           </span>
+          <span v-if="product.mainTest != null" class="stat-value">
+            ${{ dtWearCostPer1000km(product) + lubeCostPer1000km(product) }}
+          </span>
         </div>
         <div v-if="product.mainTest != null" class="stat-row stat-row--indented">
           <span class="stat-label has-tooltip">
-            Drivetrain wear (${{ nav.drivetrainCost }})
+            Drivetrain wear <span class="stat-unit"> ($ / 1000 km)</span>
             <div class="tooltip-bubble">
               <div class="tooltip-calc-row">
                 <span>Drivetrain replacement cost</span>
@@ -122,7 +125,7 @@ function dtWearCostPer1000km(p: Product): number {
         </div>
         <div class="stat-row stat-row--indented">
           <span class="stat-label has-tooltip">
-            Lubricant
+            Lubricant <span class="stat-unit"> ($ / 1000 km)</span>
             <div class="tooltip-bubble">
               <div class="tooltip-calc-row">
                 <span>Cost of lubricant (per package)</span>
