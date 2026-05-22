@@ -147,28 +147,4 @@ After uploading a new `data.csv`, navigate to the parse report to check for any 
 
 The app uses hash-based navigation exclusively. All state — the active tab, selected lubricant, filter flags, and dropdown selections — is encoded after the `#` and never sent to the server.
 
-URL format:
-
-```
-#<tab>[/<glossary-anchor>][?param1=value1&param2=value2]
-```
-
-Examples:
-
-| What the user sees                                         | URL                                                                                                     |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Overview tab                                               | `#main_test_overview`                                                                                   |
-| Blocks tab, Block 2 selected                               | `#main_test_blocks?block=Block%202%20(dry%20dirt)`                                                      |
-| Longevity tab, Extreme Conditions, a lubricant highlighted | `#single_application_longevity?condition=Extreme%20Conditions&selected_lubricant=Cyclowax%20Race%20Wax` |
-| Glossary, Chain Wear section                               | `#glossary/Chain%20Wear`                                                                                |
-
-Supported hash parameters:
-
-| Parameter             | Values                                                               | Description                               |
-| --------------------- | -------------------------------------------------------------------- | ----------------------------------------- |
-| `selected_lubricant`  | product name                                                         | Highlights a lubricant in the chart       |
-| `include_unavailable` | (flag, no value)                                                     | Shows products not commercially available |
-| `block`               | `Block 1 (clean)` … `Block 6 (harsh wet)`                            | Active block on the Blocks tab            |
-| `condition`           | `Dry Road Conditions`, `Dry Gravel / MTB / CX`, `Extreme Conditions` | Active condition on the Longevity tab     |
-
 Because the hash fragment is never sent to the server, WordPress sees only the bare page URL and serves the correct page regardless of which tab or selection is active. Bookmarked and shared links work without any server-side configuration or custom rewrite rules.

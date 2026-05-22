@@ -52,7 +52,7 @@ export function parseUrl(): AppUrlState {
   return {
     tab,
     selectedLubricant: params.get("selected_lubricant"),
-    includeUnavailable: params.has("include_unavailable"),
+    includeUnavailable: !params.has("exclude_unavailable"),
     glossaryAnchor: encodedAnchor ? decodeURIComponent(encodedAnchor) : null,
     block,
     condition,
@@ -68,7 +68,7 @@ export function buildUrl(state: AppUrlState): string {
   const parts: string[] = [];
   if (state.selectedLubricant)
     parts.push(`selected_lubricant=${encodeURIComponent(state.selectedLubricant)}`);
-  if (state.includeUnavailable) parts.push("include_unavailable");
+  if (!state.includeUnavailable) parts.push("exclude_unavailable");
   if (state.block != null) {
     const label = BLOCK_LABELS[state.block];
     if (label) parts.push(`block=${encodeURIComponent(label)}`);

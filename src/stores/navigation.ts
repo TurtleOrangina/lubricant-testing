@@ -23,7 +23,7 @@ export const useNavigationStore = defineStore("navigation", () => {
   const activeTab = ref<TabId>("overview");
   const glossaryTarget = ref<string | null>(null);
   const glossaryAnchor = ref<string | null>(null);
-  const includeUnavailable = ref(false);
+  const includeUnavailable = ref(true);
   const activeBlock = ref<number>(0);
   const activeCondition = ref<ConditionKey>("dryRoad");
 
