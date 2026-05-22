@@ -147,7 +147,7 @@ function costTooltip(p: Product): string {
 }
 
 .card-top--selectable:hover {
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .card-header {

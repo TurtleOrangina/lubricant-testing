@@ -8,13 +8,11 @@ export const LONGEVITY_CONDITIONS: { key: ConditionKey; label: string }[] = [
   { key: "extremeConditions", label: "Extreme Conditions" },
 ];
 
-export const PRODUCT_COLORS = ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444"] as const;
-
 export const CATEGORY_COLORS: Record<ProductCategory, string> = {
-  "immersive wax": "#8b5cf6",
-  "wax drip": "#3b82f6",
-  "wet-drip": "#06b6d4",
-  other: "#9a0823",
+  "immersive wax": "#ff98ff",
+  "wax drip": "#ffa600",
+  "wet-drip": "#00ffff",
+  other: "#f4ff13",
 };
 
 export const BLOCK_LABELS: Record<number, string> = {

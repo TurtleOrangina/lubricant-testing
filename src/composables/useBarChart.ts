@@ -57,7 +57,7 @@ export function useBarChart<T extends ChartEntry>(
     store.select(entries[dataIdx].name);
   }
 
-  const chartMinWidth = computed(() => 150 + toValue(sortedEntries).length * 8);
+  const chartMinWidth = computed(() => 150 + toValue(sortedEntries).length * 12);
 
   return {
     store,

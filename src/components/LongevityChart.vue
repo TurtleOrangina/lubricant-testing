@@ -10,6 +10,7 @@ import {
   makeCategorySeriesData,
   makeProductXAxis,
   makeSelectionMarkArea,
+  DARK_VALUE_AXIS_STYLE,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 import { useNavigationStore } from "../stores/navigation";
@@ -69,7 +70,7 @@ const option = computed((): EChartsOption => {
       itemWidth: 14,
       itemHeight: 14,
       itemGap: 20,
-      textStyle: { fontSize: 13 },
+      textStyle: { fontSize: 13, color: "#d1d5db" },
       data: legendItems.value.map((item) => ({ name: item.category })),
       selected: Object.fromEntries([
         ...legendItems.value.map((item) => [
@@ -102,11 +103,14 @@ const option = computed((): EChartsOption => {
       selected,
     ),
     yAxis: {
+      ...DARK_VALUE_AXIS_STYLE,
       type: "value",
       name: "km",
       nameLocation: "end",
-      nameTextStyle: { fontSize: 12 },
-      axisLabel: { formatter: (v: number) => v.toLocaleString() },
+      axisLabel: {
+        ...DARK_VALUE_AXIS_STYLE.axisLabel,
+        formatter: (v: number) => v.toLocaleString(),
+      },
     },
     series: categories.flatMap((cat) => [
       {
@@ -186,8 +190,9 @@ const option = computed((): EChartsOption => {
   align-self: flex-start;
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid #d1d5db;
-  background: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
   font-size: 14px;
   cursor: pointer;
 }

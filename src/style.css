@@ -1,11 +1,11 @@
 #lubricant-testing-app {
-  --text: #374151;
-  --text-heading: #111827;
-  --text-muted: #6b7280;
-  --bg: #f3f4f6;
-  --surface: #ffffff;
-  --border: #e5e7eb;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --text: #d1d5db;
+  --text-heading: #f9fafb;
+  --text-muted: #9ca3af;
+  --bg: #111827;
+  --surface: #1f2937;
+  --border: #374151;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
   --radius: 8px;
 
   font-family: system-ui, "Segoe UI", Roboto, sans-serif;
@@ -16,18 +16,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0 24px 48px;
-}
-
-@media (prefers-color-scheme: dark) {
-  #lubricant-testing-app {
-    --text: #d1d5db;
-    --text-heading: #f9fafb;
-    --text-muted: #9ca3af;
-    --bg: #111827;
-    --surface: #1f2937;
-    --border: #374151;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
 }
 
 #lubricant-testing-app *,

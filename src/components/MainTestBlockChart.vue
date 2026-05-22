@@ -9,6 +9,7 @@ import {
   makeCategorySeriesData,
   makeProductXAxis,
   makeSelectionMarkArea,
+  DARK_VALUE_AXIS_STYLE,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 import { useNavigationStore } from "../stores/navigation";
@@ -76,12 +77,12 @@ const option = computed((): EChartsOption => {
 
   return {
     legend: {
-      top: 52,
+      top: 4,
       left: "center",
       itemWidth: 14,
       itemHeight: 14,
       itemGap: 20,
-      textStyle: { fontSize: 13 },
+      textStyle: { fontSize: 13, color: "#d1d5db" },
       data: legendItems.value.map((item) => ({ name: item.category })),
       selected: Object.fromEntries(
         legendItems.value.map((item) => [
@@ -104,25 +105,18 @@ const option = computed((): EChartsOption => {
         return `${item.marker}<b>${item.name}</b>: ${formatPct(item.value!)}`;
       },
     },
-    title: {
-      text: BLOCK_LABELS[selectedBlock.value],
-      subtext: BLOCK_DESCRIPTIONS[selectedBlock.value],
-      subtextStyle: { fontSize: 12, color: "#6b7280" },
-      top: 8,
-      left: 60,
-    },
-    grid: { left: 72, right: 24, top: 80, bottom: 130 },
+    grid: { left: 72, right: 24, top: 8, bottom: 130 },
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
     ),
     yAxis: {
+      ...DARK_VALUE_AXIS_STYLE,
       type: "value",
       name: "Chain wear",
       nameLocation: "middle",
       nameGap: 52,
-      nameTextStyle: { fontSize: 12 },
-      axisLabel: { formatter: (v: number) => formatPct(v) },
+      axisLabel: { ...DARK_VALUE_AXIS_STYLE.axisLabel, formatter: (v: number) => formatPct(v) },
     },
     series: categories.map((cat) => ({
       name: cat,
@@ -190,8 +184,9 @@ const option = computed((): EChartsOption => {
   align-self: flex-start;
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid #d1d5db;
-  background: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
   font-size: 14px;
   cursor: pointer;
 }

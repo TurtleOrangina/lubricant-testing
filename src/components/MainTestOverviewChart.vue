@@ -9,6 +9,7 @@ import {
   makeCategorySeriesData,
   makeProductXAxis,
   makeSelectionMarkArea,
+  DARK_VALUE_AXIS_STYLE,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 
@@ -58,7 +59,7 @@ const option = computed((): EChartsOption => {
       itemWidth: 14,
       itemHeight: 14,
       itemGap: 20,
-      textStyle: { fontSize: 13 },
+      textStyle: { fontSize: 13, color: "#d1d5db" },
       data: legendItems.value.map((item) => ({ name: item.category })),
       selected: Object.fromEntries(
         legendItems.value.map((item) => [
@@ -87,12 +88,15 @@ const option = computed((): EChartsOption => {
       selected,
     ),
     yAxis: {
+      ...DARK_VALUE_AXIS_STYLE,
       type: "value",
       name: "Main Test Kilometers",
       nameLocation: "middle",
       nameGap: 52,
-      nameTextStyle: { fontSize: 12 },
-      axisLabel: { formatter: (val: number) => String(Math.round(val)) },
+      axisLabel: {
+        ...DARK_VALUE_AXIS_STYLE.axisLabel,
+        formatter: (val: number) => String(Math.round(val)),
+      },
     },
     series: categories.map((cat) => ({
       name: cat,
