@@ -210,7 +210,7 @@ function dtWearCostPer1000km(p: Product): number {
 }
 
 .product-card.highlighted {
-  border-color: #3b82f6;
+  border-color: #40ff00;
   box-shadow:
     0 0 0 2px rgba(59, 130, 246, 0.2),
     var(--shadow-sm);

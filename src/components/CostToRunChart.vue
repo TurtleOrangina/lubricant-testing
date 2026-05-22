@@ -74,13 +74,14 @@ const option = computed((): EChartsOption => {
   const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
 
   return {
+    backgroundColor: "transparent",
     legend: {
       top: 4,
       left: "center",
       itemWidth: 14,
       itemHeight: 14,
       itemGap: 20,
-      textStyle: { fontSize: 13, color: "#d1d5db" },
+      textStyle: { fontSize: 13 },
       data: legendItems.value.map((item) => ({ name: item.category })),
       selected: Object.fromEntries([
         ...legendItems.value.map((item) => [
@@ -108,7 +109,7 @@ const option = computed((): EChartsOption => {
         const sep = `<tr><td colspan="2" style="border-top:1px solid #4b5563;padding:2px 0"></td></tr>`;
         return (
           `<b>${entry.name}</b><br>` +
-          `<span style="color:#9ca3af;font-size:0.85em">All costs in $ per 1000 km</span>` +
+          `<span style="font-size:0.85em">All costs in $ per 1000 km</span>` +
           `<table style="margin-top:6px;width:100%;border-collapse:collapse">` +
           `<tr><td ${tdL}>Drivetrain wear</td><td ${tdR}>$${dt}</td></tr>` +
           `<tr><td ${tdL}>Lubricant</td><td ${tdR}>$${lube}</td></tr>` +
@@ -118,7 +119,7 @@ const option = computed((): EChartsOption => {
         );
       },
     },
-    grid: { left: 72, right: 24, top: 40, bottom: 130 },
+    grid: { left: 72, right: 24, top: 40, bottom: 170 },
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
@@ -127,9 +128,8 @@ const option = computed((): EChartsOption => {
       ...DARK_VALUE_AXIS_STYLE,
       type: "value",
       name: "AUD / 1000km",
-      nameLocation: "end",
+      nameLocation: "middle",
       axisLabel: {
-        ...DARK_VALUE_AXIS_STYLE.axisLabel,
         formatter: (v: number) => `$${v}`,
       },
     },
@@ -140,7 +140,7 @@ const option = computed((): EChartsOption => {
         stack: "cost",
         color: CATEGORY_COLORS[cat],
         data: makeCategorySeriesData(entries, cat, (e) => e.driveTrainWearCostPer1000km),
-        barMaxWidth: 56,
+        barMaxWidth: 156,
         markArea:
           selIdx >= 0 && cat === selectedCategory
             ? makeSelectionMarkArea(entries[selIdx].name)
@@ -153,7 +153,7 @@ const option = computed((): EChartsOption => {
         color: CATEGORY_COLORS[cat],
         itemStyle: { opacity: 0.35 },
         data: makeCategorySeriesData(entries, cat, (e) => e.lubricantCostPer1000km),
-        barMaxWidth: 56,
+        barMaxWidth: 156,
       },
     ]),
   };
@@ -187,7 +187,8 @@ const option = computed((): EChartsOption => {
         <VChart
           ref="chartRef"
           :option="option"
-          style="height: 420px"
+          theme="dark"
+          style="height: max(420px, 60vh)"
           autoresize
           @legendselectchanged="handleLegendChange"
         />

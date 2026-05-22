@@ -183,7 +183,7 @@ h1 {
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
   cursor: pointer;
-  color: var(--text-muted);
+  color: var(--text);
   border-radius: 4px 4px 0 0;
   transition:
     color 0.15s,
@@ -200,7 +200,7 @@ h1 {
 }
 
 .tab-panel {
-  background: var(--surface);
+  background: var(--surface-dim);
   border: 1px solid var(--border);
   border-top: none;
   border-radius: 0 0 var(--radius) var(--radius);

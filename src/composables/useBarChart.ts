@@ -55,6 +55,7 @@ export function useBarChart<T extends ChartEntry>(
     const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
+    if (!chartRef.value.containPixel("grid", [x, y])) return;
     const result = chartRef.value.convertFromPixel({ seriesIndex: 0 }, [x, y]) as number[] | null;
     if (!result) return;
     const dataIdx = Math.round(result[0]);

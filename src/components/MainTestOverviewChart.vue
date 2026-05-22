@@ -54,13 +54,14 @@ const option = computed((): EChartsOption => {
   const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
 
   return {
+    backgroundColor: "transparent",
     legend: {
       top: 4,
       left: "center",
       itemWidth: 14,
       itemHeight: 14,
       itemGap: 20,
-      textStyle: { fontSize: 13, color: "#d1d5db" },
+      textStyle: { fontSize: 13 },
       data: legendItems.value.map((item) => ({ name: item.category })),
       selected: Object.fromEntries(
         legendItems.value.map((item) => [
@@ -83,7 +84,7 @@ const option = computed((): EChartsOption => {
         return `${item.marker}<b>${item.name}</b>: ${Math.round(item.value!)} km`;
       },
     },
-    grid: { left: 72, right: 24, top: 40, bottom: 130 },
+    grid: { left: 72, right: 24, top: 40, bottom: 170 },
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
@@ -95,7 +96,6 @@ const option = computed((): EChartsOption => {
       nameLocation: "middle",
       nameGap: 52,
       axisLabel: {
-        ...DARK_VALUE_AXIS_STYLE.axisLabel,
         formatter: (val: number) => String(Math.round(val)),
       },
     },
@@ -105,7 +105,7 @@ const option = computed((): EChartsOption => {
       stack: "main",
       color: CATEGORY_COLORS[cat],
       data: makeCategorySeriesData(entries, cat, (e) => e.equivalent),
-      barMaxWidth: 56,
+      barMaxWidth: 156,
       markArea:
         selIdx >= 0 && cat === selectedCategory
           ? makeSelectionMarkArea(entries[selIdx].name)
@@ -126,7 +126,8 @@ const option = computed((): EChartsOption => {
         <VChart
           ref="chartRef"
           :option="option"
-          style="height: 420px"
+          theme="dark"
+          style="height: max(420px, 60vh)"
           autoresize
           @legendselectchanged="handleLegendChange"
         />
