@@ -7,6 +7,13 @@ export const DARK_VALUE_AXIS_STYLE = {
   nameTextStyle: { fontSize: 12 },
 };
 
+export const CHART_GRID = { left: 72, right: 24, top: 40, bottom: 170 } as const;
+export const BAR_MAX_WIDTH = 156;
+
+export function tooltipSwatch(color: string, opacity = 1): string {
+  return `<span style="display:inline-block;width:10px;height:10px;background:${color};opacity:${opacity};border-radius:2px;margin-right:6px;vertical-align:middle"></span>`;
+}
+
 export function makeProductXAxis(names: string[], selectedName: string | null) {
   return {
     type: "category" as const,

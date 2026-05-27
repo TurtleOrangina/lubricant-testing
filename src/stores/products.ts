@@ -11,9 +11,10 @@ export const useProductsStore = defineStore("products", () => {
 
   async function loadProducts(): Promise<void> {
     try {
+      const csvFile = "data.csv";
       const url = import.meta.env.DEV
-        ? import.meta.env.BASE_URL + "assets/data.csv"
-        : new URL("data.csv", import.meta.url).href;
+        ? import.meta.env.BASE_URL + "assets/" + csvFile
+        : new URL(csvFile, import.meta.url).href;
       const response = await fetch(url);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const text = await response.text();

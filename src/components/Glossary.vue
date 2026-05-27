@@ -37,10 +37,10 @@ watch(() => nav.glossaryTarget, scrollToTarget);
       <GlossarySectionHeading section-id="main-test" heading="The Main Test" />
       <p>
         The Main Test consists of 6000 km of ride simulation to evaluate how well a lubricant
-        protects the chain over extended use. The test machine is Tacx Neo smart trainer set to 250w
-        resistance, driven by an industrial motor at 100 cadence - testing on a real bicylcle drive
-        train. During the test, contamination and water is added at defined points. Throughout the
-        test the chain is <strong>never cleaned</strong> — only re-lubricated at predetermined
+        protects the chain over extended use. The test machine is a Tacx Neo smart trainer set to
+        250w resistance, driven by an industrial motor at 100 cadence - testing on a real bicylcle
+        drive train. During the test, contamination and water is added at defined points. Throughout
+        the test the chain is <strong>never cleaned</strong> — only re-lubricated at predetermined
         intervals — to simulate typical use where the lubricant accumulates grime over time. Up to
         30 re-lubrications are performed across all six blocks. Each block consists of approximately
         34.5 hours of ride simulation, totalling 207 hours for the full 6000 km test. The full test

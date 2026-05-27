@@ -20,6 +20,7 @@ const nav = useNavigationStore();
   color: var(--text-muted);
   text-decoration: underline;
   text-decoration-thickness: 1px;
+  text-transform: uppercase;
   cursor: pointer;
   font-size: inherit;
   font-family: inherit;

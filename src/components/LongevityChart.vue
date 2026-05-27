@@ -11,6 +11,9 @@ import {
   makeProductXAxis,
   makeSelectionMarkArea,
   DARK_VALUE_AXIS_STYLE,
+  CHART_GRID,
+  BAR_MAX_WIDTH,
+  tooltipSwatch,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 import { useNavigationStore } from "../stores/navigation";
@@ -97,13 +100,13 @@ const option = computed((): EChartsOption => {
         return (
           `<b>${entry.name}</b>` +
           `<table style="margin-top:6px;width:100%;border-collapse:collapse">` +
-          `<tr><td ${tdL}>Jump point</td><td ${tdR}>${entry.jumpPoint.toLocaleString()} km</td></tr>` +
-          `<tr><td ${tdL}>Wear allowance</td><td ${tdR}>${entry.wearAllowance.toLocaleString()} km</td></tr>` +
+          `<tr><td ${tdL}>${tooltipSwatch(entry.color)}Jump point</td><td ${tdR}>${entry.jumpPoint.toLocaleString()} km</td></tr>` +
+          `<tr><td ${tdL}>${tooltipSwatch(entry.color, 0.35)}Wear allowance</td><td ${tdR}>${entry.wearAllowance.toLocaleString()} km</td></tr>` +
           `</table>`
         );
       },
     },
-    grid: { left: 72, right: 24, top: 40, bottom: 170 },
+    grid: CHART_GRID,
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
@@ -124,7 +127,7 @@ const option = computed((): EChartsOption => {
         stack: "longevity",
         color: CATEGORY_COLORS[cat],
         data: makeCategorySeriesData(entries, cat, (e) => e.jumpPoint),
-        barMaxWidth: 156,
+        barMaxWidth: BAR_MAX_WIDTH,
         markArea:
           selIdx >= 0 && cat === selectedCategory
             ? makeSelectionMarkArea(entries[selIdx].name)
@@ -137,7 +140,7 @@ const option = computed((): EChartsOption => {
         color: CATEGORY_COLORS[cat],
         itemStyle: { opacity: 0.35 },
         data: makeCategorySeriesData(entries, cat, (e) => e.wearAllowance - e.jumpPoint),
-        barMaxWidth: 156,
+        barMaxWidth: BAR_MAX_WIDTH,
       },
     ]),
   };

@@ -10,6 +10,9 @@ import {
   makeProductXAxis,
   makeSelectionMarkArea,
   DARK_VALUE_AXIS_STYLE,
+  CHART_GRID,
+  BAR_MAX_WIDTH,
+  tooltipSwatch,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 import { useNavigationStore } from "../stores/navigation";
@@ -100,14 +103,14 @@ const option = computed((): EChartsOption => {
         const items = (Array.isArray(params) ? params : [params]) as Array<{
           name: string;
           value: number | null;
-          marker: string;
+          color: string;
         }>;
         const item = items.find((i) => i.value != null);
         if (!item) return "";
-        return `${item.marker}<b>${item.name}</b>: ${formatPct(item.value!)}`;
+        return `${tooltipSwatch(item.color)}<b>${item.name}</b>: ${formatPct(item.value!)}`;
       },
     },
-    grid: { left: 72, right: 24, top: 40, bottom: 170 },
+    grid: CHART_GRID,
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
@@ -126,7 +129,7 @@ const option = computed((): EChartsOption => {
       stack: "main",
       color: CATEGORY_COLORS[cat],
       data: makeCategorySeriesData(entries, cat, (e) => e.wearRate),
-      barMaxWidth: 156,
+      barMaxWidth: BAR_MAX_WIDTH,
       markArea:
         selIdx >= 0 && cat === selectedCategory
           ? makeSelectionMarkArea(entries[selIdx].name)

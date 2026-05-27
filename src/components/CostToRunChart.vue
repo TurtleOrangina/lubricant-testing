@@ -11,6 +11,9 @@ import {
   makeProductXAxis,
   makeSelectionMarkArea,
   DARK_VALUE_AXIS_STYLE,
+  CHART_GRID,
+  BAR_MAX_WIDTH,
+  tooltipSwatch,
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 import GlossaryLink from "./GlossaryLink.vue";
@@ -111,15 +114,15 @@ const option = computed((): EChartsOption => {
           `<b>${entry.name}</b><br>` +
           `<span style="font-size:0.85em">All costs in $ per 1000 km</span>` +
           `<table style="margin-top:6px;width:100%;border-collapse:collapse">` +
-          `<tr><td ${tdL}>Drivetrain wear</td><td ${tdR}>$${dt}</td></tr>` +
-          `<tr><td ${tdL}>Lubricant</td><td ${tdR}>$${lube}</td></tr>` +
+          `<tr><td ${tdL}>${tooltipSwatch(entry.color)}Drivetrain wear</td><td ${tdR}>$${dt}</td></tr>` +
+          `<tr><td ${tdL}>${tooltipSwatch(entry.color, 0.35)}Lubricant</td><td ${tdR}>$${lube}</td></tr>` +
           sep +
           `<tr><td ${tdL}><b>Total</b></td><td ${tdR}><b>$${total}</b></td></tr>` +
           `</table>`
         );
       },
     },
-    grid: { left: 72, right: 24, top: 40, bottom: 170 },
+    grid: CHART_GRID,
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
       selected,
@@ -140,7 +143,7 @@ const option = computed((): EChartsOption => {
         stack: "cost",
         color: CATEGORY_COLORS[cat],
         data: makeCategorySeriesData(entries, cat, (e) => e.driveTrainWearCostPer1000km),
-        barMaxWidth: 156,
+        barMaxWidth: BAR_MAX_WIDTH,
         markArea:
           selIdx >= 0 && cat === selectedCategory
             ? makeSelectionMarkArea(entries[selIdx].name)
@@ -153,7 +156,7 @@ const option = computed((): EChartsOption => {
         color: CATEGORY_COLORS[cat],
         itemStyle: { opacity: 0.35 },
         data: makeCategorySeriesData(entries, cat, (e) => e.lubricantCostPer1000km),
-        barMaxWidth: 156,
+        barMaxWidth: BAR_MAX_WIDTH,
       },
     ]),
   };
