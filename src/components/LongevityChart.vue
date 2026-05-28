@@ -199,11 +199,18 @@ const option = computed((): EChartsOption => {
   align-self: flex-start;
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
+  margin-top: 10px;
+  border: 1px solid var(--select-border);
+  background: var(--select-surface);
+  background-color: var(--select-surface);
+  color: var(--select-text);
   font-size: 14px;
   cursor: pointer;
+}
+
+.condition-select option {
+  background: #ffffff;
+  color: #000000;
 }
 
 .selected-label {
