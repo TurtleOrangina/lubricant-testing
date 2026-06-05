@@ -17,6 +17,7 @@ import {
 } from "../utils/chartUtils";
 import LubricantCard from "./LubricantCard.vue";
 import GlossaryLink from "./GlossaryLink.vue";
+import SelectedOnlyToggle from "./SelectedOnlyToggle.vue";
 
 const props = defineProps<{ products: Product[] }>();
 
@@ -60,7 +61,7 @@ const sortedEntries = computed((): BarEntry[] =>
 const chartRef = useTemplateRef<InstanceType<typeof VChart>>("chartRef");
 const {
   store,
-  selectedProduct,
+  selectedProducts,
   legendItems,
   hiddenCategories,
   visibleEntries,
@@ -72,9 +73,7 @@ const {
 const option = computed((): EChartsOption => {
   const entries = visibleEntries.value;
   const allCategories = [...new Set(sortedEntries.value.map((e) => e.category))];
-  const selected = store.selectedName;
-  const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
-  const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
+  const selectedNamesSet = store.selectedNames;
 
   return {
     backgroundColor: "transparent",
@@ -125,7 +124,7 @@ const option = computed((): EChartsOption => {
     grid: CHART_GRID,
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
-      selected,
+      selectedNamesSet,
     ),
     yAxis: {
       ...DARK_VALUE_AXIS_STYLE,
@@ -144,10 +143,11 @@ const option = computed((): EChartsOption => {
         color: CATEGORY_COLORS[cat],
         data: makeCategorySeriesData(entries, cat, (e) => e.driveTrainWearCostPer1000km),
         barMaxWidth: BAR_MAX_WIDTH,
-        markArea:
-          selIdx >= 0 && cat === selectedCategory
-            ? makeSelectionMarkArea(entries[selIdx].name)
-            : undefined,
+        markArea: makeSelectionMarkArea(
+          entries
+            .filter((e) => e.category === cat && selectedNamesSet.has(e.name))
+            .map((e) => e.name),
+        ),
       },
       {
         name: `${cat}_`,
@@ -180,6 +180,7 @@ const option = computed((): EChartsOption => {
       />
       <span class="slider-range-hint">$100 — $2000</span>
     </div>
+    <SelectedOnlyToggle />
 
     <div class="chart-scroll-outer">
       <div
@@ -198,12 +199,14 @@ const option = computed((): EChartsOption => {
       </div>
     </div>
 
-    <div v-if="selectedProduct" class="selected-card">
+    <div v-if="selectedProducts.length" class="selected-cards">
       <LubricantCard
-        :product="selectedProduct"
+        v-for="product in selectedProducts"
+        :key="product.name"
+        :product="product"
         :highlighted="true"
         :closable="true"
-        @close="store.clear()"
+        @close="store.deselect(product.name)"
       />
     </div>
   </div>

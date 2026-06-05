@@ -17,8 +17,7 @@ const sortedProducts = computed(() =>
 );
 
 function toggleSelect(name: string) {
-  if (store.selectedName === name) store.clear();
-  else store.select(name);
+  store.toggle(name);
 }
 
 const cardEls: Record<string, HTMLElement> = {};
@@ -28,8 +27,9 @@ function setCardEl(el: unknown, name: string) {
 }
 
 onMounted(() => {
-  if (store.selectedName) {
-    cardEls[store.selectedName]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const first = store.selectedNames.size > 0 ? [...store.selectedNames][0] : null;
+  if (first) {
+    cardEls[first]?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 });
 </script>
@@ -42,9 +42,11 @@ onMounted(() => {
         :key="product.name"
         :ref="(el) => setCardEl(el, product.name)"
         :product="product"
-        :highlighted="product.name === store.selectedName"
+        :highlighted="store.selectedNames.has(product.name)"
         :selectable="true"
+        :closable="store.selectedNames.has(product.name)"
         @select="toggleSelect(product.name)"
+        @close="store.deselect(product.name)"
       />
     </div>
   </div>

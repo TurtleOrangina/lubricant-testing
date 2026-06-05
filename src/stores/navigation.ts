@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { buildUrl, parseUrl } from "../utils/url";
 import { useSelectionStore } from "./selection";
 import type { ConditionKey } from "../constants";
@@ -29,16 +29,25 @@ export const useNavigationStore = defineStore("navigation", () => {
   const activeBlock = ref<number>(0);
   const activeCondition = ref<ConditionKey>("dryRoad");
   const drivetrainCost = ref<number>(DEFAULT_DRIVETRAIN_COST);
+  const selectedOnly = ref(false);
+
+  const selectionStore = useSelectionStore();
+  watch(
+    () => selectionStore.selectedNames.size,
+    (size) => {
+      if (size === 0) selectedOnly.value = false;
+    },
+  );
 
   function currentUrl(): string {
-    const selection = useSelectionStore();
     return buildUrl({
       tab: activeTab.value,
-      selectedLubricant: selection.selectedName,
+      selectedLubricants: [...selectionStore.selectedNames],
       glossaryAnchor: activeTab.value === "glossary" ? glossaryAnchor.value : null,
       block: activeTab.value === "blocks" ? activeBlock.value : null,
       condition: activeTab.value === "longevity" ? activeCondition.value : null,
       drivetrainCost: activeTab.value === "cost-to-run" ? drivetrainCost.value : null,
+      selectedOnly: selectedOnly.value,
     });
   }
 
@@ -76,35 +85,42 @@ export const useNavigationStore = defineStore("navigation", () => {
     history.replaceState(null, "", currentUrl());
   }
 
+  function setSelectedOnly(val: boolean) {
+    selectedOnly.value = val;
+    history.replaceState(null, "", currentUrl());
+  }
+
   function syncSelection() {
     history.replaceState(null, "", currentUrl());
   }
 
-  function initFromUrl(): string | null {
+  function initFromUrl(): string[] {
     const state = parseUrl();
     activeTab.value = state.tab;
     if (state.block != null) activeBlock.value = state.block;
     if (state.condition != null) activeCondition.value = state.condition;
     if (state.drivetrainCost != null) drivetrainCost.value = state.drivetrainCost;
+    selectedOnly.value = state.selectedOnly;
     if (state.glossaryAnchor && state.tab === "glossary") {
       glossaryAnchor.value = state.glossaryAnchor;
       glossaryTarget.value = GLOSSARY_ANCHOR_TO_ID[state.glossaryAnchor] ?? null;
     }
-    return state.selectedLubricant;
+    return state.selectedLubricants;
   }
 
-  function restoreFromUrl(): string | null {
+  function restoreFromUrl(): string[] {
     const state = parseUrl();
     activeTab.value = state.tab;
     if (state.block != null) activeBlock.value = state.block;
     if (state.condition != null) activeCondition.value = state.condition;
     if (state.drivetrainCost != null) drivetrainCost.value = state.drivetrainCost;
+    selectedOnly.value = state.selectedOnly;
     glossaryAnchor.value = state.tab === "glossary" ? state.glossaryAnchor : null;
     glossaryTarget.value =
       state.tab === "glossary" && state.glossaryAnchor
         ? (GLOSSARY_ANCHOR_TO_ID[state.glossaryAnchor] ?? null)
         : null;
-    return state.selectedLubricant;
+    return state.selectedLubricants;
   }
 
   function clearGlossaryTarget() {
@@ -118,12 +134,14 @@ export const useNavigationStore = defineStore("navigation", () => {
     activeBlock,
     activeCondition,
     drivetrainCost,
+    selectedOnly,
     navigateTo,
     navigateToGlossary,
     setGlossarySection,
     setActiveBlock,
     setActiveCondition,
     setDrivetrainCost,
+    setSelectedOnly,
     syncSelection,
     initFromUrl,
     restoreFromUrl,

@@ -8,8 +8,9 @@ const props = defineProps<{
   product: Product;
   highlighted?: boolean;
   selectable?: boolean;
+  closable?: boolean;
 }>();
-const emit = defineEmits<{ select: [] }>();
+const emit = defineEmits<{ select: []; close: [] }>();
 
 const nav = useNavigationStore();
 
@@ -35,6 +36,7 @@ function dtWearCostPer1000km(p: Product): number {
     >
       <div class="card-header">
         <div class="product-name">{{ product.name }}</div>
+        <button v-if="props.closable" class="close-btn" @click.stop="emit('close')">×</button>
       </div>
       <div v-if="product.note" class="product-note">{{ product.note }}</div>
       <div class="product-meta">
@@ -202,6 +204,21 @@ function dtWearCostPer1000km(p: Product): number {
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0 2px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.close-btn:hover {
+  color: var(--text-heading);
 }
 
 .product-card.highlighted {

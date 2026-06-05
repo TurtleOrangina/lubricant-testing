@@ -17,11 +17,11 @@ import { isParseDataCsvRoute } from "./utils/url";
 const nav = useNavigationStore();
 const { products } = storeToRefs(useProductsStore());
 const selection = useSelectionStore();
-const { selectedName } = storeToRefs(selection);
+const { selectedNames } = storeToRefs(selection);
 
 const showParseRoute = ref(isParseDataCsvRoute());
 
-watch(selectedName, () => {
+watch(selectedNames, () => {
   nav.syncSelection();
 });
 
@@ -31,14 +31,14 @@ function onPopState() {
     return;
   }
   showParseRoute.value = false;
-  const selectedLubricant = nav.restoreFromUrl();
-  selection.setFromUrl(selectedLubricant);
+  const selectedLubricants = nav.restoreFromUrl();
+  selection.setFromUrl(selectedLubricants);
 }
 
 onMounted(() => {
   if (!showParseRoute.value) {
-    const selectedLubricant = nav.initFromUrl();
-    selection.setFromUrl(selectedLubricant);
+    const selectedLubricants = nav.initFromUrl();
+    selection.setFromUrl(selectedLubricants);
     history.replaceState(null, "", nav.currentUrl());
   }
   window.addEventListener("popstate", onPopState);

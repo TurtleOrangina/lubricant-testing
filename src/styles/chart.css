@@ -6,7 +6,45 @@
   cursor: pointer;
 }
 
-.selected-card {
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.selected-only-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  align-self: flex-start;
+}
+
+.selected-only-toggle input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: #3b82f6;
+  width: 15px;
+  height: 15px;
+}
+
+.selected-only-toggle:has(input:disabled) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.selected-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-top: 8px;
-  max-width: 320px;
+}
+
+.selected-cards > * {
+  min-width: 230px;
+  flex: 1;
 }

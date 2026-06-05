@@ -4,6 +4,7 @@ import { toValue } from "vue";
 import VChart from "vue-echarts";
 import type { Product } from "../types";
 import { useSelectionStore } from "../stores/selection";
+import { useNavigationStore } from "../stores/navigation";
 
 export interface ChartEntry {
   name: string;
@@ -17,9 +18,10 @@ export function useBarChart<T extends ChartEntry>(
   chartRef: { readonly value: InstanceType<typeof VChart> | null },
 ) {
   const store = useSelectionStore();
+  const nav = useNavigationStore();
 
-  const selectedProduct = computed(
-    () => toValue(products).find((p) => p.name === store.selectedName) ?? null,
+  const selectedProducts = computed(() =>
+    toValue(products).filter((p) => store.selectedNames.has(p.name)),
   );
 
   const legendItems = computed(() => {
@@ -34,20 +36,30 @@ export function useBarChart<T extends ChartEntry>(
     return items;
   });
 
-  const hiddenCategories = ref<Set<string>>(new Set());
+  const _hiddenCategories = ref<Set<string>>(new Set());
 
-  // Only entries whose category is currently visible — used for the x-axis so
-  // hidden-category products disappear from the axis entirely.
-  const visibleEntries = computed(() =>
-    toValue(sortedEntries).filter((e) => !hiddenCategories.value.has(e.category)),
+  // In selectedOnly mode all categories are treated as visible
+  const hiddenCategories = computed(() =>
+    nav.selectedOnly ? new Set<string>() : _hiddenCategories.value,
   );
 
-  function handleLegendChange({ selected }: { selected: Record<string, boolean> }) {
-    hiddenCategories.value = new Set(
-      Object.entries(selected)
-        .filter(([, v]) => !v)
-        .map(([k]) => k),
-    );
+  const visibleEntries = computed(() => {
+    const entries = toValue(sortedEntries);
+    if (nav.selectedOnly) {
+      return entries.filter((e) => store.selectedNames.has(e.name));
+    }
+    return entries.filter((e) => !_hiddenCategories.value.has(e.category));
+  });
+
+  function handleLegendChange({ selected }: { name: string; selected: Record<string, boolean> }) {
+    if (!nav.selectedOnly) {
+      const categories = new Set(legendItems.value.map((item) => item.category));
+      _hiddenCategories.value = new Set(
+        Object.entries(selected)
+          .filter(([k, v]) => categories.has(k) && !v)
+          .map(([k]) => k),
+      );
+    }
   }
 
   function handleChartClick(event: MouseEvent) {
@@ -61,14 +73,14 @@ export function useBarChart<T extends ChartEntry>(
     const dataIdx = Math.round(result[0]);
     const entries = visibleEntries.value;
     if (dataIdx < 0 || dataIdx >= entries.length) return;
-    store.select(entries[dataIdx].name);
+    store.toggle(entries[dataIdx].name);
   }
 
   const chartMinWidth = computed(() => 150 + visibleEntries.value.length * 12);
 
   return {
     store,
-    selectedProduct,
+    selectedProducts,
     legendItems,
     hiddenCategories,
     visibleEntries,

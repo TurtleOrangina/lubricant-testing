@@ -2,19 +2,28 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useSelectionStore = defineStore("selection", () => {
-  const selectedName = ref<string | null>(null);
+  const selectedNames = ref<Set<string>>(new Set());
 
-  function select(name: string) {
-    selectedName.value = selectedName.value === name ? null : name;
+  function toggle(name: string) {
+    const next = new Set(selectedNames.value);
+    if (next.has(name)) next.delete(name);
+    else next.add(name);
+    selectedNames.value = next;
+  }
+
+  function deselect(name: string) {
+    const next = new Set(selectedNames.value);
+    next.delete(name);
+    selectedNames.value = next;
   }
 
   function clear() {
-    selectedName.value = null;
+    selectedNames.value = new Set();
   }
 
-  function setFromUrl(name: string | null) {
-    selectedName.value = name;
+  function setFromUrl(names: string[]) {
+    selectedNames.value = new Set(names);
   }
 
-  return { selectedName, select, clear, setFromUrl };
+  return { selectedNames, toggle, deselect, clear, setFromUrl };
 });

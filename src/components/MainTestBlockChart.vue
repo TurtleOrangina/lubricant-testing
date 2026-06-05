@@ -3,8 +3,9 @@ import { computed, useTemplateRef } from "vue";
 import VChart from "vue-echarts";
 import type { EChartsOption } from "echarts";
 import type { Product } from "../types";
-import { BLOCK_DESCRIPTIONS, BLOCK_LABELS, CATEGORY_COLORS } from "../constants";
+import { BLOCK_LABELS, CATEGORY_COLORS } from "../constants";
 import { useBarChart } from "../composables/useBarChart";
+import SelectedOnlyToggle from "./SelectedOnlyToggle.vue";
 import {
   makeCategorySeriesData,
   makeProductXAxis,
@@ -59,7 +60,7 @@ const sortedEntries = computed((): BarEntry[] => {
 const chartRef = useTemplateRef<InstanceType<typeof VChart>>("chartRef");
 const {
   store,
-  selectedProduct,
+  selectedProducts,
   legendItems,
   hiddenCategories,
   visibleEntries,
@@ -75,9 +76,7 @@ function formatPct(value: number): string {
 const option = computed((): EChartsOption => {
   const entries = visibleEntries.value;
   const allCategories = [...new Set(sortedEntries.value.map((e) => e.category))];
-  const selected = store.selectedName;
-  const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
-  const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
+  const selectedNamesSet = store.selectedNames;
 
   return {
     backgroundColor: "transparent",
@@ -113,7 +112,7 @@ const option = computed((): EChartsOption => {
     grid: CHART_GRID,
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
-      selected,
+      selectedNamesSet,
     ),
     yAxis: {
       ...DARK_VALUE_AXIS_STYLE,
@@ -130,10 +129,11 @@ const option = computed((): EChartsOption => {
       color: CATEGORY_COLORS[cat],
       data: makeCategorySeriesData(entries, cat, (e) => e.wearRate),
       barMaxWidth: BAR_MAX_WIDTH,
-      markArea:
-        selIdx >= 0 && cat === selectedCategory
-          ? makeSelectionMarkArea(entries[selIdx].name)
-          : undefined,
+      markArea: makeSelectionMarkArea(
+        entries
+          .filter((e) => e.category === cat && selectedNamesSet.has(e.name))
+          .map((e) => e.name),
+      ),
     })),
   };
 });
@@ -141,11 +141,14 @@ const option = computed((): EChartsOption => {
 
 <template>
   <div class="main-test-block-chart">
-    <select v-model="selectedBlock" class="block-select">
-      <option v-for="b in availableBlocks" :key="b.index" :value="b.index">
-        {{ b.label }}
-      </option>
-    </select>
+    <div class="chart-controls">
+      <select v-model="selectedBlock" class="block-select">
+        <option v-for="b in availableBlocks" :key="b.index" :value="b.index">
+          {{ b.label }}
+        </option>
+      </select>
+      <SelectedOnlyToggle />
+    </div>
 
     <div class="chart-scroll-outer">
       <div
@@ -164,12 +167,14 @@ const option = computed((): EChartsOption => {
       </div>
     </div>
 
-    <div v-if="selectedProduct" class="selected-card">
+    <div v-if="selectedProducts.length" class="selected-cards">
       <LubricantCard
-        :product="selectedProduct"
+        v-for="product in selectedProducts"
+        :key="product.name"
+        :product="product"
         :highlighted="true"
         :closable="true"
-        @close="store.clear()"
+        @close="store.deselect(product.name)"
       />
     </div>
   </div>
@@ -187,10 +192,8 @@ const option = computed((): EChartsOption => {
 }
 
 .block-select {
-  align-self: flex-start;
   padding: 6px 12px;
   border-radius: 6px;
-  margin-top: 10px;
   border: 1px solid var(--select-border);
   background: var(--select-surface);
   background-color: var(--select-surface);

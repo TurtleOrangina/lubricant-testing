@@ -6,6 +6,7 @@ import type { Product } from "../types";
 import { CATEGORY_COLORS, LONGEVITY_CONDITIONS } from "../constants";
 import type { ConditionKey } from "../constants";
 import { useBarChart } from "../composables/useBarChart";
+import SelectedOnlyToggle from "./SelectedOnlyToggle.vue";
 import {
   makeCategorySeriesData,
   makeProductXAxis,
@@ -51,7 +52,7 @@ const sortedEntries = computed((): BarEntry[] => {
 const chartRef = useTemplateRef<InstanceType<typeof VChart>>("chartRef");
 const {
   store,
-  selectedProduct,
+  selectedProducts,
   legendItems,
   hiddenCategories,
   visibleEntries,
@@ -63,9 +64,7 @@ const {
 const option = computed((): EChartsOption => {
   const entries = visibleEntries.value;
   const allCategories = [...new Set(sortedEntries.value.map((e) => e.category))];
-  const selected = store.selectedName;
-  const selIdx = selected ? entries.findIndex((e) => e.name === selected) : -1;
-  const selectedCategory = selIdx >= 0 ? entries[selIdx].category : null;
+  const selectedNamesSet = store.selectedNames;
 
   return {
     backgroundColor: "transparent",
@@ -109,7 +108,7 @@ const option = computed((): EChartsOption => {
     grid: CHART_GRID,
     xAxis: makeProductXAxis(
       entries.map((e) => e.name),
-      selected,
+      selectedNamesSet,
     ),
     yAxis: {
       ...DARK_VALUE_AXIS_STYLE,
@@ -128,10 +127,11 @@ const option = computed((): EChartsOption => {
         color: CATEGORY_COLORS[cat],
         data: makeCategorySeriesData(entries, cat, (e) => e.jumpPoint),
         barMaxWidth: BAR_MAX_WIDTH,
-        markArea:
-          selIdx >= 0 && cat === selectedCategory
-            ? makeSelectionMarkArea(entries[selIdx].name)
-            : undefined,
+        markArea: makeSelectionMarkArea(
+          entries
+            .filter((e) => e.category === cat && selectedNamesSet.has(e.name))
+            .map((e) => e.name),
+        ),
       },
       {
         name: `${cat}_`,
@@ -149,11 +149,14 @@ const option = computed((): EChartsOption => {
 
 <template>
   <div class="longevity-chart">
-    <select v-model="selectedCondition" class="condition-select">
-      <option v-for="c in LONGEVITY_CONDITIONS" :key="c.key" :value="c.key">
-        {{ c.label }}
-      </option>
-    </select>
+    <div class="chart-controls">
+      <select v-model="selectedCondition" class="condition-select">
+        <option v-for="c in LONGEVITY_CONDITIONS" :key="c.key" :value="c.key">
+          {{ c.label }}
+        </option>
+      </select>
+      <SelectedOnlyToggle />
+    </div>
 
     <div class="chart-scroll-outer">
       <div
@@ -172,13 +175,14 @@ const option = computed((): EChartsOption => {
       </div>
     </div>
 
-    <div v-if="selectedProduct" class="selected-card">
-      <p class="selected-label">Selected lubricant</p>
+    <div v-if="selectedProducts.length" class="selected-cards">
       <LubricantCard
-        :product="selectedProduct"
+        v-for="product in selectedProducts"
+        :key="product.name"
+        :product="product"
         :highlighted="true"
         :closable="true"
-        @close="store.clear()"
+        @close="store.deselect(product.name)"
       />
     </div>
   </div>
@@ -196,10 +200,8 @@ const option = computed((): EChartsOption => {
 }
 
 .condition-select {
-  align-self: flex-start;
   padding: 6px 12px;
   border-radius: 6px;
-  margin-top: 10px;
   border: 1px solid var(--select-border);
   background: var(--select-surface);
   background-color: var(--select-surface);
@@ -211,11 +213,5 @@ const option = computed((): EChartsOption => {
 .condition-select option {
   background: #ffffff;
   color: #000000;
-}
-
-.selected-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 6px;
 }
 </style>

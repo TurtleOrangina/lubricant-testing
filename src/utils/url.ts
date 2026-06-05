@@ -25,11 +25,12 @@ const CONDITION_LABEL_TO_KEY: Record<string, ConditionKey> = Object.fromEntries(
 
 export interface AppUrlState {
   tab: TabId;
-  selectedLubricant: string | null;
+  selectedLubricants: string[];
   glossaryAnchor: string | null;
   block: number | null;
   condition: ConditionKey | null;
   drivetrainCost: number | null;
+  selectedOnly: boolean;
 }
 
 export function isParseDataCsvRoute(): boolean {
@@ -57,13 +58,19 @@ export function parseUrl(): AppUrlState {
       ? drivetrainCostNum
       : null;
 
+  const lubeParam = params.get("selected_lubricants");
+  const selectedLubricants = lubeParam
+    ? lubeParam.split(",").map(decodeURIComponent).filter(Boolean)
+    : [];
+
   return {
     tab,
-    selectedLubricant: params.get("selected_lubricant"),
+    selectedLubricants,
     glossaryAnchor: encodedAnchor ? decodeURIComponent(encodedAnchor) : null,
     block,
     condition,
     drivetrainCost,
+    selectedOnly: params.get("selected_only") === "1",
   };
 }
 
@@ -74,8 +81,8 @@ export function buildUrl(state: AppUrlState): string {
     : hashBase;
 
   const parts: string[] = [];
-  if (state.selectedLubricant)
-    parts.push(`selected_lubricant=${encodeURIComponent(state.selectedLubricant)}`);
+  if (state.selectedLubricants.length > 0)
+    parts.push(`selected_lubricants=${state.selectedLubricants.map(encodeURIComponent).join(",")}`);
   if (state.block != null) {
     const label = BLOCK_LABELS[state.block];
     if (label) parts.push(`block=${encodeURIComponent(label)}`);
@@ -85,6 +92,7 @@ export function buildUrl(state: AppUrlState): string {
     if (cond) parts.push(`condition=${encodeURIComponent(cond.label)}`);
   }
   if (state.drivetrainCost != null) parts.push(`drivetrain_cost=${state.drivetrainCost}`);
+  if (state.selectedOnly) parts.push("selected_only=1");
 
   const query = parts.length ? "?" + parts.join("&") : "";
   return `#${hashPath}${query}`;

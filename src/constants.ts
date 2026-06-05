@@ -26,6 +26,9 @@ export const BLOCK_LABELS: Record<number, string> = {
 
 export const DEFAULT_DRIVETRAIN_COST = 250;
 
+export const SELECTION_COLOR = "#40ff00";
+export const SELECTION_COLOR_LEGEND = "#40ff00b3"; // 70% opacity, suits dark legend background
+
 export const BLOCK_DESCRIPTIONS: Record<number, string> = {
   0: "1000km dry and clean (no water and no contamination). Includes 3 re lubrication points (or 1 for extended intervals)",
   1: "1000km dry dust contamination. At 7 points dry dust is added, and 6 re lubrications are done (or 2 for extended intervals).",
