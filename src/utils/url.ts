@@ -26,7 +26,6 @@ const CONDITION_LABEL_TO_KEY: Record<string, ConditionKey> = Object.fromEntries(
 export interface AppUrlState {
   tab: TabId;
   selectedLubricant: string | null;
-  includeUnavailable: boolean;
   glossaryAnchor: string | null;
   block: number | null;
   condition: ConditionKey | null;
@@ -61,7 +60,6 @@ export function parseUrl(): AppUrlState {
   return {
     tab,
     selectedLubricant: params.get("selected_lubricant"),
-    includeUnavailable: !params.has("exclude_unavailable"),
     glossaryAnchor: encodedAnchor ? decodeURIComponent(encodedAnchor) : null,
     block,
     condition,
@@ -78,7 +76,6 @@ export function buildUrl(state: AppUrlState): string {
   const parts: string[] = [];
   if (state.selectedLubricant)
     parts.push(`selected_lubricant=${encodeURIComponent(state.selectedLubricant)}`);
-  if (!state.includeUnavailable) parts.push("exclude_unavailable");
   if (state.block != null) {
     const label = BLOCK_LABELS[state.block];
     if (label) parts.push(`block=${encodeURIComponent(label)}`);

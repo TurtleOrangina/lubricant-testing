@@ -25,7 +25,6 @@ export interface Product {
   name: string;
   note?: string;
   category: ProductCategory;
-  commerciallyAvailable: boolean;
   costPackageAUD?: number;
   usagesMainTest?: number;
   mainTest?: MainTest;

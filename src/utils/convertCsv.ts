@@ -18,9 +18,8 @@ const COL_GRAVEL_JUMP = 13;
 const COL_GRAVEL_ALLOWANCE = 14;
 const COL_EXTREME_JUMP = 15;
 const COL_EXTREME_ALLOWANCE = 16;
-const COL_COMMERCIALLY_AVAILABLE = 17;
 
-const EXPECTED_COLS = 18;
+const EXPECTED_COLS = 17;
 const WEAR_RATE_MIN = 0;
 const WEAR_RATE_MAX = 10.0;
 const LONGEVITY_MIN = 30;
@@ -140,15 +139,6 @@ export function convertCsvToProducts(csvText: string): ConvertResult {
       continue;
     }
 
-    const caRaw = get(COL_COMMERCIALLY_AVAILABLE);
-    if (caRaw !== "0" && caRaw !== "1") {
-      log.push({
-        level: "error",
-        message: `"${name}": "commercially available" must be "0" or "1", got "${caRaw}".`,
-      });
-    }
-    const commerciallyAvailable = caRaw === "1";
-
     const mainTestBlocks: { wearRate: number }[] = [];
     for (let i = COL_MAIN_FIRST; i <= COL_MAIN_LAST; i++) {
       const raw = (cols[i] ?? "").trim();
@@ -220,7 +210,7 @@ export function convertCsvToProducts(csvText: string): ConvertResult {
           }
         : undefined;
 
-    const product: Product = { name, category, commerciallyAvailable };
+    const product: Product = { name, category };
 
     const note = get(COL_NOTE);
     if (note) product.note = note;

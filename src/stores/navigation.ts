@@ -26,7 +26,6 @@ export const useNavigationStore = defineStore("navigation", () => {
   const activeTab = ref<TabId>("overview");
   const glossaryTarget = ref<string | null>(null);
   const glossaryAnchor = ref<string | null>(null);
-  const includeUnavailable = ref(true);
   const activeBlock = ref<number>(0);
   const activeCondition = ref<ConditionKey>("dryRoad");
   const drivetrainCost = ref<number>(DEFAULT_DRIVETRAIN_COST);
@@ -36,7 +35,6 @@ export const useNavigationStore = defineStore("navigation", () => {
     return buildUrl({
       tab: activeTab.value,
       selectedLubricant: selection.selectedName,
-      includeUnavailable: includeUnavailable.value,
       glossaryAnchor: activeTab.value === "glossary" ? glossaryAnchor.value : null,
       block: activeTab.value === "blocks" ? activeBlock.value : null,
       condition: activeTab.value === "longevity" ? activeCondition.value : null,
@@ -63,11 +61,6 @@ export const useNavigationStore = defineStore("navigation", () => {
     history.replaceState(null, "", currentUrl());
   }
 
-  function setIncludeUnavailable(val: boolean) {
-    includeUnavailable.value = val;
-    history.replaceState(null, "", currentUrl());
-  }
-
   function setActiveBlock(index: number) {
     activeBlock.value = index;
     history.replaceState(null, "", currentUrl());
@@ -90,7 +83,6 @@ export const useNavigationStore = defineStore("navigation", () => {
   function initFromUrl(): string | null {
     const state = parseUrl();
     activeTab.value = state.tab;
-    includeUnavailable.value = state.includeUnavailable;
     if (state.block != null) activeBlock.value = state.block;
     if (state.condition != null) activeCondition.value = state.condition;
     if (state.drivetrainCost != null) drivetrainCost.value = state.drivetrainCost;
@@ -104,7 +96,6 @@ export const useNavigationStore = defineStore("navigation", () => {
   function restoreFromUrl(): string | null {
     const state = parseUrl();
     activeTab.value = state.tab;
-    includeUnavailable.value = state.includeUnavailable;
     if (state.block != null) activeBlock.value = state.block;
     if (state.condition != null) activeCondition.value = state.condition;
     if (state.drivetrainCost != null) drivetrainCost.value = state.drivetrainCost;
@@ -124,14 +115,12 @@ export const useNavigationStore = defineStore("navigation", () => {
     activeTab,
     glossaryTarget,
     glossaryAnchor,
-    includeUnavailable,
     activeBlock,
     activeCondition,
     drivetrainCost,
     navigateTo,
     navigateToGlossary,
     setGlossarySection,
-    setIncludeUnavailable,
     setActiveBlock,
     setActiveCondition,
     setDrivetrainCost,

@@ -82,11 +82,6 @@ function dtWearCostPer1000km(p: Product): number {
         </div>
       </template>
 
-      <div class="stat-row">
-        <span class="stat-label">Commercially available</span>
-        <span class="stat-value">{{ product.commerciallyAvailable ? "Yes" : "No" }}</span>
-      </div>
-
       <template v-if="product.costPackageAUD != null && product.usagesMainTest != null">
         <div class="stat-row">
           <span class="stat-label">

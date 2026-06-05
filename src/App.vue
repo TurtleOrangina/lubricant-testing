@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import MainTestOverviewChart from "./components/MainTestOverviewChart.vue";
 import MainTestBlockChart from "./components/MainTestBlockChart.vue";
@@ -20,10 +20,6 @@ const selection = useSelectionStore();
 const { selectedName } = storeToRefs(selection);
 
 const showParseRoute = ref(isParseDataCsvRoute());
-
-const filteredProducts = computed(() =>
-  nav.includeUnavailable ? products.value : products.value.filter((p) => p.commerciallyAvailable),
-);
 
 watch(selectedName, () => {
   nav.syncSelection();
@@ -96,7 +92,7 @@ const TABS: { id: TabId; label: string }[] = [
             <GlossaryLink section="main-test-kilometers"> Main Test Kilometers</GlossaryLink> for
             details. Higher is better.
           </p>
-          <MainTestOverviewChart :products="filteredProducts" />
+          <MainTestOverviewChart :products="products" />
         </template>
 
         <template v-else-if="nav.activeTab === 'blocks'">
@@ -105,7 +101,7 @@ const TABS: { id: TabId; label: string }[] = [
             block of the <GlossaryLink section="main-test">Main Test</GlossaryLink>. Lower is
             better.
           </p>
-          <MainTestBlockChart :products="filteredProducts" />
+          <MainTestBlockChart :products="products" />
         </template>
 
         <template v-else-if="nav.activeTab === 'longevity'">
@@ -114,7 +110,7 @@ const TABS: { id: TabId; label: string }[] = [
             <GlossaryLink section="single-application-longevity">single application</GlossaryLink>
             of lubricant, depending on the selected riding condition. Higher is better.
           </p>
-          <LongevityChart :products="filteredProducts" />
+          <LongevityChart :products="products" />
         </template>
 
         <template v-else-if="nav.activeTab === 'cost-to-run'">
@@ -123,27 +119,16 @@ const TABS: { id: TabId; label: string }[] = [
             cost of the lubricant itself, plus the cost incurred by drive-train wear. Lower is
             better.
           </p>
-          <CostToRunChart :products="filteredProducts" />
+          <CostToRunChart :products="products" />
         </template>
 
         <template v-else-if="nav.activeTab === 'details'">
-          <LubricantDetails :products="filteredProducts" />
+          <LubricantDetails :products="products" />
         </template>
 
         <template v-else-if="nav.activeTab === 'glossary'">
           <Glossary />
         </template>
-      </div>
-
-      <div class="filter-bar">
-        <label class="filter-checkbox">
-          <input
-            type="checkbox"
-            :checked="nav.includeUnavailable"
-            @change="nav.setIncludeUnavailable(($event.target as HTMLInputElement).checked)"
-          />
-          Include unavailable products
-        </label>
       </div>
     </main>
   </template>
@@ -212,23 +197,5 @@ h1 {
   color: var(--text-muted);
   font-size: 0.85rem;
   margin-bottom: 20px;
-}
-
-.filter-bar {
-  padding: 12px 0 4px;
-}
-
-.filter-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  user-select: none;
-}
-
-.filter-checkbox input[type="checkbox"] {
-  cursor: pointer;
 }
 </style>
