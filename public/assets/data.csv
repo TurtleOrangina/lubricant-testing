@@ -1,5 +1,4 @@
 Name,Note,Type,Main 1,Main 2,Main 3,Main 4,Main 5,Main 6,Cost Package,Usages per main test,Longevity Road Jump,Longevity Road Allowance,Longevity Gravel Jump,Longevity Gravel Allowance,Longevity Road Extreme,Longevity Road Extreme
-Muc-Off Dark Energy,,wax drip,0.177,0.271,0.163,0.57,0.346,0.58,29.99,0.8,,,,,,
 Silca Hot Melt,,immersive wax,0.003,0.017,0.046,0.08,0.04,0.086,60,0.6,1920,1920,900,1030,300,637
 Cyclowax Race Wax,,immersive wax,0,0.0086,0.02,0.026,0.006,0.143,83,2.5,9100,9100,4050,4050,600,700
 Finish Line Halo hot wax,Re-test Jan 25,immersive wax,0.046,0.071,0.006,0.094,0.02,0.16,60,0.6,,,,,,
@@ -15,7 +14,7 @@ Immersive Wax + Wax Drip Combo (Silca),,other,0,0.029,0.029,0.146,0.049,0.34,110
 Rex Black Diamond Wax - 11+1 mix,,immersive wax,0,0.014,0.009,0.046,0.02,0.357,90,0.6,3300,3750,900,1200,300,604
 Ceramic Speed Ultra Endurance Wax,,immersive wax,0.0086,0.0057,0.03,0.284,0.2,0.363,87.5,0.6,,,,,,
 Session S-wax,,wax drip,0.146,0.057,0.051,0.326,0.266,0.365,50,1,,,,,,
-CeramicSpeed UFO Drip, New Formula,wax drip,0.023,0.034,0.006,0.323,0.17,,29.9,2,900,1182,450,1078,150,357
+CeramicSpeed UFO Drip, New Formula,wax drip,0.023,0.034,0.006,0.323,0.17,0.366,29.9,2,900,1182,450,1078,150,357
 Ceramic Speed Wet Conditions,,wax drip,0.123,0.16,0.166,0.411,0.237,,29,2,,,,,,
 Tru Tension Tungsten Race,Double applications,wax drip,0.054,0.02,0.023,0.383,0.3,,25,5,,,,,,
 Private Immersive wax (3),,immersive wax,0.006,0.023,0.003,0.317,,,,,,,,,,
@@ -26,7 +25,8 @@ Nix Frix Shun,,wet drip,0.126,0.274,0.143,0.274,0.725,,25,0.3,,,,,,
 Smoove,,wax drip,0.191,0.174,0.02,0.451,0.343,,25,0.5,,,,,,
 Squirt,,wax drip,0.191,0.22,0.18,0.489,,,22,1,,,,,,
 Dynamic Wander Wax,,immersive wax,0.069,0.054,0.017,0.3,0.063,0.517,50,0.7,,,,,,
-Silca Synergetic,,wet drip,0,0.186,0.243,0.274,0.217,,45,0.3,2333,2333,500,690,500,690
+Silca Synergetic,,wet drip,0,0.186,0.243,0.274,0.217,0.553,45,0.3,2333,2333,500,690,500,690
+Muc-Off Dark Energy,,wax drip,0.177,0.271,0.163,0.51,,,29.99,0.8,,,,,,
 Private wax drip (1),,wax drip,0.051,0.046,0.003,0.591,,,,,,,,,,
 Rex Black Diamond,,wet drip,0.023,0.111,0.17,0.426,0.243,,55,0.5,5602,5602,1476,1476,300,538
 Wend Wax test 2 (dissolved in),,wax drip,0.357,0.336,0.286,,,,65,2,,,,,,
