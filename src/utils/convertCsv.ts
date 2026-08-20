@@ -50,6 +50,8 @@ function mapCategory(raw: string): ProductCategory | undefined {
       return "immersive wax";
     case "wax drip":
       return "wax drip";
+    case "rub on wax":
+      return "rub on wax";
     case "wet drip":
     case "wet-drip":
       return "wet-drip";

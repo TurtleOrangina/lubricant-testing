@@ -1,4 +1,4 @@
-export type ProductCategory = "immersive wax" | "wax drip" | "wet-drip" | "other";
+export type ProductCategory = "immersive wax" | "wax drip" | "rub on wax" | "wet-drip" | "other";
 
 export interface MainTest {
   blockWear?: MainTestBlock[]; // 1–6 sequential blocks, 1000km each.

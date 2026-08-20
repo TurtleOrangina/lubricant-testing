@@ -11,6 +11,7 @@ export const LONGEVITY_CONDITIONS: { key: ConditionKey; label: string }[] = [
 export const CATEGORY_COLORS: Record<ProductCategory, string> = {
   "immersive wax": "#ff98ff",
   "wax drip": "#ffa600",
+  "rub on wax": "#7aa2ff",
   "wet-drip": "#00ffff",
   other: "#f4ff13",
 };
