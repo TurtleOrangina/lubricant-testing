@@ -8,7 +8,9 @@
     "build": "tsc && vp build",
     "preview": "vp preview",
     "prepare": "vp config",
-    "convert-data-to-json": "node scripts/convert-data-to-json.ts"
+    "convert-data-to-json": "node scripts/convert-data-to-json.ts",
+    "convert-xlsx-to-csv": "node scripts/convert-xlsx-to-csv.ts",
+    "check-data": "node scripts/convert-xlsx-to-csv.ts --check"
   },
   "dependencies": {
     "echarts": "^6.0.0",

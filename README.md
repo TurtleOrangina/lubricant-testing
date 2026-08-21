@@ -35,6 +35,36 @@ vp check        # format, lint, and type-check (run before committing)
 vp check --fix  # same, but auto-fixes formatting and lint issues
 ```
 
+## Test data
+
+`public/assets/data.csv` is generated from the ZFC test workbook — do not edit it by hand.
+Drop the latest `.xlsx` in `xlsx_data/`, then:
+
+```sh
+vp run convert-xlsx-to-csv   # regenerate public/assets/data.csv
+vp run check-data            # verify the csv matches the workbook (for CI)
+```
+
+The converter reads three tables from the workbook's `Data Raw revamp 1.1` sheet and the three
+tables on `Single Application Longevity`, and joins them on the lubricant name. Two things the
+workbook encodes only as formatting are read as data:
+
+- the **font colour** of a lubricant's name gives its category (magenta = immersive wax,
+  green = wax drip, cyan = wet drip);
+- a **red cell fill** marks a wear rate as extrapolated rather than measured, and extrapolated
+  values are left out of the csv.
+
+Names drift between tables, and a few products need a different published name, note or
+category than the workbook gives them. Those corrections live in
+[`scripts/lib/product-overrides.ts`](scripts/lib/product-overrides.ts); everything else is
+discovered automatically, so a new lubricant usually needs no code change.
+
+The converter also cross-checks the workbook's derived tables against its raw data — cumulative
+against block-by-block wear, the chain lifespan against the wear total, the "per 5000km" and
+"real world" columns against the values they scale — and reports any disagreement as a warning.
+Warnings mean the workbook contradicts itself and are worth passing back to whoever maintains
+it; they do not block the csv from being written. Errors do.
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) with the following extensions:
