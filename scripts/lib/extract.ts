@@ -16,6 +16,8 @@ const CATEGORY_BY_FONT_COLOUR: Record<string, ProductCategory> = {
   FFFF00FF: "immersive wax",
   FF00B050: "wax drip",
   FF00B0F0: "wet-drip",
+  // Orange, which the workbook writes as theme colour 5 rather than an RGB.
+  FFED7D31: "rub on wax",
 };
 
 /** Block wear columns in the block-by-block table, in block order. */

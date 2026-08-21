@@ -130,10 +130,10 @@ watch(() => nav.glossaryTarget, scrollToTarget);
 
       <h4>Test beats the lubricant (chain reaches 100% wear during the test)</h4>
       <p>
-        The lubricant scores 1000 km for all completed block prior to reaching 100% cumulative chain
-        wear. For the block in which the chain crossed 100% wear, it scores a proportional fraction
-        of 1000 km based on how far into that block the failure would have occurred (assuming wear
-        accumulates linearly within a block).
+        The lubricant scores 1000 km for all completed blocks prior to reaching 100% cumulative
+        chain wear. For the block in which the chain crossed 100% wear, it scores a proportional
+        fraction of 1000 km based on how far into that block the failure would have occurred
+        (assuming wear accumulates linearly within a block).
       </p>
       <p class="example">
         Example: Cumulative wear after block 3 is 90%. Block 4 adds another 40%, pushing the total

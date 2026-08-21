@@ -149,24 +149,76 @@ function readSharedStrings(entries: Map<string, Buffer>): string[] {
   return childrenNamed(xml.children[0]!, "si").map(deepText);
 }
 
+/**
+ * Excel's `theme` colour index is not the document order of the theme's colour
+ * scheme: the two background/text pairs are swapped. Everything from accent1
+ * onwards lines up.
+ */
+const THEME_INDEX_TO_SCHEME_INDEX = [1, 0, 3, 2, 4, 5, 6, 7, 8, 9, 10, 11];
+
+/** Reads the theme's colour scheme as `RRGGBB` values in document order. */
+function readThemeColours(entries: Map<string, Buffer>): string[] {
+  const entry = entries.get("xl/theme/theme1.xml");
+  if (!entry) return [];
+  const theme = parseXml(entry.toString("utf-8")).children[0]!;
+  const scheme = findDescendant(theme, "clrScheme");
+  if (!scheme) return [];
+
+  return scheme.children.map((slot) => {
+    const srgb = childNamed(slot, "srgbClr")?.attributes["val"];
+    if (srgb !== undefined) return srgb;
+    return childNamed(slot, "sysClr")?.attributes["lastClr"] ?? "";
+  });
+}
+
+/**
+ * Resolves a `<color>` element to `AARRGGBB`. Explicit RGB is taken as-is and
+ * theme colours are looked up in the workbook's scheme. Indexed colours and
+ * tinted theme colours are left unresolved: they render as a shade of the
+ * colour named, so treating them as that colour could silently mislabel a cell.
+ */
+function resolveColour(colour: XmlElement | undefined, themeColours: string[]): string | undefined {
+  if (!colour) return undefined;
+
+  const rgb = colour.attributes["rgb"];
+  if (rgb !== undefined) return rgb;
+
+  const theme = colour.attributes["theme"];
+  if (theme === undefined || colour.attributes["tint"] !== undefined) return undefined;
+
+  const schemeIndex = THEME_INDEX_TO_SCHEME_INDEX[Number(theme)];
+  if (schemeIndex === undefined) return undefined;
+  const themeColour = themeColours[schemeIndex];
+  return themeColour ? `FF${themeColour}` : undefined;
+}
+
+function findDescendant(element: XmlElement, localName: string): XmlElement | undefined {
+  const direct = childNamed(element, localName);
+  if (direct) return direct;
+  for (const child of element.children) {
+    const found = findDescendant(child, localName);
+    if (found) return found;
+  }
+  return undefined;
+}
+
 function readStyles(entries: Map<string, Buffer>): CellStyle[] {
   const entry = entries.get("xl/styles.xml");
   if (!entry) return [];
   const styleSheet = parseXml(entry.toString("utf-8")).children[0]!;
+  const themeColours = readThemeColours(entries);
 
   const fills = childNamed(styleSheet, "fills");
   const fillColours = (fills ? childrenNamed(fills, "fill") : []).map((fill) => {
     const pattern = childNamed(fill, "patternFill");
     // `none` and `gray125` carry no foreground colour and mean "unfilled".
     if (!pattern || pattern.attributes["patternType"] === "none") return undefined;
-    return childNamed(pattern, "fgColor")?.attributes["rgb"];
+    return resolveColour(childNamed(pattern, "fgColor"), themeColours);
   });
 
   const fonts = childNamed(styleSheet, "fonts");
-  const fontColours = (fonts ? childrenNamed(fonts, "font") : []).map(
-    // Theme and indexed colours are deliberately ignored: only an explicit RGB
-    // is trustworthy enough to carry meaning.
-    (font) => childNamed(font, "color")?.attributes["rgb"],
+  const fontColours = (fonts ? childrenNamed(fonts, "font") : []).map((font) =>
+    resolveColour(childNamed(font, "color"), themeColours),
   );
 
   const cellXfs = childNamed(styleSheet, "cellXfs");

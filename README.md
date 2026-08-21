@@ -38,11 +38,18 @@ vp check --fix  # same, but auto-fixes formatting and lint issues
 ## Test data
 
 `public/assets/data.csv` is generated from the ZFC test workbook — do not edit it by hand.
-Drop the latest `.xlsx` in `xlsx_data/`, then:
+Put the latest `.xlsx` in `xlsx_data/`, replacing the previous one, then:
 
 ```sh
 vp run convert-xlsx-to-csv   # regenerate public/assets/data.csv
 vp run check-data            # verify the csv matches the workbook (for CI)
+```
+
+`xlsx_data/` is expected to hold exactly one workbook. If you would rather keep older ones
+around, the converter will not guess between them — name the one to use instead:
+
+```sh
+vp run convert-xlsx-to-csv --in xlsx_data/Test-Main-DATA-Aug-2026-Raw-no-graphs.xlsx
 ```
 
 The converter reads three tables from the workbook's `Data Raw revamp 1.1` sheet and the three
@@ -50,7 +57,8 @@ tables on `Single Application Longevity`, and joins them on the lubricant name. 
 workbook encodes only as formatting are read as data:
 
 - the **font colour** of a lubricant's name gives its category (magenta = immersive wax,
-  green = wax drip, cyan = wet drip);
+  green = wax drip, cyan = wet drip, orange = rub on wax). Red and purple names mark failed
+  tests and reference runs rather than a category, so those few rows are categorised by hand;
 - a **red cell fill** marks a wear rate as extrapolated rather than measured, and extrapolated
   values are left out of the csv.
 

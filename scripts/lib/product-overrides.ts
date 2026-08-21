@@ -47,7 +47,6 @@ export const PRODUCT_OVERRIDES: ProductOverride[] = [
     source: "Event Gear Lube Cube (Rub on, Melt in)",
     name: "Lube Cube (melt in)",
     note: "Rub On Melt In",
-    category: "rub on wax",
   },
   {
     source: "Chain Maintenance Test 1* (Finish Line Dry)",
