@@ -14,8 +14,10 @@ const emit = defineEmits<{ select: []; close: [] }>();
 
 const nav = useNavigationStore();
 
-function roundToHundreds(n: number): number {
-  return Math.round(n / 100) * 100;
+/** Round to ~3 significant digits: hundreds from 10,000 km up, tens from 1,000 km, else exact. */
+function roundTestKilometers(km: number): number {
+  const step = km >= 10_000 ? 100 : km >= 1_000 ? 10 : 1;
+  return Math.round(km / step) * step;
 }
 
 function lubeCostPer1000km(p: Product): number {
@@ -60,7 +62,7 @@ function dtWearCostPer1000km(p: Product): number {
         <span class="stat-value">
           {{
             product.mainTest
-              ? `${roundToHundreds(product.mainTest.testKilometerEquivalent).toLocaleString()} km`
+              ? `${roundTestKilometers(product.mainTest.testKilometerEquivalent).toLocaleString()} km`
               : "No data"
           }}
         </span>
@@ -106,7 +108,7 @@ function dtWearCostPer1000km(p: Product): number {
                 <span>Kilometers to wear chain</span>
                 <span
                   >{{
-                    roundToHundreds(product.mainTest!.testKilometerEquivalent).toLocaleString()
+                    roundTestKilometers(product.mainTest!.testKilometerEquivalent).toLocaleString()
                   }}
                   km</span
                 >
