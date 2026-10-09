@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { onMounted, watch, nextTick } from "vue";
 import { BLOCK_LABELS, BLOCK_DESCRIPTIONS } from "../constants";
+import type { ProductCategory } from "../types";
+import {
+  BLOCK_EXTRAPOLATIONS,
+  MAIN_TEST_BLOCK_COUNT,
+  type BlockExtrapolation,
+} from "../utils/mainTestKilometers";
 import { useNavigationStore } from "../stores/navigation";
 import GlossaryLink from "./GlossaryLink.vue";
 import GlossarySectionHeading from "./GlossarySectionHeading.vue";
@@ -14,6 +20,25 @@ const BLOCKS = Object.entries(BLOCK_LABELS).map(([k, label]) => ({
   label,
   description: BLOCK_DESCRIPTIONS[Number(k)],
   hours: BLOCK_HOURS[Number(k)],
+}));
+
+/** Block 1 is always tested, so only blocks 2–6 can be extrapolated. */
+const EXTRAPOLATED_BLOCKS = Array.from({ length: MAIN_TEST_BLOCK_COUNT - 1 }, (_, i) => i + 2);
+
+function describeExtrapolation({ fromBlock, factor, offset }: BlockExtrapolation): string {
+  let text = `Block ${fromBlock}`;
+  if (factor !== undefined) text = `${factor} × ${text}`;
+  if (offset !== undefined)
+    text += ` ${offset < 0 ? "−" : "+"} ${Math.abs(offset * 100).toFixed(1)}%`;
+  return text;
+}
+
+const EXTRAPOLATION_ROWS = Object.entries(BLOCK_EXTRAPOLATIONS).map(([category, rules]) => ({
+  category: category as ProductCategory,
+  cells: EXTRAPOLATED_BLOCKS.map((block) => {
+    const rule = rules[block];
+    return rule === undefined ? "—" : describeExtrapolation(rule);
+  }),
 }));
 
 async function scrollToTarget() {
@@ -115,60 +140,67 @@ watch(() => nav.glossaryTarget, scrollToTarget);
         </em>
         Higher is better.
       </p>
-      <p>The calculation depends on how the lubricant's test ended:</p>
+      <p>
+        It is the distance one chain would last if it were ridden through the full mix of conditions
+        of all six blocks: 6000 km divided by the total chain wear across all six blocks.
+      </p>
+      <div class="formula-box">Main Test km = 6000 km ÷ (cumulative wear % after block 6)</div>
 
       <h4>Lubricant beats the test (chain survives all 6000 km)</h4>
-      <p>
-        If the chain's cumulative wear is below 100% at the end of all six blocks, the result is
-        extrapolated linearly.
-      </p>
       <p class="example">
         Example: A lubricant that wore the chain to only 50% over 6000 km would last twice as long,
         and is awarded <strong>12 000 km</strong>.
       </p>
-      <div class="formula-box">Main Test km = 6000 km ÷ (cumulative wear %)</div>
 
-      <h4>Test beats the lubricant (chain reaches 100% wear during the test)</h4>
+      <h4>Test beats the lubricant (chain exceeds 100% wear during the test)</h4>
       <p>
-        The lubricant scores 1000 km for all completed blocks prior to reaching 100% cumulative
-        chain wear. For the block in which the chain crossed 100% wear, it scores a proportional
-        fraction of 1000 km based on how far into that block the failure would have occurred
-        (assuming wear accumulates linearly within a block).
+        The same formula applies, so the result is based on the full mixed conditions, not only on
+        how the chain performed in the early, easier blocks. The score can therefore be lower than
+        the distance it actually took the chain to reach 100% wear.
       </p>
       <p class="example">
-        Example: Cumulative wear after block 3 is 90%. Block 4 adds another 40%, pushing the total
-        to 130%. The chain would have reached 100% when 10% of remaining wear capacity was used up,
-        which is 10/40 = 25% through block 4. Score: 3 × 1000 km + 0.25 × 1000 km =
-        <strong>3250 km</strong>. Note that any further tested blocks would have no effect on the
-        result, since the 100% wear allowance was reached already. Had the above lubriant been
-        tested with annother 50% wear in block 5, this would have no effect.
+        Example: A lubricant reached 100% wear after 3000 km of mostly dry blocks, but performed
+        poorly in the wet blocks and ended the test at 300% wear. Riding through all six blocks
+        would have needed 3 chains, so the score is 6000 km ÷ 3 = <strong>2000 km</strong>.
       </p>
 
-      <h4>Test stopped early (chain below 100% wear when test is aborted)</h4>
+      <h4>Test stopped early (not all six blocks tested)</h4>
       <p>
-        When a test is aborted before the chain reaches 100% wear, typically because the chain is
-        deemed too worn already, or if further testing would not provide useful insights (e.g. for
-        private lubricants showing poor results early on). The lubricant receives 1000 km for each
-        completed block, plus an extrapolation for the next block based on the average wear rate
-        seen so far.
+        Tests are often stopped early, typically because the chain is already badly worn, or because
+        further testing would not provide useful insights (e.g. for private lubricants showing poor
+        results early on). The missing blocks are then extrapolated from the lubricant's own earlier
+        blocks, using adjustments derived from the average results of lubricants of the same type
+        that were physically tested in those blocks:
+      </p>
+      <div class="table-scroll">
+        <table class="extrapolation-table">
+          <thead>
+            <tr>
+              <th scope="col">Lubricant type</th>
+              <th v-for="block in EXTRAPOLATED_BLOCKS" :key="block" scope="col">
+                Block {{ block }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in EXTRAPOLATION_ROWS" :key="row.category">
+              <th scope="row">{{ row.category }}</th>
+              <td v-for="(cell, i) in row.cells" :key="i">{{ cell }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Percentages are added to (or subtracted from) the wear of the referenced block. Blocks
+        without a rule above (marked "—"), and lubricants of other types, use the average wear of
+        their tested blocks instead. Extrapolated blocks are likely optimistic: the lubricants used
+        to derive them performed well enough to be tested further.
       </p>
       <p class="example">
-        Example: A lubricant wore the chain to 74% in block 1 and the test was stopped. The score is
-        1000 km ÷ 0.74 = <strong>1351 km</strong>. This can be a slightly generous estimate, as it
-        assumes the upcoming block would be as demanding as the blocks already completed — in
-        reality, later blocks tend to be harder.
-      </p>
-      <p>
-        It is not possible to increase the score by more than 1000km from the extrapolation, and all
-        lubricants where the 1000km extrapolation cap was hit are marked with a comment, indicating
-        that Main Test kilometers were truncated.
-      </p>
-      <p class="example">
-        Example: A private immersive wax test has reached a total of 40% of wear in the first three
-        blocks of testing. The test was aborted because it was already clear this wax was not
-        performing as hoped. The formula would indicate 3000km ÷ 0.5 = 7500km as score, but since
-        that would be more than 1000km above the actually completed 3000km, the result is truncated
-        at <stong>4000 km</stong>.
+        Example: A wet-drip lubricant wore the chain 22.3%, 30.9% and 45.1% in blocks 1–3 before the
+        test was stopped. Block 4 is estimated as 30.9% + 26.1% = 57.0%, block 5 as 45.1% (same as
+        block 3) and block 6 as 1.5 × 57.0% = 85.5%. The cumulative wear after block 6 is 285.9%, so
+        the score is 6000 km ÷ 2.859 = <strong>2099 km</strong>.
       </p>
     </section>
 
@@ -378,6 +410,36 @@ a:hover {
   font-size: 0.9rem;
   color: var(--text-heading);
   margin: 10px 0 16px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 10px 0 16px;
+}
+
+.extrapolation-table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.extrapolation-table th,
+.extrapolation-table td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+  color: var(--text);
+}
+
+.extrapolation-table thead th,
+.extrapolation-table tbody th {
+  color: var(--text-heading);
+  font-weight: 600;
+  background: var(--bg);
+}
+
+.extrapolation-table tbody th {
+  text-transform: capitalize;
 }
 
 .example {

@@ -1,9 +1,11 @@
 import type {
   LongevityCondition,
+  MainTestCalculationType,
   Product,
   ProductCategory,
   SingleApplicationLongevity,
 } from "../types";
+import { calculateMainTestKilometers } from "./mainTestKilometers.ts";
 
 const COL_NAME = 0;
 const COL_NOTE = 1;
@@ -59,43 +61,6 @@ function mapCategory(raw: string): ProductCategory | undefined {
       return "other";
     default:
       return undefined;
-  }
-}
-
-function calculateEquivalentTestKilometers(product: Product): void {
-  let cumWear = 0;
-  const mainTestBlocks = product.mainTest!.blockWear!.map((block) => block.wearRate);
-  let idx = mainTestBlocks.length - 1;
-
-  for (let i = 0; i < mainTestBlocks.length; i++) {
-    cumWear += mainTestBlocks[i];
-    if (cumWear >= 1.0) {
-      idx = i;
-      break;
-    }
-  }
-
-  if (cumWear < 1.0) {
-    const res = (1000 * (idx + 1)) / cumWear;
-    if (idx === 5) {
-      product.mainTest!.testKilometerCalculationType =
-        "test_completed_with_less_than_hundred_percent_wear";
-    } else {
-      product.mainTest!.testKilometerCalculationType = "no_data_past_hundred_test_aborted_early";
-    }
-    if (idx < 5 && res > 1000 * (idx + 2)) {
-      const truncated_res = 1000 * (idx + 2);
-      const append_string = `"Main Test Kilometers" are truncated due to missing block ${idx + 2}.`;
-      product.note = product.note ? `${product.note}. ${append_string}` : append_string;
-      product.mainTest!.testKilometerEquivalent = Math.round(truncated_res);
-    } else {
-      product.mainTest!.testKilometerEquivalent = Math.round(res);
-    }
-  } else {
-    product.mainTest!.testKilometerCalculationType = "have_data_past_hundred_percent_wear";
-    product.mainTest!.testKilometerEquivalent = Math.round(
-      1000 * (idx + (1.0 + mainTestBlocks[idx] - cumWear) / mainTestBlocks[idx]),
-    );
   }
 }
 
@@ -224,41 +189,38 @@ export function convertCsvToProducts(csvText: string): ConvertResult {
     if (usages !== undefined) product.usagesMainTest = usages;
 
     if (mainTestBlocks.length > 0) {
+      const { kilometers, calculationType } = calculateMainTestKilometers(
+        category,
+        mainTestBlocks.map((block) => block.wearRate),
+      );
       product.mainTest = {
         blockWear: mainTestBlocks,
-        testKilometerEquivalent: -1,
-        testKilometerCalculationType: "unknown",
+        testKilometerEquivalent: kilometers,
+        testKilometerCalculationType: calculationType,
       };
-      calculateEquivalentTestKilometers(product);
     }
     if (longevity !== undefined) product.longevity = longevity;
 
     products.push(product);
   }
 
-  const counts: Record<string, number> = {};
+  const counts: Partial<Record<MainTestCalculationType, number>> = {};
   for (const p of products) {
     const t = p.mainTest?.testKilometerCalculationType;
     if (t) counts[t] = (counts[t] ?? 0) + 1;
   }
 
-  const beatTest = counts["test_completed_with_less_than_hundred_percent_wear"] ?? 0;
-  const fullyWorn = counts["have_data_past_hundred_percent_wear"] ?? 0;
-  const aborted = counts["no_data_past_hundred_test_aborted_early"] ?? 0;
+  const completed = counts.test_completed ?? 0;
+  const extrapolated = counts.extrapolated_blocks ?? 0;
 
   log.push({ level: "info", message: `Loaded ${products.length} products.` });
-  if (beatTest > 0)
+  if (completed > 0)
+    log.push({ level: "info", message: `${completed} completed all six main test blocks.` });
+  if (extrapolated > 0)
     log.push({
       level: "info",
-      message: `${beatTest} beat the main test (chain < 100% worn at end).`,
+      message: `${extrapolated} stopped early; their missing blocks are extrapolated.`,
     });
-  if (fullyWorn > 0)
-    log.push({
-      level: "info",
-      message: `${fullyWorn} worn through by the main test (≥ 100% wear reached).`,
-    });
-  if (aborted > 0)
-    log.push({ level: "info", message: `${aborted} test aborted before chain fully worn.` });
 
   return { products, log };
 }
