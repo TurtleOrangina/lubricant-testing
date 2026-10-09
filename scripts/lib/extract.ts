@@ -44,6 +44,13 @@ const LIFESPAN_TOLERANCE_RATIO = 0.01;
 const REAL_WORLD_TOLERANCE_RATIO = 0.02;
 const REAL_WORLD_TOLERANCE_MIN_KM = 2;
 
+/**
+ * The longevity tables suffix "(*N.A)" — "Normal Application" — to products
+ * applied the usual way rather than by immersion. It annotates the test run,
+ * not the product, so it must not take part in the join.
+ */
+const NORMAL_APPLICATION_MARKER = /\s*\(\*N\.A\)\s*$/i;
+
 export type IssueLevel = "info" | "warning" | "error";
 
 export interface Issue {
@@ -498,7 +505,7 @@ function readLongevityTables(
       const realWorldJumpPoint = numberAt(sheet, dataRow, "D");
       const realWorldWearAllowance = numberAt(sheet, dataRow, "E");
       return {
-        name,
+        name: name.replace(NORMAL_APPLICATION_MARKER, ""),
         ...(jumpPoint !== undefined && { jumpPoint }),
         ...(wearAllowance !== undefined && { wearAllowance }),
         ...(realWorldJumpPoint !== undefined && { realWorldJumpPoint }),

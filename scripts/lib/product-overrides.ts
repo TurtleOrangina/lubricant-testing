@@ -119,6 +119,7 @@ export const PRODUCT_OVERRIDES: ProductOverride[] = [
     longevityNames: ["Silca Hot Melt", "Silca Hot Melt (re test, up from 1595km)"],
   },
   { source: "Silca Hot wax X", longevityNames: ["Hot Wax X"] },
+  { source: "Silca Super Secret Drip", longevityNames: ["Silca SS drip 1.0"] },
   { source: "Rex Black Diamond Wax - 4+1 Mix", longevityNames: ["Rex Wax Race Blend (4+1)"] },
   {
     source: "Rex Black Diamond Wax - 11+1 mix",
@@ -135,6 +136,14 @@ export const PRODUCT_OVERRIDES: ProductOverride[] = [
     longevityNames: ["Rex Black Diamond + Race Day Spray", "Rex Black Diamond + RDS"],
   },
   { source: "AB Graphene Lube", category: "wax drip", costPackageAUD: 30 },
+  {
+    source: "Squirt Hot Wax - 15 rewaxes old",
+    name: "Squirt Hot Wax (reused)",
+    note: "Wax was used for 15 rewaxes prior to the test",
+    category: "immersive wax",
+    costPackageAUD: 65,
+  },
+  { source: "Silca SS drip 2.0", name: "Silca Super Secret Drip 2.0", category: "wax drip" },
 
   // --- Name cell carries no category font colour, or one that means something else ---
   { source: "Immersive Wax + Wax Drip Combo (Silca)", category: "other" },
